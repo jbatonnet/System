@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="x86\Cpu\GDT.cpp">
+      <Filter>x86\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="x86\Cpu\IDT.cpp">
+      <Filter>x86\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="x86\Controllers\PIC.cpp">
+      <Filter>x86\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="x86\HAL.cpp">
+      <Filter>x86</Filter>
+    </ClCompile>
+    <ClCompile Include="x86\Controllers\PIT.cpp">
+      <Filter>x86\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="x86\Cpu\CPU.cpp">
+      <Filter>x86\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="x86\Controllers\DMA.cpp">
+      <Filter>x86\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="x86\CPU\TSS.cpp">
+      <Filter>x86\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="x86\Interrupts.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="x86\Cpu\GDT.h">
+      <Filter>x86\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="x86\Cpu\IDT.h">
+      <Filter>x86\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="x86\Controllers\PIC.h">
+      <Filter>x86\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="x86\Controllers\PIT.h">
+      <Filter>x86\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="x86\Cpu\CPU.h">
+      <Filter>x86\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="x86\Controllers\DMA.h">
+      <Filter>x86\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="x86\CPU\TSS.h">
+      <Filter>x86\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="HAL.h" />
+    <ClInclude Include="Interrupts.h" />
+    <ClInclude Include="IO.h" />
+    <ClInclude Include="Utilities.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="x86">
+      <UniqueIdentifier>{e32ea165-9a97-4ec4-90a8-49d4562dbb55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="x86\Controllers">
+      <UniqueIdentifier>{0b962c36-8e1d-40c5-b67a-20039ff926a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="x86\CPU">
+      <UniqueIdentifier>{8481b54e-d930-4ec3-aeec-481c1e6c85d5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

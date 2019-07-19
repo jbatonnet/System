@@ -1,0 +1,46 @@
+- Embed string buffer (8 bytes)
+- ListView control
+
+
+
+
+-- CRT --
+- Write standard functions
+- C++ exceptions
+
+-- HAL --
+- Write TSS code
+- Isolate x86 code from the HAL itself
+
+-- Kernel --
+/API
+    - System APIs
+
+/Drivers
+    /ATA
+        - ATA
+        - HDD
+        - CD
+    /Devices
+        - Add more device types (Input, Output, Video, Audio, ...)
+    /FileSystems
+        - Add file infos
+        - NTFS
+        - Ext
+    /Keyboard
+        - Codes to complete
+        - Codes in files
+    - Add driver loader
+
+/Tasking
+    - Finish user mode
+    - Each process should have its own virtual space
+    - PE compatibility
+    - ELF compatibility
+
+/Shell
+    - Load and run script files
+
+-- Other --
+- USB driver
+- Network driver

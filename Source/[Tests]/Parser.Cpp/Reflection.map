@@ -1,0 +1,720 @@
+ Parser.Cpp
+
+ Timestamp is 5660b593 (Thu Dec  3 22:35:15 2015)
+
+ Preferred load address is 00400000
+
+ Start         Length     Name                   Class
+ 0001:00000000 00010000H .textbss                DATA
+ 0002:00000000 0000158aH .text$di                CODE
+ 0002:00001590 000047baH .text$mn                CODE
+ 0003:00000000 00000104H .CRT$XCA                DATA
+ 0003:00000104 00000104H .CRT$XCAA               DATA
+ 0003:00000208 00000104H .CRT$XCU                DATA
+ 0003:0000030c 00000104H .CRT$XCZ                DATA
+ 0003:00000410 00000104H .CRT$XIA                DATA
+ 0003:00000514 00000104H .CRT$XIAA               DATA
+ 0003:00000618 00000104H .CRT$XIAC               DATA
+ 0003:0000071c 00000104H .CRT$XIZ                DATA
+ 0003:00000820 00000104H .CRT$XPA                DATA
+ 0003:00000924 00000104H .CRT$XPZ                DATA
+ 0003:00000a28 00000104H .CRT$XTA                DATA
+ 0003:00000b2c 00000104H .CRT$XTZ                DATA
+ 0003:00000c30 00000babH .rdata                  DATA
+ 0003:000017dc 00000156H .rdata$r                DATA
+ 0003:00001934 00000173H .rdata$zzzdbg           DATA
+ 0003:00001aa8 00000104H .rtc$IAA                DATA
+ 0003:00001bac 00000109H .rtc$IMZ                DATA
+ 0003:00001cb8 00000104H .rtc$IZZ                DATA
+ 0003:00001dbc 00000104H .rtc$TAA                DATA
+ 0003:00001ec0 00000109H .rtc$TMZ                DATA
+ 0003:00001fcc 00000104H .rtc$TZZ                DATA
+ 0003:000020d0 0000018dH .xdata$x                DATA
+ 0003:0000225d 00000000H .edata                  DATA
+ 0004:00000000 00000138H .data                   DATA
+ 0004:00000138 00001b6aH .data$r                 DATA
+ 0004:00001ca8 000004bcH .bss                    DATA
+ 0005:00000000 000001bcH .idata$5                DATA
+ 0005:000001bc 0000003cH .idata$2                DATA
+ 0005:000001f8 00000014H .idata$3                DATA
+ 0005:0000020c 000001bcH .idata$4                DATA
+ 0005:000003c8 000006e5H .idata$6                DATA
+ 0006:00000000 000012e2H .reflection             DATA
+ 0007:00000000 0000013fH .gfids$y                DATA
+ 0008:00000000 00000104H .00cfg                  DATA
+ 0009:00000000 00000169H .rsrc$01                DATA
+ 0009:00000170 000002ccH .rsrc$02                DATA
+
+  Address         Publics by Value              Rva+Base       Lib:Object
+
+ 0000:00000000       ___safe_se_handler_table   00000000     <absolute>
+ 0000:00000000       ___guard_fids_count        00000000     <absolute>
+ 0000:00000000       ___guard_longjmp_table     00000000     <absolute>
+ 0000:00000000       ___safe_se_handler_count   00000000     <absolute>
+ 0000:00000000       ___guard_fids_table        00000000     <absolute>
+ 0000:00000000       ___guard_iat_count         00000000     <absolute>
+ 0000:00000000       ___guard_iat_table         00000000     <absolute>
+ 0000:00000000       ___guard_longjmp_count     00000000     <absolute>
+ 0000:00000100       ___guard_flags             00000100     <absolute>
+ 0000:00000000       ___ImageBase               00400000     <linker-defined>
+ 0001:00000000       __enc$textbss$begin        00401000     <linker-defined>
+ 0001:00010000       __enc$textbss$end          00411000     <linker-defined>
+ 0002:00001590       ?Free@Memory@@SAXPAX@Z     00412590 f   Program.obj
+ 0002:000015c0       ?__empty_global_delete@@YAXPAX@Z 004125c0 f i Program.obj
+ 0002:000015f0       ?__empty_global_delete@@YAXPAXI@Z 004125f0 f i Program.obj
+ 0002:00001620       _main                      00412620 f   Program.obj
+ 0002:00001680       @_RTC_AllocaHelper@12      00412680 f   MSVCRTD:_stack_.obj
+ 0002:000016c0       @_RTC_CheckStackVars2@12   004126c0 f   MSVCRTD:_stack_.obj
+ 0002:000017d0       @_RTC_CheckStackVars@8     004127d0 f   MSVCRTD:_stack_.obj
+ 0002:00001840       __RTC_CheckEsp             00412840 f   MSVCRTD:_stack_.obj
+ 0002:00001870       __CRT_RTC_INIT             00412870 f   MSVCRTD:_init_.obj
+ 0002:00001880       __CRT_RTC_INITW            00412880 f   MSVCRTD:_init_.obj
+ 0002:00001890       __RTC_InitBase             00412890 f   MSVCRTD:_init_.obj
+ 0002:000018d0       __RTC_Shutdown             004128d0 f   MSVCRTD:_init_.obj
+ 0002:000018f0       ??1type_info@@UAE@XZ       004128f0 f   MSVCRTD:std_type_info_static.obj
+ 0002:00001910       ??_Gtype_info@@UAEPAXI@Z   00412910 f i MSVCRTD:std_type_info_static.obj
+ 0002:00001910       ??_Etype_info@@UAEPAXI@Z   00412910 f i MSVCRTD:std_type_info_static.obj
+ 0002:00001d30       ?configure_argv@__scrt_narrow_argv_policy@@SAHXZ 00412d30 f i MSVCRTD:exe_main.obj
+ 0002:00001d50       ?get_app_type@__scrt_main_policy@@SA?AW4_crt_app_type@@XZ 00412d50 f i MSVCRTD:exe_main.obj
+ 0002:00001da0       _mainCRTStartup            00412da0 f   MSVCRTD:exe_main.obj
+ 0002:00001db0       ??$__vcrt_va_start_verify_argument_type@QBD@@YAXXZ 00412db0 f i MSVCRTD:_error_.obj
+ 0002:00001f60       ?_RTC_AllocaFailure@@YAXPAXPAU_RTC_ALLOCA_NODE@@H@Z 00412f60 f   MSVCRTD:_error_.obj
+ 0002:000020d0       ?_RTC_Failure@@YAXPAXH@Z   004130d0 f   MSVCRTD:_error_.obj
+ 0002:00002140       ?_RTC_StackFailure@@YAXPAXPBD@Z 00413140 f   MSVCRTD:_error_.obj
+ 0002:000025b0       __RTC_UninitUse            004135b0 f   MSVCRTD:_error_.obj
+ 0002:000026e0       ___local_stdio_printf_options 004136e0 f i MSVCRTD:_error_.obj
+ 0002:000026f0       __vsprintf_s_l             004136f0 f i MSVCRTD:_error_.obj
+ 0002:00002730       _sprintf_s                 00413730 f i MSVCRTD:_error_.obj
+ 0002:00002760       ?_RTC_GetErrorFunc@@YAP6AHHPBDH00ZZPBX@Z 00413760 f   MSVCRTD:_userapi_.obj
+ 0002:00002770       ?_RTC_GetErrorFuncW@@YAP6AHHPB_WH00ZZPBX@Z 00413770 f   MSVCRTD:_userapi_.obj
+ 0002:00002780       __RTC_GetErrDesc           00413780 f   MSVCRTD:_userapi_.obj
+ 0002:000027a0       __RTC_NumErrors            004137a0 f   MSVCRTD:_userapi_.obj
+ 0002:000027b0       __RTC_SetErrorFunc         004137b0 f   MSVCRTD:_userapi_.obj
+ 0002:000027e0       __RTC_SetErrorFuncW        004137e0 f   MSVCRTD:_userapi_.obj
+ 0002:00002810       __RTC_SetErrorType         00413810 f   MSVCRTD:_userapi_.obj
+ 0002:00002840       ??3@YAXPAXI@Z              00413840 f   MSVCRTD:delete_scalar_size.obj
+ 0002:00002860       ??$__crt_fast_decode_pointer@PAP6AXXZ@@YAPAP6AXXZQAP6AXXZ@Z 00413860 f i MSVCRTD:utility.obj
+ 0002:00002890       ??$__crt_fast_encode_pointer@PAP6AXXZ@@YAPAP6AXXZQAP6AXXZ@Z 00413890 f i MSVCRTD:utility.obj
+ 0002:000028d0       ?__crt_rotate_pointer_value@@YAIIH@Z 004138d0 f i MSVCRTD:utility.obj
+ 0002:00002a20       _NtCurrentTeb              00413a20 f i MSVCRTD:utility.obj
+ 0002:00002a30       ___scrt_acquire_startup_lock 00413a30 f   MSVCRTD:utility.obj
+ 0002:00002a90       ___scrt_dllmain_after_initialize_c 00413a90 f   MSVCRTD:utility.obj
+ 0002:00002ac0       ___scrt_dllmain_before_initialize_c 00413ac0 f   MSVCRTD:utility.obj
+ 0002:00002af0       ___scrt_dllmain_crt_thread_attach 00413af0 f   MSVCRTD:utility.obj
+ 0002:00002b30       ___scrt_dllmain_crt_thread_detach 00413b30 f   MSVCRTD:utility.obj
+ 0002:00002b50       ___scrt_dllmain_exception_filter 00413b50 f   MSVCRTD:utility.obj
+ 0002:00002bb0       ___scrt_dllmain_uninitialize_c 00413bb0 f   MSVCRTD:utility.obj
+ 0002:00002bf0       ___scrt_dllmain_uninitialize_critical 00413bf0 f   MSVCRTD:utility.obj
+ 0002:00002c10       ___scrt_initialize_crt     00413c10 f   MSVCRTD:utility.obj
+ 0002:00002c70       ___scrt_initialize_onexit_tables 00413c70 f   MSVCRTD:utility.obj
+ 0002:00002d70       ___scrt_is_nonwritable_in_current_image 00413d70 f   MSVCRTD:utility.obj
+ 0002:00002ef0       ___scrt_release_startup_lock 00413ef0 f   MSVCRTD:utility.obj
+ 0002:00002f20       ___scrt_uninitialize_crt   00413f20 f   MSVCRTD:utility.obj
+ 0002:00002f70       __onexit                   00413f70 f   MSVCRTD:utility.obj
+ 0002:00003000       _at_quick_exit             00414000 f   MSVCRTD:utility.obj
+ 0002:00003060       _atexit                    00414060 f   MSVCRTD:utility.obj
+ 0002:000030a0       ___security_init_cookie    004140a0 f   MSVCRTD:gs_support.obj
+ 0002:000031c0       __matherr                  004141c0 f   MSVCRTD:matherr.obj
+ 0002:000031d0       __get_startup_argv_mode    004141d0 f   MSVCRTD:argv_mode.obj
+ 0002:000031e0       __get_startup_commit_mode  004141e0 f   MSVCRTD:commit_mode.obj
+ 0002:000031f0       __get_startup_file_mode    004141f0 f   MSVCRTD:file_mode.obj
+ 0002:00003200       __get_startup_new_mode     00414200 f   MSVCRTD:new_mode.obj
+ 0002:00003210       __get_startup_thread_locale_mode 00414210 f   MSVCRTD:thread_locale.obj
+ 0002:00003220       ?__scrt_initialize_type_info@@YAXXZ 00414220 f   MSVCRTD:tncleanup.obj
+ 0002:00003240       ?__scrt_uninitialize_type_info@@YAXXZ 00414240 f   MSVCRTD:tncleanup.obj
+ 0002:00003260       __initialize_default_precision 00414260 f   MSVCRTD:default_precision.obj
+ 0002:00003290       __initialize_invalid_parameter_handler 00414290 f   MSVCRTD:invalid_parameter_handler.obj
+ 0002:000032a0       __initialize_denormal_control 004142a0 f   MSVCRTD:denormal_control.obj
+ 0002:000032b0       ___local_stdio_scanf_options 004142b0 f i MSVCRTD:default_local_stdio_options.obj
+ 0002:000032c0       ___scrt_initialize_default_local_stdio_options 004142c0 f   MSVCRTD:default_local_stdio_options.obj
+ 0002:00003310       ___scrt_is_user_matherr_present 00414310 f   MSVCRTD:matherr_detection.obj
+ 0002:00003340       ___scrt_get_dyn_tls_init_callback 00414340 f   MSVCRTD:dyn_tls_init.obj
+ 0002:00003350       ___scrt_get_dyn_tls_dtor_callback 00414350 f   MSVCRTD:dyn_tls_dtor.obj
+ 0002:00003360       ___scrt_fastfail           00414360 f   MSVCRTD:utility_desktop.obj
+ 0002:000034f0       ___scrt_get_show_window_mode 004144f0 f   MSVCRTD:utility_desktop.obj
+ 0002:00003540       ___scrt_initialize_winrt   00414540 f   MSVCRTD:utility_desktop.obj
+ 0002:00003550       ___scrt_is_managed_app     00414550 f   MSVCRTD:utility_desktop.obj
+ 0002:00003600       ___scrt_set_unhandled_exception_filter 00414600 f   MSVCRTD:utility_desktop.obj
+ 0002:00003620       ___scrt_unhandled_exception_filter@4 00414620 f   MSVCRTD:utility_desktop.obj
+ 0002:000036a0       __crt_debugger_hook        004146a0 f   MSVCRTD:utility_desktop.obj
+ 0002:000036c0       __RTC_Initialize           004146c0 f   MSVCRTD:_initsect_.obj
+ 0002:00003700       __RTC_Terminate            00414700 f   MSVCRTD:_initsect_.obj
+ 0002:00003740       @_guard_check_icall@4      00414740 f i MSVCRTD:checkcfg.obj
+ 0002:00003760       __except_handler4          00414760 f   MSVCRTD:_chandler4gs_.obj
+ 0002:00003d50       ?_RTC_GetSrcLine@@YAHPAEPA_WKPAH1K@Z 00414d50 f   MSVCRTD:_pdblkup_.obj
+ 0002:00004180       @__security_check_cookie@4 00415180 f   MSVCRTD:_secchk_.obj
+ 0002:000041a0       ??3@YAXPAX@Z               004151a0 f   MSVCRTD:delete_scalar.obj
+ 0002:000041c0       ___isa_available_init      004151c0 f   MSVCRTD:_cpu_disp_.obj
+ 0002:00004550       ___scrt_is_ucrt_dll_in_use 00415550 f   MSVCRTD:ucrt_detection.obj
+ 0002:00004580       @_guard_check_icall_nop@4  00415580 f i MSVCRTD:guard_support.obj
+ 0002:00004590       __guard_icall_checks_enforced 00415590 f i MSVCRTD:guard_support.obj
+ 0002:000045c0       ___raise_securityfailure   004155c0 f   MSVCRTD:gs_report.obj
+ 0002:00004600       ___report_gsfailure        00415600 f   MSVCRTD:gs_report.obj
+ 0002:00004750       ___report_rangecheckfailure 00415750 f   MSVCRTD:gs_report.obj
+ 0002:00004760       ___report_securityfailure  00415760 f   MSVCRTD:gs_report.obj
+ 0002:00004870       ___report_securityfailureEx 00415870 f   MSVCRTD:gs_report.obj
+ 0002:000049de       ___telemetry_main_invoke_trigger 004159de f   vcruntimed:VCRUNTIME140D.dll
+ 0002:000049e4       ___telemetry_main_return_trigger 004159e4 f   vcruntimed:VCRUNTIME140D.dll
+ 0002:000049ea       ___std_type_info_destroy_list 004159ea f   vcruntimed:VCRUNTIME140D.dll
+ 0002:000049f0       _memset                    004159f0 f   vcruntimed:VCRUNTIME140D.dll
+ 0002:000049f6       __except_handler4_common   004159f6 f   vcruntimed:VCRUNTIME140D.dll
+ 0002:000049fc       ___vcrt_GetModuleFileNameW 004159fc f   vcruntimed:VCRUNTIME140D.dll
+ 0002:00004a02       ___vcrt_GetModuleHandleW   00415a02 f   vcruntimed:VCRUNTIME140D.dll
+ 0002:00004a08       ___vcrt_LoadLibraryExW     00415a08 f   vcruntimed:VCRUNTIME140D.dll
+ 0002:00004a0e       _getchar                   00415a0e f   ucrtd:ucrtbased.dll
+ 0002:00004a14       __CrtDbgReport             00415a14 f   ucrtd:ucrtbased.dll
+ 0002:00004a1a       __CrtDbgReportW            00415a1a f   ucrtd:ucrtbased.dll
+ 0002:00004a20       __seh_filter_exe           00415a20 f   ucrtd:ucrtbased.dll
+ 0002:00004a26       __set_app_type             00415a26 f   ucrtd:ucrtbased.dll
+ 0002:00004a2c       ___setusermatherr          00415a2c f   ucrtd:ucrtbased.dll
+ 0002:00004a32       __configure_narrow_argv    00415a32 f   ucrtd:ucrtbased.dll
+ 0002:00004a38       __initialize_narrow_environment 00415a38 f   ucrtd:ucrtbased.dll
+ 0002:00004a3e       __get_initial_narrow_environment 00415a3e f   ucrtd:ucrtbased.dll
+ 0002:00004a44       __initterm                 00415a44 f   ucrtd:ucrtbased.dll
+ 0002:00004a4a       __initterm_e               00415a4a f   ucrtd:ucrtbased.dll
+ 0002:00004a50       _exit                      00415a50 f   ucrtd:ucrtbased.dll
+ 0002:00004a56       __exit                     00415a56 f   ucrtd:ucrtbased.dll
+ 0002:00004a5c       __set_fmode                00415a5c f   ucrtd:ucrtbased.dll
+ 0002:00004a62       ___p___argc                00415a62 f   ucrtd:ucrtbased.dll
+ 0002:00004a68       ___p___argv                00415a68 f   ucrtd:ucrtbased.dll
+ 0002:00004a6e       __cexit                    00415a6e f   ucrtd:ucrtbased.dll
+ 0002:00004a74       __c_exit                   00415a74 f   ucrtd:ucrtbased.dll
+ 0002:00004a7a       __register_thread_local_exe_atexit_callback 00415a7a f   ucrtd:ucrtbased.dll
+ 0002:00004a80       __configthreadlocale       00415a80 f   ucrtd:ucrtbased.dll
+ 0002:00004a86       __set_new_mode             00415a86 f   ucrtd:ucrtbased.dll
+ 0002:00004a8c       ___p__commode              00415a8c f   ucrtd:ucrtbased.dll
+ 0002:00004a92       ___stdio_common_vsprintf_s 00415a92 f   ucrtd:ucrtbased.dll
+ 0002:00004a98       __seh_filter_dll           00415a98 f   ucrtd:ucrtbased.dll
+ 0002:00004a9e       __initialize_onexit_table  00415a9e f   ucrtd:ucrtbased.dll
+ 0002:00004aa4       __register_onexit_function 00415aa4 f   ucrtd:ucrtbased.dll
+ 0002:00004aaa       __execute_onexit_table     00415aaa f   ucrtd:ucrtbased.dll
+ 0002:00004ab0       __crt_atexit               00415ab0 f   ucrtd:ucrtbased.dll
+ 0002:00004ab6       __crt_at_quick_exit        00415ab6 f   ucrtd:ucrtbased.dll
+ 0002:00004abc       __controlfp_s              00415abc f   ucrtd:ucrtbased.dll
+ 0002:00004ac2       _terminate                 00415ac2 f   ucrtd:ucrtbased.dll
+ 0002:00004ac8       __wmakepath_s              00415ac8 f   ucrtd:ucrtbased.dll
+ 0002:00004ace       __wsplitpath_s             00415ace f   ucrtd:ucrtbased.dll
+ 0002:00004ad4       _wcscpy_s                  00415ad4 f   ucrtd:ucrtbased.dll
+ 0002:00004ada       __free_dbg                 00415ada f   ucrtd:ucrtbased.dll
+ 0002:00004ae0       _IsDebuggerPresent@0       00415ae0 f   kernel32:KERNEL32.dll
+ 0002:00004ae6       _RaiseException@16         00415ae6 f   kernel32:KERNEL32.dll
+ 0002:00004aec       _MultiByteToWideChar@24    00415aec f   kernel32:KERNEL32.dll
+ 0002:00004af2       _WideCharToMultiByte@32    00415af2 f   kernel32:KERNEL32.dll
+ 0002:00004af8       _QueryPerformanceCounter@4 00415af8 f   kernel32:KERNEL32.dll
+ 0002:00004afe       _GetCurrentProcessId@0     00415afe f   kernel32:KERNEL32.dll
+ 0002:00004b04       _GetCurrentThreadId@0      00415b04 f   kernel32:KERNEL32.dll
+ 0002:00004b0a       _GetSystemTimeAsFileTime@4 00415b0a f   kernel32:KERNEL32.dll
+ 0002:00004b10       _InitializeSListHead@4     00415b10 f   kernel32:KERNEL32.dll
+ 0002:00004b16       _UnhandledExceptionFilter@4 00415b16 f   kernel32:KERNEL32.dll
+ 0002:00004b1c       _SetUnhandledExceptionFilter@4 00415b1c f   kernel32:KERNEL32.dll
+ 0002:00004b22       _GetStartupInfoW@4         00415b22 f   kernel32:KERNEL32.dll
+ 0002:00004b28       _IsProcessorFeaturePresent@4 00415b28 f   kernel32:KERNEL32.dll
+ 0002:00004b2e       _GetModuleHandleW@4        00415b2e f   kernel32:KERNEL32.dll
+ 0002:00004b34       _GetLastError@0            00415b34 f   kernel32:KERNEL32.dll
+ 0002:00004b3a       _HeapAlloc@12              00415b3a f   kernel32:KERNEL32.dll
+ 0002:00004b40       _HeapFree@12               00415b40 f   kernel32:KERNEL32.dll
+ 0002:00004b46       _GetProcessHeap@0          00415b46 f   kernel32:KERNEL32.dll
+ 0002:00004b4c       _VirtualQuery@12           00415b4c f   kernel32:KERNEL32.dll
+ 0002:00004b52       _FreeLibrary@4             00415b52 f   kernel32:KERNEL32.dll
+ 0002:00004b58       _GetProcAddress@8          00415b58 f   kernel32:KERNEL32.dll
+ 0002:00004b5e       _GetCurrentProcess@0       00415b5e f   kernel32:KERNEL32.dll
+ 0002:00004b64       _TerminateProcess@8        00415b64 f   kernel32:KERNEL32.dll
+ 0002:00004b70       ___scrt_stub_for_acrt_initialize 00415b70 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004b70       ___acrt_initialize         00415b70 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004b70       ___vcrt_initialize         00415b70 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004b80       ___vcrt_thread_attach      00415b80 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004b80       ___acrt_thread_attach      00415b80 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004b80       ___scrt_stub_for_acrt_thread_attach 00415b80 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004b90       ___vcrt_thread_detach      00415b90 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004b90       ___acrt_thread_detach      00415b90 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004b90       ___scrt_stub_for_acrt_thread_detach 00415b90 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004ba0       ___vcrt_uninitialize       00415ba0 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004ba0       ___scrt_stub_for_acrt_uninitialize 00415ba0 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004ba0       ___acrt_uninitialize       00415ba0 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004bb0       ___scrt_stub_for_acrt_uninitialize_critical 00415bb0 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004bb0       ___vcrt_uninitialize_critical 00415bb0 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004bb0       ___acrt_uninitialize_critical 00415bb0 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004bc0       ___scrt_stub_for_is_c_termination_complete 00415bc0 f   MSVCRTD:ucrt_stubs.obj
+ 0002:00004bc0       __is_c_termination_complete 00415bc0 f   MSVCRTD:ucrt_stubs.obj
+ 0003:00000000       ___xc_a                    00417000     MSVCRTD:initializers.obj
+ 0003:0000030c       ___xc_z                    0041730c     MSVCRTD:initializers.obj
+ 0003:00000410       ___xi_a                    00417410     MSVCRTD:initializers.obj
+ 0003:0000071c       ___xi_z                    0041771c     MSVCRTD:initializers.obj
+ 0003:00000820       ___xp_a                    00417820     MSVCRTD:initializers.obj
+ 0003:00000924       ___xp_z                    00417924     MSVCRTD:initializers.obj
+ 0003:00000a28       ___xt_a                    00417a28     MSVCRTD:initializers.obj
+ 0003:00000b2c       ___xt_z                    00417b2c     MSVCRTD:initializers.obj
+ 0003:00000c40       ??_7type_info@@6B@         00417c40     MSVCRTD:std_type_info_static.obj
+ 0003:00000d08       ??_C@_0NN@NGPKDKPD@The?5value?5of?5ESP?5was?5not?5properl@ 00417d08     MSVCRTD:_error_.obj
+ 0003:00000e18       ??_C@_0BBN@GPMLNJCF@A?5cast?5to?5a?5smaller?5data?5type?5ha@ 00417e18     MSVCRTD:_error_.obj
+ 0003:00000f70       ??_C@_0BN@FFOINMNJ@Stack?5memory?5was?5corrupted?6?$AN?$AA@ 00417f70     MSVCRTD:_error_.obj
+ 0003:00000f94       ??_C@_0DG@HKJMLLLP@A?5local?5variable?5was?5used?5before@ 00417f94     MSVCRTD:_error_.obj
+ 0003:00000fd4       ??_C@_0CM@NGINOKPC@Stack?5memory?5around?5_alloca?5was?5@ 00417fd4     MSVCRTD:_error_.obj
+ 0003:00001008       ??_C@_0BO@GNIAFIKK@Unknown?5Runtime?5Check?5Error?6?$AN?$AA@ 00418008     MSVCRTD:_error_.obj
+ 0003:00001030       ??_C@_1GM@OLMCBDMB@?$AAR?$AAu?$AAn?$AAt?$AAi?$AAm?$AAe?$AA?5?$AAC?$AAh?$AAe?$AAc?$AAk?$AA?5?$AAE?$AAr?$AAr?$AAo?$AAr?$AA?4?$AA?6?$AA?$AN?$AA?5?$AAU?$AAn?$AAa?$AAb?$AAl?$AAe?$AA?5?$AAt?$AAo@ 00418030     MSVCRTD:_error_.obj
+ 0003:000010b8       ??_C@_1EA@NFKNIFJP@?$AAR?$AAu?$AAn?$AA?9?$AAT?$AAi?$AAm?$AAe?$AA?5?$AAC?$AAh?$AAe?$AAc?$AAk?$AA?5?$AAF?$AAa?$AAi?$AAl?$AAu?$AAr?$AAe?$AA?5?$AA?$CD?$AA?$CF?$AAd?$AA?5?$AA?9?$AA?5?$AA?$CF?$AAs?$AA?$AA@ 004180b8     MSVCRTD:_error_.obj
+ 0003:00001104       ??_C@_0BB@PFFGGCJP@Unknown?5Filename?$AA@ 00418104     MSVCRTD:_error_.obj
+ 0003:00001118       ??_C@_0BE@GNBOBNCK@Unknown?5Module?5Name?$AA@ 00418118     MSVCRTD:_error_.obj
+ 0003:00001130       ??_C@_0CA@IODNCDPG@Run?9Time?5Check?5Failure?5?$CD?$CFd?5?9?5?$CFs?$AA@ 00418130     MSVCRTD:_error_.obj
+ 0003:00001158       ??_C@_0CG@IAFNJNEE@Stack?5corrupted?5near?5unknown?5var@ 00418158     MSVCRTD:_error_.obj
+ 0003:00001188       ??_C@_05MKKEDADM@?$CF?42X?5?$AA@ 00418188     MSVCRTD:_error_.obj
+ 0003:00001190       ??_C@_0EJ@LJKNEOLN@Stack?5area?5around?5_alloca?5memory@ 00418190     MSVCRTD:_error_.obj
+ 0003:000011e8       ??_C@_08OMAHNMHJ@?6Data?3?5?$DM?$AA@ 004181e8     MSVCRTD:_error_.obj
+ 0003:000011f4       ??_C@_0CK@DKGBICFE@?6Allocation?5number?5within?5this?5f@ 004181f4     MSVCRTD:_error_.obj
+ 0003:00001228       ??_C@_07DFDJCKFN@?6Size?3?5?$AA@ 00418228     MSVCRTD:_error_.obj
+ 0003:00001234       ??_C@_0N@MHFFIMFG@?6Address?3?50x?$AA@ 00418234     MSVCRTD:_error_.obj
+ 0003:00001248       ??_C@_0EI@CLEPFNGI@Stack?5area?5around?5_alloca?5memory@ 00418248     MSVCRTD:_error_.obj
+ 0003:000012a0       ??_C@_0BC@HHMKLAND@?$CFs?$CFs?$CFp?$CFs?$CFzd?$CFs?$CFd?$CFs?$AA@ 004182a0     MSVCRTD:_error_.obj
+ 0003:000012b8       ??_C@_01EEMJAFIK@?6?$AA@   004182b8     MSVCRTD:_error_.obj
+ 0003:000012bc       ??_C@_02LLMPMKNF@?$DO?5?$AA@ 004182bc     MSVCRTD:_error_.obj
+ 0003:000012c0       ??_C@_08KJEDNCKC@?$CFs?$CFs?$CFs?$CFs?$AA@ 004182c0     MSVCRTD:_error_.obj
+ 0003:000012cc       ??_C@_0DE@OHJBPMBP@A?5variable?5is?5being?5used?5without@ 004182cc     MSVCRTD:_error_.obj
+ 0003:00001324       ??_C@_0BJ@HEGAHDFO@Stack?5pointer?5corruption?$AA@ 00418324     MSVCRTD:_userapi_.obj
+ 0003:00001344       ??_C@_0CK@FEGOIOPB@Cast?5to?5smaller?5type?5causing?5los@ 00418344     MSVCRTD:_userapi_.obj
+ 0003:00001378       ??_C@_0BI@CIGMDCBH@Stack?5memory?5corruption?$AA@ 00418378     MSVCRTD:_userapi_.obj
+ 0003:00001394       ??_C@_0CK@CNLNOEPB@Local?5variable?5used?5before?5initi@ 00418394     MSVCRTD:_userapi_.obj
+ 0003:000013c8       ??_C@_0BP@OGBCLIBO@Stack?5around?5_alloca?5corrupted?$AA@ 004183c8     MSVCRTD:_userapi_.obj
+ 0003:00001448       ??_C@_1EI@MLPKHBGE@?$AAa?$AAp?$AAi?$AA?9?$AAm?$AAs?$AA?9?$AAw?$AAi?$AAn?$AA?9?$AAc?$AAo?$AAr?$AAe?$AA?9?$AAr?$AAe?$AAg?$AAi?$AAs?$AAt?$AAr?$AAy?$AA?9?$AAl?$AA1?$AA?9?$AA1?$AA?9?$AA0?$AA?4@ 00418448     MSVCRTD:_pdblkup_.obj
+ 0003:000014a0       ??_C@_1BK@JHLNAEJL@?$AAa?$AAd?$AAv?$AAa?$AAp?$AAi?$AA3?$AA2?$AA?4?$AAd?$AAl?$AAl?$AA?$AA@ 004184a0     MSVCRTD:_pdblkup_.obj
+ 0003:000014c0       ??_C@_0O@COHOBMLB@RegOpenKeyExW?$AA@ 004184c0     MSVCRTD:_pdblkup_.obj
+ 0003:000014d0       ??_C@_0BB@GLNAEDBD@RegQueryValueExW?$AA@ 004184d0     MSVCRTD:_pdblkup_.obj
+ 0003:000014e4       ??_C@_0M@HLOHPNFA@RegCloseKey?$AA@ 004184e4     MSVCRTD:_pdblkup_.obj
+ 0003:000014f8       ??_C@_1HE@EBEAGLFB@?$AAS?$AAO?$AAF?$AAT?$AAW?$AAA?$AAR?$AAE?$AA?2?$AAW?$AAo?$AAw?$AA6?$AA4?$AA3?$AA2?$AAN?$AAo?$AAd?$AAe?$AA?2?$AAM?$AAi?$AAc?$AAr?$AAo?$AAs?$AAo?$AAf?$AAt?$AA?2?$AAV@ 004184f8     MSVCRTD:_pdblkup_.obj
+ 0003:00001584       ??_C@_1BG@EABPBLLF@?$AAP?$AAr?$AAo?$AAd?$AAu?$AAc?$AAt?$AAD?$AAi?$AAr?$AA?$AA@ 00418584     MSVCRTD:_pdblkup_.obj
+ 0003:000015c4       ??_C@_1BC@JINFINNJ@?$AAM?$AAS?$AAP?$AAD?$AAB?$AA1?$AA4?$AA0?$AA?$AA@ 004185c4     MSVCRTD:_pdblkup_.obj
+ 0003:000015dc       ??_C@_0BB@KCIACLNC@PDBOpenValidate5?$AA@ 004185dc     MSVCRTD:_pdblkup_.obj
+ 0003:000015f0       ??_C@_01KDCPPGHE@r?$AA@    004185f0     MSVCRTD:_pdblkup_.obj
+ 0003:00001638       __load_config_used         00418638     MSVCRTD:loadcfg.obj
+ 0003:000017dc       ??_R4type_info@@6B@        004187dc     MSVCRTD:std_type_info_static.obj
+ 0003:000017f4       ??_R3type_info@@8          004187f4     MSVCRTD:std_type_info_static.obj
+ 0003:00001808       ??_R2type_info@@8          00418808     MSVCRTD:std_type_info_static.obj
+ 0003:00001810       ??_R1A@?0A@EA@type_info@@8 00418810     MSVCRTD:std_type_info_static.obj
+ 0003:00001aa8       ___rtc_iaa                 00418aa8     MSVCRTD:_initsect_.obj
+ 0003:00001cb8       ___rtc_izz                 00418cb8     MSVCRTD:_initsect_.obj
+ 0003:00001dbc       ___rtc_taa                 00418dbc     MSVCRTD:_initsect_.obj
+ 0003:00001fcc       ___rtc_tzz                 00418fcc     MSVCRTD:_initsect_.obj
+ 0004:00000000       ?_RTC_ErrorLevels@@3PAHA   0041a000     MSVCRTD:_error_.obj
+ 0004:00000018       ___scrt_native_dllmain_reason 0041a018     MSVCRTD:utility.obj
+ 0004:0000001c       ___scrt_default_matherr    0041a01c     MSVCRTD:matherr.obj
+ 0004:00000020       ___security_cookie_complement 0041a020     MSVCRTD:gs_cookie.obj
+ 0004:00000024       ___security_cookie         0041a024     MSVCRTD:gs_cookie.obj
+ 0004:0000002c       ___isa_enabled             0041a02c     MSVCRTD:_cpu_disp_.obj
+ 0004:00000030       ___scrt_ucrt_dll_is_in_use 0041a030     MSVCRTD:ucrt_stubs.obj
+ 0004:00000138       ??_R0X@8                   0041a138     Reflection.Generated.obj
+ 0004:00000148       ??_R0PAX@8                 0041a148     Reflection.Generated.obj
+ 0004:00000158       ??_R0_N@8                  0041a158     Reflection.Generated.obj
+ 0004:00000168       ??_R0C@8                   0041a168     Reflection.Generated.obj
+ 0004:00000178       ??_R0D@8                   0041a178     Reflection.Generated.obj
+ 0004:00000188       ??_R0F@8                   0041a188     Reflection.Generated.obj
+ 0004:00000198       ??_R0G@8                   0041a198     Reflection.Generated.obj
+ 0004:000001a8       ??_R0H@8                   0041a1a8     Reflection.Generated.obj
+ 0004:000001b8       ??_R0I@8                   0041a1b8     Reflection.Generated.obj
+ 0004:000001c8       ??_R0_J@8                  0041a1c8     Reflection.Generated.obj
+ 0004:000001d8       ??_R0_K@8                  0041a1d8     Reflection.Generated.obj
+ 0004:000001e8       ??_R0M@8                   0041a1e8     Reflection.Generated.obj
+ 0004:000001f8       ??_R0N@8                   0041a1f8     Reflection.Generated.obj
+ 0004:00000208       ??_R0PAD@8                 0041a208     Reflection.Generated.obj
+ 0004:00000218       ??_R0?AVFlag@@@8           0041a218     Reflection.Generated.obj
+ 0004:00000230       ??_R0?AUString@@@8         0041a230     Reflection.Generated.obj
+ 0004:0000024c       ??_R0?AVObject@@@8         0041a24c     Reflection.Generated.obj
+ 0004:00000268       ??_R0?AW4Month@@@8         0041a268     Reflection.Generated.obj
+ 0004:00000284       ??_R0?AW4Day@@@8           0041a284     Reflection.Generated.obj
+ 0004:0000029c       ??_R0?AW4Casing@@@8        0041a29c     Reflection.Generated.obj
+ 0004:000002b8       ??_R0?AW4MemoryType@@@8    0041a2b8     Reflection.Generated.obj
+ 0004:000002d8       ??_R0?AVMemory@@@8         0041a2d8     Reflection.Generated.obj
+ 0004:000002f4       ??_R0?AUUnit@@@8           0041a2f4     Reflection.Generated.obj
+ 0004:0000030c       ??_R0?AUILockable@@@8      0041a30c     Reflection.Generated.obj
+ 0004:00000328       ??_R0?AULockableLocker@@@8 0041a328     Reflection.Generated.obj
+ 0004:0000034c       ??_R0?AVException@@@8      0041a34c     Reflection.Generated.obj
+ 0004:00000368       ??_R0?AVAssertException@@@8 0041a368     Reflection.Generated.obj
+ 0004:0000038c       ??_R0?AVConsoleStream@@@8  0041a38c     Reflection.Generated.obj
+ 0004:000003b0       ??_R0?AVMaths@@@8          0041a3b0     Reflection.Generated.obj
+ 0004:000003c8       ??_R0?AUMatrix3@@@8        0041a3c8     Reflection.Generated.obj
+ 0004:000003e4       ??_R0?AUPoint2@@@8         0041a3e4     Reflection.Generated.obj
+ 0004:00000400       ??_R0?AUPoint3@@@8         0041a400     Reflection.Generated.obj
+ 0004:0000041c       ??_R0?AUVector2@@@8        0041a41c     Reflection.Generated.obj
+ 0004:00000438       ??_R0?AUVector3@@@8        0041a438     Reflection.Generated.obj
+ 0004:00000454       ??_R0?AUQuaternion@@@8     0041a454     Reflection.Generated.obj
+ 0004:00000474       ??_R0?AUUnitGroup@@@8      0041a474     Reflection.Generated.obj
+ 0004:00000490       ??_R0?AUUnits@@@8          0041a490     Reflection.Generated.obj
+ 0004:000004a8       ??_R0?AW4ConsoleColor@@@8  0041a4a8     Reflection.Generated.obj
+ 0004:000004cc       ??_R0?AVConsole@@@8        0041a4cc     Reflection.Generated.obj
+ 0004:000004e8       ??_R0?AVLog@@@8            0041a4e8     Reflection.Generated.obj
+ 0004:00000500       ??_R0?AVSerial@@@8         0041a500     Reflection.Generated.obj
+ 0004:0000051c       ??_R0?AUColor24@@@8        0041a51c     Reflection.Generated.obj
+ 0004:00000538       ??_R0?AUColor32@@@8        0041a538     Reflection.Generated.obj
+ 0004:00000554       ??_R0?AUMatrix4@@@8        0041a554     Reflection.Generated.obj
+ 0004:00000570       ??_R0?AVApplication@@@8    0041a570     Reflection.Generated.obj
+ 0004:00000590       ??_R0?AVGame@@@8           0041a590     Reflection.Generated.obj
+ 0004:000005a8       ??_R0?AVTimer@@@8          0041a5a8     Reflection.Generated.obj
+ 0004:000005c0       ??_R0?AVRandomStream@@@8   0041a5c0     Reflection.Generated.obj
+ 0004:000005e0       ??_R0?AVRandom@@@8         0041a5e0     Reflection.Generated.obj
+ 0004:000005fc       ??_R0?AVTimeSpan@@@8       0041a5fc     Reflection.Generated.obj
+ 0004:00000618       ??_R0?AVDateTime@@@8       0041a618     Reflection.Generated.obj
+ 0004:00000634       ??_R0?AUSystem@Colors@@@8  0041a634     Reflection.Generated.obj
+ 0004:00000658       ??_R0?AVType@Runtime@System@@@8 0041a658     Reflection.Generated.obj
+ 0004:00000680       ??_R0?AVMutex@Runtime@System@@@8 0041a680     Reflection.Generated.obj
+ 0004:000006ac       ??_R0?AVProcess@Runtime@System@@@8 0041a6ac     Reflection.Generated.obj
+ 0004:000006d8       ??_R0?AVDispatcher@Runtime@System@@@8 0041a6d8     Reflection.Generated.obj
+ 0004:00000708       ??_R0?AVThread@Runtime@System@@@8 0041a708     Reflection.Generated.obj
+ 0004:00000734       ??_R0?AVSpinlock@Runtime@System@@@8 0041a734     Reflection.Generated.obj
+ 0004:00000764       ??_R0?AVSignal@Runtime@System@@@8 0041a764     Reflection.Generated.obj
+ 0004:00000790       ??_R0?AVDebugger@Runtime@System@@@8 0041a790     Reflection.Generated.obj
+ 0004:000007c0       ??_R0?AVProfiler@Runtime@System@@@8 0041a7c0     Reflection.Generated.obj
+ 0004:000007f0       ??_R0?AW4AccessibilityModifier@Runtime@System@@@8 0041a7f0     Reflection.Generated.obj
+ 0004:00000830       ??_R0?AVSymbol@Runtime@System@@@8 0041a830     Reflection.Generated.obj
+ 0004:0000085c       ??_R0?AVConstructor@Runtime@System@@@8 0041a85c     Reflection.Generated.obj
+ 0004:00000890       ??_R0?AW4VirtualizationModifier@Runtime@System@@@8 0041a890     Reflection.Generated.obj
+ 0004:000008d0       ??_R0?AVMethod@Runtime@System@@@8 0041a8d0     Reflection.Generated.obj
+ 0004:000008fc       ??_R0?AVReflection@Runtime@System@@@8 0041a8fc     Reflection.Generated.obj
+ 0004:0000092c       ??_R0?AVNamespace@Runtime@System@@@8 0041a92c     Reflection.Generated.obj
+ 0004:0000095c       ??_R0?AVProperty@Runtime@System@@@8 0041a95c     Reflection.Generated.obj
+ 0004:0000098c       ??_R0?AVSerializer@Runtime@System@@@8 0041a98c     Reflection.Generated.obj
+ 0004:000009bc       ??_R0?AVExecutable@Runtime@System@@@8 0041a9bc     Reflection.Generated.obj
+ 0004:000009ec       ??_R0?AVRecord@Data@System@@@8 0041a9ec     Reflection.Generated.obj
+ 0004:00000a14       ??_R0?AVTable@Data@System@@@8 0041aa14     Reflection.Generated.obj
+ 0004:00000a3c       ??_R0?AVDatabase@Data@System@@@8 0041aa3c     Reflection.Generated.obj
+ 0004:00000a68       ??_R0?AW4SeekOrigin@IO@System@@@8 0041aa68     Reflection.Generated.obj
+ 0004:00000a94       ??_R0?AVStream@IO@System@@@8 0041aa94     Reflection.Generated.obj
+ 0004:00000abc       ??_R0?AVTextStream@IO@System@@@8 0041aabc     Reflection.Generated.obj
+ 0004:00000ae8       ??_R0?AVBufferStream@IO@System@@@8 0041aae8     Reflection.Generated.obj
+ 0004:00000b14       ??_R0?AW4FileAttributes@IO@System@@@8 0041ab14     Reflection.Generated.obj
+ 0004:00000b44       ??_R0?AVFile@IO@System@@@8 0041ab44     Reflection.Generated.obj
+ 0004:00000b68       ??_R0?AVDirectory@IO@System@@@8 0041ab68     Reflection.Generated.obj
+ 0004:00000b90       ??_R0?AVFileStream@IO@System@@@8 0041ab90     Reflection.Generated.obj
+ 0004:00000bbc       ??_R0?AVDirectoryLink@IO@System@@@8 0041abbc     Reflection.Generated.obj
+ 0004:00000bec       ??_R0?AVAsyncStream@IO@System@@@8 0041abec     Reflection.Generated.obj
+ 0004:00000c18       ??_R0?AVDataStream@IO@System@@@8 0041ac18     Reflection.Generated.obj
+ 0004:00000c44       ??_R0?AVTeeStream@IO@System@@@8 0041ac44     Reflection.Generated.obj
+ 0004:00000c6c       ??_R0?AVDevice@Devices@System@@@8 0041ac6c     Reflection.Generated.obj
+ 0004:00000c98       ??_R0?AUPointerEvent@Devices@System@@@8 0041ac98     Reflection.Generated.obj
+ 0004:00000ccc       ??_R0?AUPointerPositionEvent@Devices@System@@@8 0041accc     Reflection.Generated.obj
+ 0004:00000d08       ??_R0?AUPointerMoveEvent@Devices@System@@@8 0041ad08     Reflection.Generated.obj
+ 0004:00000d40       ??_R0?AUPointerScrollEvent@Devices@System@@@8 0041ad40     Reflection.Generated.obj
+ 0004:00000d7c       ??_R0?AVPointerDevice@Devices@System@@@8 0041ad7c     Reflection.Generated.obj
+ 0004:00000db0       ??_R0?AW4Buttons@Devices@System@@@8 0041adb0     Reflection.Generated.obj
+ 0004:00000de0       ??_R0?AURawButtonEvent@Devices@System@@@8 0041ade0     Reflection.Generated.obj
+ 0004:00000e14       ??_R0?AUButtonEvent@Devices@System@@@8 0041ae14     Reflection.Generated.obj
+ 0004:00000e48       ??_R0?AUButtonsMapping@Devices@System@@@8 0041ae48     Reflection.Generated.obj
+ 0004:00000e7c       ??_R0?AUCharactersMapping@Devices@System@@@8 0041ae7c     Reflection.Generated.obj
+ 0004:00000eb4       ??_R0?AUButtonsState@Devices@System@@@8 0041aeb4     Reflection.Generated.obj
+ 0004:00000ee8       ??_R0?AVButtonsDevice@Devices@System@@@8 0041aee8     Reflection.Generated.obj
+ 0004:00000f1c       ??_R0?AW4Jauges@Devices@System@@@8 0041af1c     Reflection.Generated.obj
+ 0004:00000f48       ??_R0?AUJaugeEvent@Devices@System@@@8 0041af48     Reflection.Generated.obj
+ 0004:00000f78       ??_R0?AVInputManager@Devices@System@@@8 0041af78     Reflection.Generated.obj
+ 0004:00000fac       ??_R0?AVDeviceEnumerator@Devices@System@@@8 0041afac     Reflection.Generated.obj
+ 0004:00000fe4       ??_R0?AVCommunicationDevice@Devices@System@@@8 0041afe4     Reflection.Generated.obj
+ 0004:00001020       ??_R0?AVNetworkDevice@Devices@System@@@8 0041b020     Reflection.Generated.obj
+ 0004:00001054       ??_R0?AUDisplayMode@Devices@System@@@8 0041b054     Reflection.Generated.obj
+ 0004:00001088       ??_R0?AVDisplayOverlay@Devices@System@@@8 0041b088     Reflection.Generated.obj
+ 0004:000010bc       ??_R0?AVDisplayDevice@Devices@System@@@8 0041b0bc     Reflection.Generated.obj
+ 0004:000010f0       ??_R0?AW4InputType@Devices@System@@@8 0041b0f0     Reflection.Generated.obj
+ 0004:00001120       ??_R0?AW4InputDeviceType@Devices@System@@@8 0041b120     Reflection.Generated.obj
+ 0004:00001158       ??_R0?AVInputDevice@Devices@System@@@8 0041b158     Reflection.Generated.obj
+ 0004:0000118c       ??_R0?AVStorageDevice@Devices@System@@@8 0041b18c     Reflection.Generated.obj
+ 0004:000011c0       ??_R0?AVFileSystem@Devices@System@@@8 0041b1c0     Reflection.Generated.obj
+ 0004:000011f0       ??_R0?AUFileSystemConstructorBase@Devices@System@@@8 0041b1f0     Reflection.Generated.obj
+ 0004:00001234       ??_R0?AW4FileSystemType@Devices@System@@@8 0041b234     Reflection.Generated.obj
+ 0004:0000126c       ??_R0?AUPoint@Graphics@System@@@8 0041b26c     Reflection.Generated.obj
+ 0004:00001298       ??_R0?AURectangle@Graphics@System@@@8 0041b298     Reflection.Generated.obj
+ 0004:000012c8       ??_R0?AUOutline@Graphics@System@@@8 0041b2c8     Reflection.Generated.obj
+ 0004:000012f8       ??_R0?AW4Alignment@Graphics@System@@@8 0041b2f8     Reflection.Generated.obj
+ 0004:0000132c       ??_R0?AW4Orientation@Graphics@System@@@8 0041b32c     Reflection.Generated.obj
+ 0004:00001360       ??_R0?AW4Direction@Graphics@System@@@8 0041b360     Reflection.Generated.obj
+ 0004:00001394       ??_R0?AUBitmapLoaderBase@Graphics@System@@@8 0041b394     Reflection.Generated.obj
+ 0004:000013cc       ??_R0?AVBitmap@Graphics@System@@@8 0041b3cc     Reflection.Generated.obj
+ 0004:000013f8       ??_R0?AUBitmaps@Graphics@System@@@8 0041b3f8     Reflection.Generated.obj
+ 0004:00001428       ??_R0?AVFont@Graphics@System@@@8 0041b428     Reflection.Generated.obj
+ 0004:00001454       ??_R0?AW4FontType@Graphics@System@@@8 0041b454     Reflection.Generated.obj
+ 0004:00001484       ??_R0?AW4FontAttribute@Graphics@System@@@8 0041b484     Reflection.Generated.obj
+ 0004:000014bc       ??_R0?AVFontFamily@Graphics@System@@@8 0041b4bc     Reflection.Generated.obj
+ 0004:000014f0       ??_R0?AVSurface@Graphics@System@@@8 0041b4f0     Reflection.Generated.obj
+ 0004:00001520       ??_R0?AVSubSurface@Graphics@System@@@8 0041b520     Reflection.Generated.obj
+ 0004:00001554       ??_R0?AVShiftedSurface@Graphics@System@@@8 0041b554     Reflection.Generated.obj
+ 0004:0000158c       ??_R0?AW4DockStyle@Interface@System@@@8 0041b58c     Reflection.Generated.obj
+ 0004:000015c0       ??_R0?AVElement@Interface@System@@@8 0041b5c0     Reflection.Generated.obj
+ 0004:000015f0       ??_R0?AVControl@Interface@System@@@8 0041b5f0     Reflection.Generated.obj
+ 0004:00001620       ??_R0?AVContainer@Interface@System@@@8 0041b620     Reflection.Generated.obj
+ 0004:00001654       ??_R0?AVWindow@Interface@System@@@8 0041b654     Reflection.Generated.obj
+ 0004:00001684       ??_R0?AVMover@Interface@System@@@8 0041b684     Reflection.Generated.obj
+ 0004:000016b0       ??_R0?AVTab@Interface@System@@@8 0041b6b0     Reflection.Generated.obj
+ 0004:000016dc       ??_R0?AW4ButtonStyle@Interface@System@@@8 0041b6dc     Reflection.Generated.obj
+ 0004:00001710       ??_R0?AW4ButtonState@Interface@System@@@8 0041b710     Reflection.Generated.obj
+ 0004:00001744       ??_R0?AVButton@Interface@System@@@8 0041b744     Reflection.Generated.obj
+ 0004:00001774       ??_R0?AW4WindowState@Interface@System@@@8 0041b774     Reflection.Generated.obj
+ 0004:000017a8       ??_R0?AW4WindowLayer@Interface@System@@@8 0041b7a8     Reflection.Generated.obj
+ 0004:000017dc       ??_R0?AVWindowsManager@Interface@System@@@8 0041b7dc     Reflection.Generated.obj
+ 0004:00001814       ??_R0?AVScrollContainer@Interface@System@@@8 0041b814     Reflection.Generated.obj
+ 0004:0000184c       ??_R0?AVLabel@Interface@System@@@8 0041b84c     Reflection.Generated.obj
+ 0004:00001878       ??_R0?AW4ColumnWidthType@Interface@System@@@8 0041b878     Reflection.Generated.obj
+ 0004:000018b4       ??_R0?AVGrid@Interface@System@@@8 0041b8b4     Reflection.Generated.obj
+ 0004:000018e0       ??_R0?AVStackContainer@Interface@System@@@8 0041b8e0     Reflection.Generated.obj
+ 0004:00001918       ??_R0?AVTabContainer@Interface@System@@@8 0041b918     Reflection.Generated.obj
+ 0004:0000194c       ??_R0?AVTable@Interface@System@@@8 0041b94c     Reflection.Generated.obj
+ 0004:00001978       ??_R0?AVGraph@Interface@System@@@8 0041b978     Reflection.Generated.obj
+ 0004:000019a4       ??_R0?AVImage@Interface@System@@@8 0041b9a4     Reflection.Generated.obj
+ 0004:000019d0       ??_R0?AVListViewItem@Interface@System@@@8 0041b9d0     Reflection.Generated.obj
+ 0004:00001a04       ??_R0?AVListView@Interface@System@@@8 0041ba04     Reflection.Generated.obj
+ 0004:00001a34       ??_R0?AVMenu@Interface@System@@@8 0041ba34     Reflection.Generated.obj
+ 0004:00001a60       ??_R0?AW4TextStyle@Interface@System@@@8 0041ba60     Reflection.Generated.obj
+ 0004:00001a94       ??_R0?AVTextBox@Interface@System@@@8 0041ba94     Reflection.Generated.obj
+ 0004:00001ac4       ??_R0?AVEntity@Objects@System@@@8 0041bac4     Reflection.Generated.obj
+ 0004:00001af0       ??_R0?AVUser@Objects@System@@@8 0041baf0     Reflection.Generated.obj
+ 0004:00001b18       ??_R0?AVtype_info@@@8      0041bb18     MSVCRTD:std_type_info_static.obj
+ 0004:00001ca8       ?_reflection_namespaces@@3QBUNamespace@@B 0041bca8     Reflection.Generated.obj
+ 0004:00001d18       ?_OptionsStorage@?1??__local_stdio_printf_options@@9@4_KA 0041bd18     MSVCRTD:_error_.obj
+ 0004:00001d30       ___scrt_current_native_startup_state 0041bd30     MSVCRTD:utility.obj
+ 0004:00001d34       ___scrt_native_startup_lock 0041bd34     MSVCRTD:utility.obj
+ 0004:00001d58       ?__type_info_root_node@@3U__type_info_node@@A 0041bd58     MSVCRTD:tncleanup.obj
+ 0004:00001d68       ?_OptionsStorage@?1??__local_stdio_scanf_options@@9@4_KA 0041bd68     MSVCRTD:default_local_stdio_options.obj
+ 0004:00001d74       ___scrt_debugger_hook_flag 0041bd74     MSVCRTD:utility_desktop.obj
+ 0004:00001d80       ___isa_available           0041bd80     MSVCRTD:_cpu_disp_.obj
+ 0004:00001d84       ___favor                   0041bd84     MSVCRTD:_cpu_disp_.obj
+ 0004:0000214c       ___dyn_tls_dtor_callback   0041c14c     <common>
+ 0004:00002158       ___dyn_tls_init_callback   0041c158     <common>
+ 0005:00000000       __imp__RaiseException@16   0041d000     kernel32:KERNEL32.dll
+ 0005:00000004       __imp__MultiByteToWideChar@24 0041d004     kernel32:KERNEL32.dll
+ 0005:00000008       __imp__WideCharToMultiByte@32 0041d008     kernel32:KERNEL32.dll
+ 0005:0000000c       __imp__QueryPerformanceCounter@4 0041d00c     kernel32:KERNEL32.dll
+ 0005:00000010       __imp__GetCurrentProcessId@0 0041d010     kernel32:KERNEL32.dll
+ 0005:00000014       __imp__GetCurrentThreadId@0 0041d014     kernel32:KERNEL32.dll
+ 0005:00000018       __imp__GetSystemTimeAsFileTime@4 0041d018     kernel32:KERNEL32.dll
+ 0005:0000001c       __imp__InitializeSListHead@4 0041d01c     kernel32:KERNEL32.dll
+ 0005:00000020       __imp__TerminateProcess@8  0041d020     kernel32:KERNEL32.dll
+ 0005:00000024       __imp__GetCurrentProcess@0 0041d024     kernel32:KERNEL32.dll
+ 0005:00000028       __imp__GetProcAddress@8    0041d028     kernel32:KERNEL32.dll
+ 0005:0000002c       __imp__FreeLibrary@4       0041d02c     kernel32:KERNEL32.dll
+ 0005:00000030       __imp__VirtualQuery@12     0041d030     kernel32:KERNEL32.dll
+ 0005:00000034       __imp__GetProcessHeap@0    0041d034     kernel32:KERNEL32.dll
+ 0005:00000038       __imp__HeapFree@12         0041d038     kernel32:KERNEL32.dll
+ 0005:0000003c       __imp__HeapAlloc@12        0041d03c     kernel32:KERNEL32.dll
+ 0005:00000040       __imp__GetLastError@0      0041d040     kernel32:KERNEL32.dll
+ 0005:00000044       __imp__GetModuleHandleW@4  0041d044     kernel32:KERNEL32.dll
+ 0005:00000048       __imp__IsProcessorFeaturePresent@4 0041d048     kernel32:KERNEL32.dll
+ 0005:0000004c       __imp__GetStartupInfoW@4   0041d04c     kernel32:KERNEL32.dll
+ 0005:00000050       __imp__SetUnhandledExceptionFilter@4 0041d050     kernel32:KERNEL32.dll
+ 0005:00000054       __imp__UnhandledExceptionFilter@4 0041d054     kernel32:KERNEL32.dll
+ 0005:00000058       __imp__IsDebuggerPresent@0 0041d058     kernel32:KERNEL32.dll
+ 0005:0000005c       \177KERNEL32_NULL_THUNK_DATA 0041d05c     kernel32:KERNEL32.dll
+ 0005:00000098       __imp____vcrt_LoadLibraryExW 0041d098     vcruntimed:VCRUNTIME140D.dll
+ 0005:0000009c       __imp____vcrt_GetModuleHandleW 0041d09c     vcruntimed:VCRUNTIME140D.dll
+ 0005:000000a0       __imp____vcrt_GetModuleFileNameW 0041d0a0     vcruntimed:VCRUNTIME140D.dll
+ 0005:000000a4       __imp___except_handler4_common 0041d0a4     vcruntimed:VCRUNTIME140D.dll
+ 0005:000000a8       __imp__memset              0041d0a8     vcruntimed:VCRUNTIME140D.dll
+ 0005:000000ac       __imp____std_type_info_destroy_list 0041d0ac     vcruntimed:VCRUNTIME140D.dll
+ 0005:000000b0       __imp____telemetry_main_return_trigger 0041d0b0     vcruntimed:VCRUNTIME140D.dll
+ 0005:000000b4       __imp____telemetry_main_invoke_trigger 0041d0b4     vcruntimed:VCRUNTIME140D.dll
+ 0005:000000b8       \177VCRUNTIME140D_NULL_THUNK_DATA 0041d0b8     vcruntimed:VCRUNTIME140D.dll
+ 0005:000000e8       __imp___initialize_onexit_table 0041d0e8     ucrtd:ucrtbased.dll
+ 0005:000000ec       __imp___seh_filter_dll     0041d0ec     ucrtd:ucrtbased.dll
+ 0005:000000f0       __imp___execute_onexit_table 0041d0f0     ucrtd:ucrtbased.dll
+ 0005:000000f4       __imp___crt_atexit         0041d0f4     ucrtd:ucrtbased.dll
+ 0005:000000f8       __imp___crt_at_quick_exit  0041d0f8     ucrtd:ucrtbased.dll
+ 0005:000000fc       __imp___controlfp_s        0041d0fc     ucrtd:ucrtbased.dll
+ 0005:00000100       __imp__terminate           0041d100     ucrtd:ucrtbased.dll
+ 0005:00000104       __imp___wmakepath_s        0041d104     ucrtd:ucrtbased.dll
+ 0005:00000108       __imp___wsplitpath_s       0041d108     ucrtd:ucrtbased.dll
+ 0005:0000010c       __imp__wcscpy_s            0041d10c     ucrtd:ucrtbased.dll
+ 0005:00000110       __imp___free_dbg           0041d110     ucrtd:ucrtbased.dll
+ 0005:00000114       __imp____stdio_common_vsprintf_s 0041d114     ucrtd:ucrtbased.dll
+ 0005:00000118       __imp____p__commode        0041d118     ucrtd:ucrtbased.dll
+ 0005:0000011c       __imp___set_new_mode       0041d11c     ucrtd:ucrtbased.dll
+ 0005:00000120       __imp___configthreadlocale 0041d120     ucrtd:ucrtbased.dll
+ 0005:00000124       __imp___register_thread_local_exe_atexit_callback 0041d124     ucrtd:ucrtbased.dll
+ 0005:00000128       __imp___c_exit             0041d128     ucrtd:ucrtbased.dll
+ 0005:0000012c       __imp___cexit              0041d12c     ucrtd:ucrtbased.dll
+ 0005:00000130       __imp____p___argv          0041d130     ucrtd:ucrtbased.dll
+ 0005:00000134       __imp____p___argc          0041d134     ucrtd:ucrtbased.dll
+ 0005:00000138       __imp___set_fmode          0041d138     ucrtd:ucrtbased.dll
+ 0005:0000013c       __imp___exit               0041d13c     ucrtd:ucrtbased.dll
+ 0005:00000140       __imp__exit                0041d140     ucrtd:ucrtbased.dll
+ 0005:00000144       __imp___initterm_e         0041d144     ucrtd:ucrtbased.dll
+ 0005:00000148       __imp___initterm           0041d148     ucrtd:ucrtbased.dll
+ 0005:0000014c       __imp___get_initial_narrow_environment 0041d14c     ucrtd:ucrtbased.dll
+ 0005:00000150       __imp___initialize_narrow_environment 0041d150     ucrtd:ucrtbased.dll
+ 0005:00000154       __imp___configure_narrow_argv 0041d154     ucrtd:ucrtbased.dll
+ 0005:00000158       __imp____setusermatherr    0041d158     ucrtd:ucrtbased.dll
+ 0005:0000015c       __imp___set_app_type       0041d15c     ucrtd:ucrtbased.dll
+ 0005:00000160       __imp___seh_filter_exe     0041d160     ucrtd:ucrtbased.dll
+ 0005:00000164       __imp___CrtDbgReportW      0041d164     ucrtd:ucrtbased.dll
+ 0005:00000168       __imp___CrtDbgReport       0041d168     ucrtd:ucrtbased.dll
+ 0005:0000016c       __imp__getchar             0041d16c     ucrtd:ucrtbased.dll
+ 0005:00000170       __imp___register_onexit_function 0041d170     ucrtd:ucrtbased.dll
+ 0005:00000174       \177ucrtbased_NULL_THUNK_DATA 0041d174     ucrtd:ucrtbased.dll
+ 0005:000001bc       __IMPORT_DESCRIPTOR_VCRUNTIME140D 0041d1bc     vcruntimed:VCRUNTIME140D.dll
+ 0005:000001d0       __IMPORT_DESCRIPTOR_ucrtbased 0041d1d0     ucrtd:ucrtbased.dll
+ 0005:000001e4       __IMPORT_DESCRIPTOR_KERNEL32 0041d1e4     kernel32:KERNEL32.dll
+ 0005:000001f8       __NULL_IMPORT_DESCRIPTOR   0041d1f8     vcruntimed:VCRUNTIME140D.dll
+ 0006:00000000       ??_C@_0P@DGBBCACH@FileSystemType?$AA@JDNHJLAG@ 0041e000     Reflection.Generated.obj
+ 0006:00000014       ??_C@_05BGOFFEGG@Point?$AA@JDNHJLAG@ 0041e014     Reflection.Generated.obj
+ 0006:0000001c       ??_C@_09OLDPCBLI@Rectangle?$AA@JDNHJLAG@ 0041e01c     Reflection.Generated.obj
+ 0006:00000028       ??_C@_07EKMBLIB@Outline?$AA@JDNHJLAG@ 0041e028     Reflection.Generated.obj
+ 0006:00000034       ??_C@_09FBMAGD@Alignment?$AA@JDNHJLAG@ 0041e034     Reflection.Generated.obj
+ 0006:00000040       ??_C@_0M@LHPCLPIO@Orientation?$AA@JDNHJLAG@ 0041e040     Reflection.Generated.obj
+ 0006:00000050       ??_C@_09DAPGLLEF@Direction?$AA@JDNHJLAG@ 0041e050     Reflection.Generated.obj
+ 0006:0000005c       ??_C@_0BB@IIIPEIOF@BitmapLoaderBase?$AA@JDNHJLAG@ 0041e05c     Reflection.Generated.obj
+ 0006:00000070       ??_C@_06DNMIKLHD@Bitmap?$AA@JDNHJLAG@ 0041e070     Reflection.Generated.obj
+ 0006:00000078       ??_C@_07MNCDMCBI@Bitmaps?$AA@JDNHJLAG@ 0041e078     Reflection.Generated.obj
+ 0006:00000084       ??_C@_04IEDBBIIG@Font?$AA@JDNHJLAG@ 0041e084     Reflection.Generated.obj
+ 0006:0000008c       ??_C@_08GBFACKAL@FontType?$AA@JDNHJLAG@ 0041e08c     Reflection.Generated.obj
+ 0006:00000098       ??_C@_0O@GFGEHOCD@FontAttribute?$AA@JDNHJLAG@ 0041e098     Reflection.Generated.obj
+ 0006:000000a8       ??_C@_0L@EKBNGACM@FontFamily?$AA@JDNHJLAG@ 0041e0a8     Reflection.Generated.obj
+ 0006:000000b8       ??_C@_07HODNHPOF@Surface?$AA@JDNHJLAG@ 0041e0b8     Reflection.Generated.obj
+ 0006:000000c4       ??_C@_0L@PDDBENLL@SubSurface?$AA@JDNHJLAG@ 0041e0c4     Reflection.Generated.obj
+ 0006:000000d4       ??_C@_0P@NKBPJLIM@ShiftedSurface?$AA@JDNHJLAG@ 0041e0d4     Reflection.Generated.obj
+ 0006:000000e8       ??_C@_09BGBDLPIH@DockStyle?$AA@JDNHJLAG@ 0041e0e8     Reflection.Generated.obj
+ 0006:000000f4       ??_C@_07ILMPLKHC@Element?$AA@JDNHJLAG@ 0041e0f4     Reflection.Generated.obj
+ 0006:00000100       ??_C@_07DFGIDBBA@Control?$AA@JDNHJLAG@ 0041e100     Reflection.Generated.obj
+ 0006:0000010c       ??_C@_09OIACHIKC@Container?$AA@JDNHJLAG@ 0041e10c     Reflection.Generated.obj
+ 0006:00000118       ??_C@_06BKKJGDHO@Window?$AA@JDNHJLAG@ 0041e118     Reflection.Generated.obj
+ 0006:00000120       ??_C@_05PLNIEKIN@Mover?$AA@JDNHJLAG@ 0041e120     Reflection.Generated.obj
+ 0006:00000128       ??_C@_03IEAKBACE@Tab?$AA@JDNHJLAG@ 0041e128     Reflection.Generated.obj
+ 0006:0000012c       ??_C@_0M@JOJAKCDM@ButtonStyle?$AA@JDNHJLAG@ 0041e12c     Reflection.Generated.obj
+ 0006:0000013c       ??_C@_0M@BJAICPIE@ButtonState?$AA@JDNHJLAG@ 0041e13c     Reflection.Generated.obj
+ 0006:0000014c       ??_C@_06LKBCGDFD@Button?$AA@JDNHJLAG@ 0041e14c     Reflection.Generated.obj
+ 0006:00000154       ??_C@_0M@EHFFGJCJ@WindowState?$AA@JDNHJLAG@ 0041e154     Reflection.Generated.obj
+ 0006:00000164       ??_C@_0M@JABPPDDE@WindowLayer?$AA@JDNHJLAG@ 0041e164     Reflection.Generated.obj
+ 0006:00000174       ??_C@_0P@CCPIJIHA@WindowsManager?$AA@JDNHJLAG@ 0041e174     Reflection.Generated.obj
+ 0006:00000188       ??_C@_0BA@PFFFHI@ScrollContainer?$AA@JDNHJLAG@ 0041e188     Reflection.Generated.obj
+ 0006:0000019c       ??_C@_05IEIONIFO@Label?$AA@JDNHJLAG@ 0041e19c     Reflection.Generated.obj
+ 0006:000001a4       ??_C@_0BA@CDBOHNLI@ColumnWidthType?$AA@JDNHJLAG@ 0041e1a4     Reflection.Generated.obj
+ 0006:000001b8       ??_C@_04FEKPLKKA@Grid?$AA@JDNHJLAG@ 0041e1b8     Reflection.Generated.obj
+ 0006:000001c0       ??_C@_0P@EPCAANHJ@StackContainer?$AA@JDNHJLAG@ 0041e1c0     Reflection.Generated.obj
+ 0006:000001d4       ??_C@_0N@HGIAAECP@TabContainer?$AA@JDNHJLAG@ 0041e1d4     Reflection.Generated.obj
+ 0006:000001e4       ??_C@_05KFDNMOLO@Graph?$AA@JDNHJLAG@ 0041e1e4     Reflection.Generated.obj
+ 0006:000001ec       ??_C@_05NBEAGECF@Image?$AA@JDNHJLAG@ 0041e1ec     Reflection.Generated.obj
+ 0006:000001f4       ??_C@_0N@NEJBBKCB@ListViewItem?$AA@JDNHJLAG@ 0041e1f4     Reflection.Generated.obj
+ 0006:00000204       ??_C@_08HMNIEBKL@ListView?$AA@JDNHJLAG@ 0041e204     Reflection.Generated.obj
+ 0006:00000210       ??_C@_04IFEHPILC@Menu?$AA@JDNHJLAG@ 0041e210     Reflection.Generated.obj
+ 0006:00000218       ??_C@_09BENEHFKL@TextStyle?$AA@JDNHJLAG@ 0041e218     Reflection.Generated.obj
+ 0006:00000224       ??_C@_07OMGMJIBO@TextBox?$AA@JDNHJLAG@ 0041e224     Reflection.Generated.obj
+ 0006:00000230       ??_C@_06KBCHOIMA@Entity?$AA@JDNHJLAG@ 0041e230     Reflection.Generated.obj
+ 0006:00000238       ??_C@_04ODLBFFJE@User?$AA@JDNHJLAG@ 0041e238     Reflection.Generated.obj
+ 0006:00000240       ?_reflection_types@@3QBUType@@B 0041e240     Reflection.Generated.obj
+ 0006:00000b5c       ??_C@_06JIODDOFH@System?$AA@JDNHJLAG@ 0041eb5c     Reflection.Generated.obj
+ 0006:00000b64       ??_C@_04GKJNKENE@void?$AA@JDNHJLAG@ 0041eb64     Reflection.Generated.obj
+ 0006:00000b6c       ??_C@_06IEOJBDIK@object?$AA@JDNHJLAG@ 0041eb6c     Reflection.Generated.obj
+ 0006:00000b74       ??_C@_05OOLPEHEB@void?$CK?$AA@JDNHJLAG@ 0041eb74     Reflection.Generated.obj
+ 0006:00000b7c       ??_C@_04DDKJGDCM@bool?$AA@JDNHJLAG@ 0041eb7c     Reflection.Generated.obj
+ 0006:00000b84       ??_C@_02EBJGEMBP@s8?$AA@JDNHJLAG@ 0041eb84     Reflection.Generated.obj
+ 0006:00000b88       ??_C@_02EFBLDAKN@u8?$AA@JDNHJLAG@ 0041eb88     Reflection.Generated.obj
+ 0006:00000b8c       ??_C@_03LIEDBED@s16?$AA@JDNHJLAG@ 0041eb8c     Reflection.Generated.obj
+ 0006:00000b90       ??_C@_03COOPGOJP@u16?$AA@JDNHJLAG@ 0041eb90     Reflection.Generated.obj
+ 0006:00000b94       ??_C@_03GMGMCACJ@s32?$AA@JDNHJLAG@ 0041eb94     Reflection.Generated.obj
+ 0006:00000b98       ??_C@_03EJAHHPPF@u32?$AA@JDNHJLAG@ 0041eb98     Reflection.Generated.obj
+ 0006:00000b9c       ??_C@_03DMPNEFEE@s64?$AA@JDNHJLAG@ 0041eb9c     Reflection.Generated.obj
+ 0006:00000ba0       ??_C@_03BJJGBKJI@u64?$AA@JDNHJLAG@ 0041eba0     Reflection.Generated.obj
+ 0006:00000ba4       ??_C@_05KNFBNCOH@float?$AA@JDNHJLAG@ 0041eba4     Reflection.Generated.obj
+ 0006:00000bac       ??_C@_06BNJCAIGJ@double?$AA@JDNHJLAG@ 0041ebac     Reflection.Generated.obj
+ 0006:00000bb4       ??_C@_04ENMBGAPA@char?$AA@JDNHJLAG@ 0041ebb4     Reflection.Generated.obj
+ 0006:00000bbc       ??_C@_06ICGJLFIM@string?$AA@JDNHJLAG@ 0041ebbc     Reflection.Generated.obj
+ 0006:00000bc4       ??_C@_04PMDHLBMH@Flag?$AA@JDNHJLAG@ 0041ebc4     Reflection.Generated.obj
+ 0006:00000bcc       ??_C@_06ENNEIMBA@String?$AA@JDNHJLAG@ 0041ebcc     Reflection.Generated.obj
+ 0006:00000bd4       ??_C@_06ELFECKBG@Object?$AA@JDNHJLAG@ 0041ebd4     Reflection.Generated.obj
+ 0006:00000bdc       ??_C@_05MDLMAGGB@Month?$AA@JDNHJLAG@ 0041ebdc     Reflection.Generated.obj
+ 0006:00000be4       ??_C@_03HNCFIMCB@Day?$AA@JDNHJLAG@ 0041ebe4     Reflection.Generated.obj
+ 0006:00000be8       ??_C@_06EEHBKKEG@Casing?$AA@JDNHJLAG@ 0041ebe8     Reflection.Generated.obj
+ 0006:00000bf0       ??_C@_0L@NKIIONIP@MemoryType?$AA@JDNHJLAG@ 0041ebf0     Reflection.Generated.obj
+ 0006:00000c00       ??_C@_06LEBJIAPJ@Memory?$AA@JDNHJLAG@ 0041ec00     Reflection.Generated.obj
+ 0006:00000c08       ??_C@_04BOICIEDE@Unit?$AA@JDNHJLAG@ 0041ec08     Reflection.Generated.obj
+ 0006:00000c10       ??_C@_09PLOAJMNF@ILockable?$AA@JDNHJLAG@ 0041ec10     Reflection.Generated.obj
+ 0006:00000c1c       ??_C@_0P@OKCPOHLA@LockableLocker?$AA@JDNHJLAG@ 0041ec1c     Reflection.Generated.obj
+ 0006:00000c30       ??_C@_09FBNMMHMJ@Exception?$AA@JDNHJLAG@ 0041ec30     Reflection.Generated.obj
+ 0006:00000c3c       ??_C@_0BA@MKICPCJN@AssertException?$AA@JDNHJLAG@ 0041ec3c     Reflection.Generated.obj
+ 0006:00000c50       ??_C@_0O@KCOOPJB@ConsoleStream?$AA@JDNHJLAG@ 0041ec50     Reflection.Generated.obj
+ 0006:00000c60       ??_C@_05PPCCJOHF@Maths?$AA@JDNHJLAG@ 0041ec60     Reflection.Generated.obj
+ 0006:00000c68       ??_C@_07POICKINC@Matrix3?$AA@JDNHJLAG@ 0041ec68     Reflection.Generated.obj
+ 0006:00000c74       ??_C@_06EJLHHFEI@Point2?$AA@JDNHJLAG@ 0041ec74     Reflection.Generated.obj
+ 0006:00000c7c       ??_C@_06FAKMEEAJ@Point3?$AA@JDNHJLAG@ 0041ec7c     Reflection.Generated.obj
+ 0006:00000c84       ??_C@_07ILGIINHE@Vector2?$AA@JDNHJLAG@ 0041ec84     Reflection.Generated.obj
+ 0006:00000c90       ??_C@_07JCHDLMDF@Vector3?$AA@JDNHJLAG@ 0041ec90     Reflection.Generated.obj
+ 0006:00000c9c       ??_C@_0L@BJJHHMLP@Quaternion?$AA@JDNHJLAG@ 0041ec9c     Reflection.Generated.obj
+ 0006:00000cac       ??_C@_09IPGFHCHI@UnitGroup?$AA@JDNHJLAG@ 0041ecac     Reflection.Generated.obj
+ 0006:00000cb8       ??_C@_05CFLIFMAE@Units?$AA@JDNHJLAG@ 0041ecb8     Reflection.Generated.obj
+ 0006:00000cc0       ??_C@_0N@NFBKOLIL@ConsoleColor?$AA@JDNHJLAG@ 0041ecc0     Reflection.Generated.obj
+ 0006:00000cd0       ??_C@_07PGLPGHFC@Console?$AA@JDNHJLAG@ 0041ecd0     Reflection.Generated.obj
+ 0006:00000cdc       ??_C@_03GGEOLGBL@Log?$AA@JDNHJLAG@ 0041ecdc     Reflection.Generated.obj
+ 0006:00000ce0       ??_C@_06GNPGMDNI@Serial?$AA@JDNHJLAG@ 0041ece0     Reflection.Generated.obj
+ 0006:00000ce8       ??_C@_07HJJGFMDH@Color24?$AA@JDNHJLAG@ 0041ece8     Reflection.Generated.obj
+ 0006:00000cf4       ??_C@_07COAOJBIG@Color32?$AA@JDNHJLAG@ 0041ecf4     Reflection.Generated.obj
+ 0006:00000d00       ??_C@_07LBMDDOBF@Matrix4?$AA@JDNHJLAG@ 0041ed00     Reflection.Generated.obj
+ 0006:00000d0c       ??_C@_0M@NJALGCHB@Application?$AA@JDNHJLAG@ 0041ed0c     Reflection.Generated.obj
+ 0006:00000d1c       ??_C@_04IBBNLEM@Game?$AA@JDNHJLAG@ 0041ed1c     Reflection.Generated.obj
+ 0006:00000d24       ??_C@_05NHFJDMOA@Timer?$AA@JDNHJLAG@ 0041ed24     Reflection.Generated.obj
+ 0006:00000d2c       ??_C@_0N@KMBCEFJF@RandomStream?$AA@JDNHJLAG@ 0041ed2c     Reflection.Generated.obj
+ 0006:00000d3c       ??_C@_06BEOPDEGP@Random?$AA@JDNHJLAG@ 0041ed3c     Reflection.Generated.obj
+ 0006:00000d44       ??_C@_08ONFDABMO@TimeSpan?$AA@JDNHJLAG@ 0041ed44     Reflection.Generated.obj
+ 0006:00000d50       ??_C@_08BFOPGFLN@DateTime?$AA@JDNHJLAG@ 0041ed50     Reflection.Generated.obj
+ 0006:00000d5c       ??_C@_04KOACHJEN@Type?$AA@JDNHJLAG@ 0041ed5c     Reflection.Generated.obj
+ 0006:00000d64       ??_C@_05IBGOOFKP@Mutex?$AA@JDNHJLAG@ 0041ed64     Reflection.Generated.obj
+ 0006:00000d6c       ??_C@_07MNGBFJEN@Process?$AA@JDNHJLAG@ 0041ed6c     Reflection.Generated.obj
+ 0006:00000d78       ??_C@_0L@HEACKNAM@Dispatcher?$AA@JDNHJLAG@ 0041ed78     Reflection.Generated.obj
+ 0006:00000d88       ??_C@_06JGMANLDI@Thread?$AA@JDNHJLAG@ 0041ed88     Reflection.Generated.obj
+ 0006:00000d90       ??_C@_08CBLGNKGC@Spinlock?$AA@JDNHJLAG@ 0041ed90     Reflection.Generated.obj
+ 0006:00000d9c       ??_C@_06CPODCDOI@Signal?$AA@JDNHJLAG@ 0041ed9c     Reflection.Generated.obj
+ 0006:00000da4       ??_C@_08JLLDKAGD@Debugger?$AA@JDNHJLAG@ 0041eda4     Reflection.Generated.obj
+ 0006:00000db0       ??_C@_08JAEFKDLJ@Profiler?$AA@JDNHJLAG@ 0041edb0     Reflection.Generated.obj
+ 0006:00000dbc       ??_C@_0BG@GPKNGAPL@AccessibilityModifier?$AA@JDNHJLAG@ 0041edbc     Reflection.Generated.obj
+ 0006:00000dd8       ??_C@_06CGMNKLGA@Symbol?$AA@JDNHJLAG@ 0041edd8     Reflection.Generated.obj
+ 0006:00000de0       ??_C@_0M@GKLEJKJI@Constructor?$AA@JDNHJLAG@ 0041ede0     Reflection.Generated.obj
+ 0006:00000df0       ??_C@_0BH@EPMDHHDA@VirtualizationModifier?$AA@JDNHJLAG@ 0041edf0     Reflection.Generated.obj
+ 0006:00000e0c       ??_C@_06KPKMBBIM@Method?$AA@JDNHJLAG@ 0041ee0c     Reflection.Generated.obj
+ 0006:00000e14       ??_C@_0L@IODOICBM@Reflection?$AA@JDNHJLAG@ 0041ee14     Reflection.Generated.obj
+ 0006:00000e24       ??_C@_09OAJLAGAI@Namespace?$AA@JDNHJLAG@ 0041ee24     Reflection.Generated.obj
+ 0006:00000e30       ??_C@_08MOOMJPBO@Property?$AA@JDNHJLAG@ 0041ee30     Reflection.Generated.obj
+ 0006:00000e3c       ??_C@_0L@MCFJKFMK@Serializer?$AA@JDNHJLAG@ 0041ee3c     Reflection.Generated.obj
+ 0006:00000e4c       ??_C@_0L@NMLACBOJ@Executable?$AA@JDNHJLAG@ 0041ee4c     Reflection.Generated.obj
+ 0006:00000e5c       ??_C@_06GFNDLOKD@Record?$AA@JDNHJLAG@ 0041ee5c     Reflection.Generated.obj
+ 0006:00000e64       ??_C@_05LFBINIGO@Table?$AA@JDNHJLAG@ 0041ee64     Reflection.Generated.obj
+ 0006:00000e6c       ??_C@_08HDBDMMBI@Database?$AA@JDNHJLAG@ 0041ee6c     Reflection.Generated.obj
+ 0006:00000e78       ??_C@_0L@KDJNIHFO@SeekOrigin?$AA@JDNHJLAG@ 0041ee78     Reflection.Generated.obj
+ 0006:00000e88       ??_C@_06PGLBJMBP@Stream?$AA@JDNHJLAG@ 0041ee88     Reflection.Generated.obj
+ 0006:00000e90       ??_C@_0L@JMJCGNLI@TextStream?$AA@JDNHJLAG@ 0041ee90     Reflection.Generated.obj
+ 0006:00000ea0       ??_C@_0N@JJIIKNKN@BufferStream?$AA@JDNHJLAG@ 0041eea0     Reflection.Generated.obj
+ 0006:00000eb0       ??_C@_0P@KJDDGAFH@FileAttributes?$AA@JDNHJLAG@ 0041eeb0     Reflection.Generated.obj
+ 0006:00000ec4       ??_C@_04PBAHLACE@File?$AA@JDNHJLAG@ 0041eec4     Reflection.Generated.obj
+ 0006:00000ecc       ??_C@_09EOAFACM@Directory?$AA@JDNHJLAG@ 0041eecc     Reflection.Generated.obj
+ 0006:00000ed8       ??_C@_0L@DBAJNCPE@FileStream?$AA@JDNHJLAG@ 0041eed8     Reflection.Generated.obj
+ 0006:00000ee8       ??_C@_0O@MACGFAEE@DirectoryLink?$AA@JDNHJLAG@ 0041eee8     Reflection.Generated.obj
+ 0006:00000ef8       ??_C@_0M@BMJHBJFP@AsyncStream?$AA@JDNHJLAG@ 0041eef8     Reflection.Generated.obj
+ 0006:00000f08       ??_C@_0L@OJOAMFFC@DataStream?$AA@JDNHJLAG@ 0041ef08     Reflection.Generated.obj
+ 0006:00000f18       ??_C@_09LGFHGHBB@TeeStream?$AA@JDNHJLAG@ 0041ef18     Reflection.Generated.obj
+ 0006:00000f24       ??_C@_06OIEJKIHP@Device?$AA@JDNHJLAG@ 0041ef24     Reflection.Generated.obj
+ 0006:00000f2c       ??_C@_0N@CFCGMPFG@PointerEvent?$AA@JDNHJLAG@ 0041ef2c     Reflection.Generated.obj
+ 0006:00000f3c       ??_C@_0BF@GEDCJBNJ@PointerPositionEvent?$AA@JDNHJLAG@ 0041ef3c     Reflection.Generated.obj
+ 0006:00000f58       ??_C@_0BB@KDJOJMAC@PointerMoveEvent?$AA@JDNHJLAG@ 0041ef58     Reflection.Generated.obj
+ 0006:00000f6c       ??_C@_0BD@CLGNJBBI@PointerScrollEvent?$AA@JDNHJLAG@ 0041ef6c     Reflection.Generated.obj
+ 0006:00000f84       ??_C@_0O@BKGMFGHD@PointerDevice?$AA@JDNHJLAG@ 0041ef84     Reflection.Generated.obj
+ 0006:00000f94       ??_C@_07PGMKDIBI@Buttons?$AA@JDNHJLAG@ 0041ef94     Reflection.Generated.obj
+ 0006:00000fa0       ??_C@_0P@CHABILCL@RawButtonEvent?$AA@JDNHJLAG@ 0041efa0     Reflection.Generated.obj
+ 0006:00000fb4       ??_C@_0M@HLENAPID@ButtonEvent?$AA@JDNHJLAG@ 0041efb4     Reflection.Generated.obj
+ 0006:00000fc4       ??_C@_0P@PPMCDAMI@ButtonsMapping?$AA@JDNHJLAG@ 0041efc4     Reflection.Generated.obj
+ 0006:00000fd8       ??_C@_0BC@LICNNOCA@CharactersMapping?$AA@JDNHJLAG@ 0041efd8     Reflection.Generated.obj
+ 0006:00000ff0       ??_C@_0N@PFHBKKPO@ButtonsState?$AA@JDNHJLAG@ 0041eff0     Reflection.Generated.obj
+ 0006:00001000       ??_C@_0O@FMLHPKEP@ButtonsDevice?$AA@JDNHJLAG@ 0041f000     Reflection.Generated.obj
+ 0006:00001010       ??_C@_06JMINFFLC@Jauges?$AA@JDNHJLAG@ 0041f010     Reflection.Generated.obj
+ 0006:00001018       ??_C@_0L@LMLPPBF@JaugeEvent?$AA@JDNHJLAG@ 0041f018     Reflection.Generated.obj
+ 0006:00001028       ??_C@_0N@LEOMGOGB@InputManager?$AA@JDNHJLAG@ 0041f028     Reflection.Generated.obj
+ 0006:00001038       ??_C@_0BB@EGKBEMBO@DeviceEnumerator?$AA@JDNHJLAG@ 0041f038     Reflection.Generated.obj
+ 0006:0000104c       ??_C@_0BE@LAAMNJDF@CommunicationDevice?$AA@JDNHJLAG@ 0041f04c     Reflection.Generated.obj
+ 0006:00001064       ??_C@_0O@LOANDAEC@NetworkDevice?$AA@JDNHJLAG@ 0041f064     Reflection.Generated.obj
+ 0006:00001074       ??_C@_0M@GDNBMJPD@DisplayMode?$AA@JDNHJLAG@ 0041f074     Reflection.Generated.obj
+ 0006:00001084       ??_C@_0P@DDIJCOOL@DisplayOverlay?$AA@JDNHJLAG@ 0041f084     Reflection.Generated.obj
+ 0006:00001098       ??_C@_0O@OLMHFMMP@DisplayDevice?$AA@JDNHJLAG@ 0041f098     Reflection.Generated.obj
+ 0006:000010a8       ??_C@_09PPBHLBLB@InputType?$AA@JDNHJLAG@ 0041f0a8     Reflection.Generated.obj
+ 0006:000010b4       ??_C@_0BA@ENAOMKOJ@InputDeviceType?$AA@JDNHJLAG@ 0041f0b4     Reflection.Generated.obj
+ 0006:000010c8       ??_C@_0M@MFPPBNFJ@InputDevice?$AA@JDNHJLAG@ 0041f0c8     Reflection.Generated.obj
+ 0006:000010d8       ??_C@_0O@OHBNMDCF@StorageDevice?$AA@JDNHJLAG@ 0041f0d8     Reflection.Generated.obj
+ 0006:000010e8       ??_C@_0L@FPFLHALM@FileSystem?$AA@JDNHJLAG@ 0041f0e8     Reflection.Generated.obj
+ 0006:000010f8       ??_C@_0BK@NEHIHHPN@FileSystemConstructorBase?$AA@JDNHJLAG@ 0041f0f8     Reflection.Generated.obj
+ 0006:00001118       ??_C@_05MNBBFGB@Types?$AA@JDNHJLAG@ 0041f118     Reflection.Generated.obj
+ 0006:00001120       ??_C@_06KLBDMJOP@Values?$AA@JDNHJLAG@ 0041f120     Reflection.Generated.obj
+ 0006:00001128       ??_C@_06ICDCBJPI@Colors?$AA@JDNHJLAG@ 0041f128     Reflection.Generated.obj
+ 0006:00001130       ??_C@_07BDIJHMJM@Runtime?$AA@JDNHJLAG@ 0041f130     Reflection.Generated.obj
+ 0006:0000113c       ??_C@_04DICKPMGH@Data?$AA@JDNHJLAG@ 0041f13c     Reflection.Generated.obj
+ 0006:00001144       ??_C@_02IBEMDGI@IO?$AA@JDNHJLAG@ 0041f144     Reflection.Generated.obj
+ 0006:00001148       ??_C@_07MEEAAPDA@Devices?$AA@JDNHJLAG@ 0041f148     Reflection.Generated.obj
+ 0006:00001154       ??_C@_08MKHMICKL@Graphics?$AA@JDNHJLAG@ 0041f154     Reflection.Generated.obj
+ 0006:00001160       ??_C@_09JKPGEJCH@Interface?$AA@JDNHJLAG@ 0041f160     Reflection.Generated.obj
+ 0006:0000116c       ??_C@_07PAINMLEO@Objects?$AA@JDNHJLAG@ 0041f16c     Reflection.Generated.obj
+ 0008:00000000       ___guard_check_icall_fptr  00421000     MSVCRTD:guard_support.obj

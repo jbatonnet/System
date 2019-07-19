@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="MSVC\Arithmetic.cpp" />
+    <ClCompile Include="MSVC\Runtime.cpp" />
+    <ClCompile Include="RTTI\RTTI.cpp" />
+    <ClCompile Include="MSVC\Entry.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Include">
+      <UniqueIdentifier>{86c3b630-6c95-41dc-b223-977ced745987}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdarg.h" />
+    <ClInclude Include="RTTI\RTTI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="typeinfo" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,9 @@
+<Application>
+    <Window Title="Databases" Size="720,480">
+        <StackContainer Name="Tables" Size="128,*" Dock="LeftFull" Orientation="Vertical" />
+        <Grid Name="Results" Position="128,0" Size="+,*" Dock="Full">
+            <Grid.Column>ID</Grid.Column>
+            <Grid.Column>Name</Grid.Column>
+        </Grid>
+    </Window>
+</Application>

@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Memory\PMM.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory\VMM.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Entry.cpp" />
+    <ClCompile Include="Memory\Memory.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Structures\OrderedArray.cpp">
+      <Filter>Utilities\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Files.cpp">
+      <Filter>Drivers\FileSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="Devices\Device.cpp">
+      <Filter>Drivers\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Devices\Storage\FileSystem.cpp">
+      <Filter>Drivers\FileSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="Devices\Drivers\ATA\ATA.cpp">
+      <Filter>Drivers\ATA</Filter>
+    </ClCompile>
+    <ClCompile Include="Devices\Drivers\ATA\ATADevice.cpp">
+      <Filter>Drivers\ATA</Filter>
+    </ClCompile>
+    <ClCompile Include="Devices\Drivers\FileSystems\VFS\VFS.cpp">
+      <Filter>Drivers\FileSystems\VFS</Filter>
+    </ClCompile>
+    <ClCompile Include="Devices\Drivers\Keyboard\Keyboard.cpp">
+      <Filter>Drivers\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Devices\Drivers\Driver.cpp">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Devices\Drivers\VESA\VESA.cpp" />
+    <ClCompile Include="Utilities\Timer.cpp" />
+    <ClCompile Include="Devices\Drivers\ATA\ATADriver.cpp" />
+    <ClCompile Include="Devices\Drivers\FileSystems\FAT\FATDriver.cpp" />
+    <ClCompile Include="Devices\Screen\Screen.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Devices\Drivers\VESA\VESADriver.cpp" />
+    <ClCompile Include="Devices\Drivers\FileSystems\FAT\FATFileSystem.cpp" />
+    <ClCompile Include="Devices\Drivers\Mouse\Mouse.cpp" />
+    <ClCompile Include="Devices\Drivers\Mouse\MouseDevice.cpp" />
+    <ClCompile Include="Devices\Drivers\Mouse\MouseDriver.cpp" />
+    <ClCompile Include="Devices\Input\InputManager.cpp" />
+    <ClCompile Include="Devices\Drivers\VESA\VESADevice.cpp" />
+    <ClCompile Include="Debugging\StackTrace.cpp" />
+    <ClCompile Include="Applications\Shell\ShellControl.cpp" />
+    <ClCompile Include="Libraries\SLRE\slre.c" />
+    <ClCompile Include="Applications\Shell\ShellApplication.cpp" />
+    <ClCompile Include="Devices\Drivers\PCI\PCIDriver.cpp" />
+    <ClCompile Include="Devices\Drivers\PCI\PCI.cpp" />
+    <ClCompile Include="Devices\Drivers\Serial\SerialDevice.cpp" />
+    <ClCompile Include="Devices\Drivers\Serial\SerialDriver.cpp" />
+    <ClCompile Include="Devices\Drivers\Serial\SerialStream.cpp" />
+    <ClCompile Include="Applications\Monitor\MonitorApplication.cpp" />
+    <ClCompile Include="Devices\Drivers\Keyboard\KeyboardDevice.cpp" />
+    <ClCompile Include="Devices\Drivers\Keyboard\KeyboardDriver.cpp" />
+    <ClCompile Include="Debugging\Console.cpp" />
+    <ClCompile Include="Interface\Message.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\Tools\Backdoor.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\SVGA\SVGA.cpp" />
+    <ClCompile Include="Graphics\Font.cpp" />
+    <ClCompile Include="Graphics\Bitmap.cpp" />
+    <ClCompile Include="IO\Stream.cpp" />
+    <ClCompile Include="Test.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\Mouse\Mouse.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\Mouse\MouseDevice.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\Mouse\MouseDriver.cpp" />
+    <ClCompile Include="Debugging\Serial.cpp" />
+    <ClCompile Include="Devices\Drivers\Serial\SerialFunctions.cpp" />
+    <ClCompile Include="Runtime\Threading\Process.cpp" />
+    <ClCompile Include="Runtime\Threading\Thread.cpp" />
+    <ClCompile Include="Devices\Drivers\PCI\PCIDevice.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\SVGA\SVGADevice.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\VMwareDriver.cpp" />
+    <ClCompile Include="Runtime\Reflection\Reflection.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\AMDNet\AMDNetDevice.cpp" />
+    <ClCompile Include="Devices\DeviceManager.cpp" />
+    <ClCompile Include="Devices\Drivers\PCI\PCIController.cpp" />
+    <ClCompile Include="Debugging\Debugger.cpp" />
+    <ClCompile Include="Applications\Launcher\LauncherApplication.cpp" />
+    <ClCompile Include="Memory\NewHeap.cpp" />
+    <ClCompile Include="Memory\ClassicHeap.cpp" />
+    <ClCompile Include="Runtime\Threading\Task.x86.cpp" />
+    <ClCompile Include="Interface\WindowsManager.cpp" />
+    <ClCompile Include="Runtime\Threading\Dispatcher.cpp" />
+    <ClCompile Include="Shell.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Drivers">
+      <UniqueIdentifier>{320c43bd-11cb-404a-817d-e4fa9c57133b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drivers\Keyboard">
+      <UniqueIdentifier>{97ede2db-d388-4e0a-9a70-d0d4cd4a7aef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drivers\Floppy">
+      <UniqueIdentifier>{aef1a9a6-154a-4b36-a3fa-9f1019e00593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shell">
+      <UniqueIdentifier>{ffd42175-4f2a-4947-b5d3-225c5273fdd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{033e6af8-f9e7-46c6-9ab5-e1464ff8877e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drivers\ATA">
+      <UniqueIdentifier>{ab3f3f97-a8e3-4543-ae1f-dcc7f49ecd8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen">
+      <UniqueIdentifier>{0d13c1fd-0cc7-40b1-aad8-53443980e6f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drivers\FileSystems">
+      <UniqueIdentifier>{e72adcd8-bced-4258-8a2d-a81d145f7d8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{a2de7536-a981-47e7-9c04-6b1e7ab9f030}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drivers\FileSystems\VFS">
+      <UniqueIdentifier>{b5856075-8e38-445e-9fee-928aa467bd27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\IO">
+      <UniqueIdentifier>{b5ed8369-73a0-49a7-91cb-77f43eaadae3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Structures">
+      <UniqueIdentifier>{e47b3aba-b2dc-493d-ad7d-d4bc44bf5ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drivers\Devices">
+      <UniqueIdentifier>{cace1b67-498d-4c18-85c2-09f23c5a0fa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drivers\Devices\Storage">
+      <UniqueIdentifier>{bc7ada9c-b1b0-4880-b120-989527948dff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API">
+      <UniqueIdentifier>{bd6b0806-98df-47f5-ba07-747167bbfc32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tasking">
+      <UniqueIdentifier>{a9dd0f20-a49e-409e-ac6c-2112d2731310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ConLib">
+      <UniqueIdentifier>{b00b5414-711b-43bb-b283-f55095f1ec2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Users">
+      <UniqueIdentifier>{b834fcfa-d6a7-4f24-bed9-1fe19e04a602}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drivers\FileSystems\FAT">
+      <UniqueIdentifier>{398c7843-9e82-44e3-b457-5cb7f6d2610c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{55bea8a9-dcf1-47a3-a6c7-5b892f5a9fd6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Memory\PMM.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\VMM.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\Memory.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Structures\OrderedArray.h">
+      <Filter>Utilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Kernel.h" />
+    <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="Devices\Drivers\ATA\ATA.h">
+      <Filter>Drivers\ATA</Filter>
+    </ClInclude>
+    <ClInclude Include="Devices\Drivers\ATA\ATADevice.h">
+      <Filter>Drivers\ATA</Filter>
+    </ClInclude>
+    <ClInclude Include="Devices\Drivers\FileSystems\FAT\FAT.h">
+      <Filter>Drivers\FileSystems\FAT</Filter>
+    </ClInclude>
+    <ClInclude Include="Devices\Drivers\FileSystems\VFS\VFS.h">
+      <Filter>Drivers\FileSystems\VFS</Filter>
+    </ClInclude>
+    <ClInclude Include="Devices\Drivers\Keyboard\Keyboard.h">
+      <Filter>Drivers\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Devices\Drivers\Driver.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Devices\Drivers\VESA\VESA.h" />
+    <ClInclude Include="Multiboot.h" />
+    <ClInclude Include="Devices\Drivers\ATA\ATADriver.h" />
+    <ClInclude Include="Devices\Drivers\FileSystems\FAT\FATDriver.h" />
+    <ClInclude Include="Devices\Drivers\FileSystems\FAT\FATDirectory.h" />
+    <ClInclude Include="IO\Streams\DataStream.h">
+      <Filter>Utilities\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Streams\Stream.h">
+      <Filter>Utilities\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Devices\Screen\Screen.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Devices\Drivers\VESA\VESADriver.h" />
+    <ClInclude Include="Maths\Maths.h" />
+    <ClInclude Include="IO\Streams\MemoryStream.h" />
+    <ClInclude Include="Devices\Drivers\FileSystems\FAT\FATFile.h" />
+    <ClInclude Include="Devices\Drivers\FileSystems\FAT\FATStream.h" />
+    <ClInclude Include="Devices\Drivers\FileSystems\FAT\FATFileSystem.h" />
+    <ClInclude Include="Data\Database.h" />
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="IO\Streams\DeflateStream.h" />
+    <ClInclude Include="Devices\Drivers\Mouse\MouseDevice.h" />
+    <ClInclude Include="Devices\Drivers\Mouse\Mouse.h" />
+    <ClInclude Include="Devices\Drivers\Mouse\MouseDriver.h" />
+    <ClInclude Include="Devices\Drivers\VESA\VESADevice.h" />
+    <ClInclude Include="Applications\Test\TestApplication.h" />
+    <ClInclude Include="Debugging\StackTrace.h" />
+    <ClInclude Include="IO\Streams\TextStream.h" />
+    <ClInclude Include="Applications\Shell\ShellControl.h" />
+    <ClInclude Include="Libraries\SLRE\slre.h" />
+    <ClInclude Include="Applications\Shell\ShellApplication.h" />
+    <ClInclude Include="Interrupts.h" />
+    <ClInclude Include="Devices\Drivers\PCI\PCIDriver.h" />
+    <ClInclude Include="Devices\Drivers\PCI\PCI.h" />
+    <ClInclude Include="Devices\Drivers\Serial\SerialDevice.h" />
+    <ClInclude Include="Devices\Drivers\Serial\SerialDriver.h" />
+    <ClInclude Include="Devices\Drivers\Serial\SerialStream.h" />
+    <ClInclude Include="Applications\Monitor\MonitorApplication.h" />
+    <ClInclude Include="IO\Streams\BufferStream.h" />
+    <ClInclude Include="Devices\Drivers\Keyboard\KeyboardDevice.h" />
+    <ClInclude Include="Devices\Drivers\Keyboard\KeyboardDriver.h" />
+    <ClInclude Include="IO\Streams\TeeStream.h" />
+    <ClInclude Include="Applications\Editor\EditorApplication.h" />
+    <ClInclude Include="Interface\Message.h" />
+    <ClInclude Include="Devices\Drivers\VMware\Tools\Backdoor.h" />
+    <ClInclude Include="Devices\Drivers\VMware\SVGA\SVGA.h" />
+    <ClInclude Include="Devices\Drivers\VMware\Mouse\Mouse.h" />
+    <ClInclude Include="Devices\Drivers\VMware\Mouse\MouseDevice.h" />
+    <ClInclude Include="Devices\Drivers\VMware\Mouse\MouseDriver.h" />
+    <ClInclude Include="Memory\Heap.h" />
+    <ClInclude Include="Devices\Drivers\Serial\SerialFunctions.h" />
+    <ClInclude Include="Applications\Breakout\BreakoutGame.h" />
+    <ClInclude Include="Runtime\Threading\Process.h" />
+    <ClInclude Include="Runtime\Threading\Task.h" />
+    <ClInclude Include="Runtime\Threading\Thread.h" />
+    <ClInclude Include="Test.h" />
+    <ClInclude Include="Data\Record.h" />
+    <ClInclude Include="Data\Table.h" />
+    <ClInclude Include="Devices\Drivers\PCI\PCIDevice.h" />
+    <ClInclude Include="Devices\Drivers\VMware\SVGA\SVGADevice.h" />
+    <ClInclude Include="Devices\Drivers\VMware\VMwareDriver.h" />
+    <ClInclude Include="Runtime\Reflection\Reflection.h" />
+    <ClInclude Include="Applications\Files\FilesApplication.h" />
+    <ClInclude Include="Applications\Databases\DatabasesApplication.h" />
+    <ClInclude Include="Devices\Drivers\VMware\AMDNet\AMDNetDevice.h" />
+    <ClInclude Include="Devices\DeviceManager.h" />
+    <ClInclude Include="Devices\Drivers\PCI\PCIController.h" />
+    <ClInclude Include="Devices\Drivers\VMware\AMDNet\AMDNet.h" />
+    <ClInclude Include="Applications\Launcher\LauncherApplication.h" />
+    <ClInclude Include="Debugging\Debugger.h" />
+    <ClInclude Include="Runtime\Threading\Dispatcher.h" />
+    <ClInclude Include="Shell.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TODO.txt" />
+    <None Include="Kernel.order" />
+  </ItemGroup>
+</Project>

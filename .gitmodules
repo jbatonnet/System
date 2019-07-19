@@ -1,0 +1,18 @@
+[submodule "Documents/Sources/MOSA"]
+	path = Documents/Sources/MOSA
+	url = https://github.com/mosa/MOSA-Project.git
+[submodule "Documents/Sources/freetype2"]
+	path = Documents/Sources/freetype2
+	url = git://git.sv.nongnu.org/freetype/freetype2.git
+[submodule "Documents/Sources/newlib"]
+	path = Documents/Sources/newlib
+	url = git://sourceware.org/git/newlib-cygwin.git
+[submodule "Documents/Sources/ustl"]
+	path = Documents/Sources/ustl
+	url = https://github.com/msharov/ustl.git
+[submodule "Documents/Sources/vmware-svga"]
+	path = Documents/Sources/vmware-svga
+	url = git://vmware-svga.git.sourceforge.net/gitroot/vmware-svga/vmware-svga
+[submodule "Documents/Sources/xorg-xf86-video-vesa"]
+	path = Documents/Sources/xorg-xf86-video-vesa
+	url = https://github.com/freedesktop/xorg-xf86-video-vesa.git

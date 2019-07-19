@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Kernel|ARM">
+      <Configuration>Kernel</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Kernel|Win32">
+      <Configuration>Kernel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Kernel|x64">
+      <Configuration>Kernel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Windows|ARM">
+      <Configuration>Windows</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Windows|Win32">
+      <Configuration>Windows</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Windows|x64">
+      <Configuration>Windows</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E977ECFC-8390-4525-AA43-DB400305B8E3}</ProjectGuid>
+    <RootNamespace>System</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Kernel|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>
+    </CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Kernel|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet />
+    <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Kernel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet />
+    <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Kernel|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Kernel|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Kernel|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Windows|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Windows|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Windows|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Kernel|Win32'">
+    <TargetExt>.lib</TargetExt>
+    <ExecutablePath>$(VC_ExecutablePath_x86)</ExecutablePath>
+    <IncludePath>$(SolutionDir)</IncludePath>
+    <ReferencePath />
+    <LibraryPath>../Lib</LibraryPath>
+    <LibraryWPath />
+    <SourcePath />
+    <ExcludePath />
+    <OutDir>..\Lib\</OutDir>
+    <TargetName>System</TargetName>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Kernel|ARM'">
+    <TargetName>System</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <ExecutablePath>$(VC_ExecutablePath_x86)</ExecutablePath>
+    <IncludePath>$(SolutionDir)</IncludePath>
+    <ReferencePath />
+    <LibraryPath>../Lib</LibraryPath>
+    <LibraryWPath />
+    <SourcePath />
+    <ExcludePath />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Kernel|x64'">
+    <TargetName>System</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <ExecutablePath>$(VC_ExecutablePath_x86)</ExecutablePath>
+    <IncludePath>$(SolutionDir)</IncludePath>
+    <ReferencePath />
+    <LibraryPath>../Lib</LibraryPath>
+    <LibraryWPath />
+    <SourcePath />
+    <ExcludePath />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows|Win32'">
+    <TargetExt>.lib</TargetExt>
+    <OutDir>..\Lib\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Kernel|Win32'">
+    <ClCompile>
+      <WarningLevel>Level1</WarningLevel>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>KERNEL</PreprocessorDefinitions>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <UndefinePreprocessorDefinitions>WINDOWS</UndefinePreprocessorDefinitions>
+      <DisableSpecificWarnings>4626;5027</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>..\Lib\System.lib</OutputFile>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>CRT.lib</AdditionalDependencies>
+    </Lib>
+    <PreBuildEvent>
+      <Command>"$(SolutionDir)[Tools]\Binaries\Tools.Generators.PreBuild.exe"</Command>
+    </PreBuildEvent>
+    <Xdcmake>
+      <OutputFile>System.xml</OutputFile>
+    </Xdcmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Kernel|ARM'">
+    <ClCompile>
+      <WarningLevel>Level1</WarningLevel>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>..\Lib\System.lib</OutputFile>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>CRT.lib</AdditionalDependencies>
+    </Lib>
+    <PreBuildEvent>
+      <Command>"$(SolutionDir)[Tools]\API\bin\$(Configuration)\API.exe" "$(SolutionDir)System" "$(SolutionDir)System\API\API.cpp" "$(SolutionDir)Kernel\API\API.cpp"</Command>
+    </PreBuildEvent>
+    <Xdcmake>
+      <OutputFile>System.xml</OutputFile>
+    </Xdcmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Kernel|x64'">
+    <ClCompile>
+      <WarningLevel>Level1</WarningLevel>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>..\Lib\System.lib</OutputFile>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>CRT.lib</AdditionalDependencies>
+    </Lib>
+    <PreBuildEvent>
+      <Command>"$(SolutionDir)[Tools]\API\bin\$(Configuration)\API.exe" "$(SolutionDir)System" "$(SolutionDir)System\API\API.cpp" "$(SolutionDir)Kernel\API\API.cpp"</Command>
+    </PreBuildEvent>
+    <Xdcmake>
+      <OutputFile>System.xml</OutputFile>
+    </Xdcmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Windows|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WINDOWS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>kernel32.lib;winmm.lib;user32.lib;gdi32.lib;dwmapi.lib;shlwapi.lib;uxtheme.lib</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalOptions>/VERBOSE:LIB %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PreBuildEvent>
+      <Command>"$(SolutionDir)[Tools]\Binaries\Generator.PreBuild.exe"</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Windows|ARM'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Windows|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Graphics\FontFamily.cpp" />
+    <ClCompile Include="Interface\Containers\Mover.cpp" />
+    <ClCompile Include="Interface\Containers\ScrollContainer.cpp" />
+    <ClCompile Include="Interface\Controls\TextBox.cpp" />
+    <ClCompile Include="IO\Directory.cpp" />
+    <ClCompile Include="Runtime\Reflection\Symbol.cpp" />
+    <ClCompile Include="[Platforms]\Android\Common.Android.cpp" />
+    <ClCompile Include="[Platforms]\Kernel\Common.Kernel.cpp" />
+    <ClCompile Include="[Platforms]\Kernel\Compat.Kernel.cpp" />
+    <ClCompile Include="[Platforms]\Kernel\Mutex.Kernel.cpp" />
+    <ClCompile Include="[Platforms]\Kernel\Signal.Kernel.cpp" />
+    <ClCompile Include="[Platforms]\Windows\Common.Windows.cpp" />
+    <ClCompile Include="[Platforms]\Windows\Devices.Windows.cpp" />
+    <ClCompile Include="[Platforms]\Windows\Graphics.Windows.cpp" />
+    <ClCompile Include="[Platforms]\Windows\IO.Windows.cpp" />
+    <ClCompile Include="[Platforms]\Windows\Interface.Windows.cpp" />
+    <ClCompile Include="Objects\Applications\Game.cpp" />
+    <ClCompile Include="Base\Exception.cpp" />
+    <ClCompile Include="Base\Object.cpp" />
+    <ClCompile Include="Base\String.cpp" />
+    <ClCompile Include="Data\Database.cpp" />
+    <ClCompile Include="Debugging\Console.cpp" />
+    <ClCompile Include="Debugging\Log.cpp" />
+    <ClCompile Include="Debugging\Serial.cpp" />
+    <ClCompile Include="Devices\Communication\NetworkDevice.cpp" />
+    <ClCompile Include="Globalization\Localization.cpp" />
+    <ClCompile Include="Graphics\Bitmap.cpp" />
+    <ClCompile Include="Graphics\Surface.cpp" />
+    <ClCompile Include="Interface\Controls\Button.cpp" />
+    <ClCompile Include="Interface\Containers\Container.cpp" />
+    <ClCompile Include="Interface\Containers\StackContainer.cpp" />
+    <ClCompile Include="Interface\Controls\Control.cpp" />
+    <ClCompile Include="Interface\Controls\Graph.cpp" />
+    <ClCompile Include="Interface\Containers\Grid.cpp" />
+    <ClCompile Include="Interface\Controls\Image.cpp" />
+    <ClCompile Include="Interface\Controls\Label.cpp" />
+    <ClCompile Include="Interface\Containers\Tab.cpp" />
+    <ClCompile Include="Interface\Containers\TabContainer.cpp" />
+    <ClCompile Include="Interface\Controls\Menu.cpp" />
+    <ClCompile Include="Interface\Window.cpp" />
+    <ClCompile Include="IO\File.cpp" />
+    <ClCompile Include="IO\Streams\DataStream.cpp" />
+    <ClCompile Include="IO\Streams\Stream.cpp" />
+    <ClCompile Include="IO\Streams\TeeStream.cpp" />
+    <ClCompile Include="IO\Streams\TextStream.cpp" />
+    <ClCompile Include="Maths\Maths.cpp" />
+    <ClCompile Include="Maths\Matrixes.cpp" />
+    <ClCompile Include="Maths\Vectors.cpp" />
+    <ClCompile Include="Memory\Memory.cpp" />
+    <ClCompile Include="Runtime\Debugging\Debugger.cpp" />
+    <ClCompile Include="Runtime\Debugging\Profiler.cpp" />
+    <ClCompile Include="Runtime\Reflection\Method.cpp" />
+    <ClCompile Include="Runtime\Reflection\Type.cpp" />
+    <ClCompile Include="Runtime\Threading\Dispatcher.cpp" />
+    <ClCompile Include="Runtime\Threading\Spinlock.cpp" />
+    <ClCompile Include="Utilities\Random.cpp" />
+    <ClCompile Include="Utilities\Time\Timer.cpp" />
+    <ClCompile Include="Utilities\Units.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Graphics\FontFamily.h" />
+    <ClInclude Include="Interface\Containers\Mover.h" />
+    <ClInclude Include="IO\ResourceLoader.h" />
+    <ClInclude Include="Objects\Applications\Application.h" />
+    <ClInclude Include="Objects\Applications\Game.h" />
+    <ClInclude Include="Base\Default.h" />
+    <ClInclude Include="Base\Exceptions\AssertException.h" />
+    <ClInclude Include="Base\Flags.h" />
+    <ClInclude Include="Base\Functions.h" />
+    <ClInclude Include="Base\Macros.h" />
+    <ClInclude Include="Base\Object.h" />
+    <ClInclude Include="Base\Parameters.h" />
+    <ClInclude Include="Base\String.h" />
+    <ClInclude Include="Base\Templates.h" />
+    <ClInclude Include="Base\Types.h" />
+    <ClInclude Include="Base\Unit.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="Data\Database.h" />
+    <ClInclude Include="Data\Record.h" />
+    <ClInclude Include="Data\Table.h" />
+    <ClInclude Include="Debugging\Console.h" />
+    <ClInclude Include="Interface\Controls\TextBox.h" />
+    <ClInclude Include="IO\Directory.h" />
+    <ClInclude Include="IO\DirectoryLink.h" />
+    <ClInclude Include="Platform.h" />
+    <ClInclude Include="Runtime\Debugging\Debugger.h" />
+    <ClInclude Include="Debugging\Log.h" />
+    <ClInclude Include="Runtime\Debugging\Profiler.h" />
+    <ClInclude Include="Debugging\Serial.h" />
+    <ClInclude Include="Devices\Communication\CommunicationDevice.h" />
+    <ClInclude Include="Devices\Communication\NetworkDevice.h" />
+    <ClInclude Include="Devices\Device.h" />
+    <ClInclude Include="Devices\DeviceEnumerator.h" />
+    <ClInclude Include="Devices\Display\DisplayDevice.h" />
+    <ClInclude Include="Devices\Input\ButtonsDevice.h" />
+    <ClInclude Include="Devices\Input\InputDevice.h" />
+    <ClInclude Include="Devices\Input\InputManager.h" />
+    <ClInclude Include="Devices\Input\PointerDevice.h" />
+    <ClInclude Include="Devices\Storage\FileSystem.h" />
+    <ClInclude Include="Devices\Storage\StorageDevice.h" />
+    <ClInclude Include="Graphics\Bitmap.h" />
+    <ClInclude Include="Graphics\Colors.h" />
+    <ClInclude Include="Graphics\Font.h" />
+    <ClInclude Include="Graphics\Point.h" />
+    <ClInclude Include="Graphics\Surface.h" />
+    <ClInclude Include="Interface\Controls\Button.h" />
+    <ClInclude Include="Interface\Containers\Container.h" />
+    <ClInclude Include="Interface\Containers\SideMenu.h" />
+    <ClInclude Include="Interface\Containers\StackContainer.h" />
+    <ClInclude Include="Interface\Controls\Control.h" />
+    <ClInclude Include="Interface\Controls\Graph.h" />
+    <ClInclude Include="Interface\Containers\Grid.h" />
+    <ClInclude Include="Interface\Controls\Image.h" />
+    <ClInclude Include="Interface\Controls\Label.h" />
+    <ClInclude Include="Interface\Controls\ListView.h" />
+    <ClInclude Include="Interface\Controls\Menu.h" />
+    <ClInclude Include="Interface\Containers\ScrollContainer.h" />
+    <ClInclude Include="Interface\Containers\Tab.h" />
+    <ClInclude Include="Interface\Containers\TabContainer.h" />
+    <ClInclude Include="Interface\Containers\Table.h" />
+    <ClInclude Include="Interface\Element.h" />
+    <ClInclude Include="Interface\Window.h" />
+    <ClInclude Include="Interface\WindowsManager.h" />
+    <ClInclude Include="IO\File.h" />
+    <ClInclude Include="IO\Streams\AsyncStream.h" />
+    <ClInclude Include="IO\Streams\DataStream.h" />
+    <ClInclude Include="IO\Streams\Stream.h" />
+    <ClInclude Include="IO\Streams\TeeStream.h" />
+    <ClInclude Include="IO\Streams\TextStream.h" />
+    <ClInclude Include="Maths\Maths.h" />
+    <ClInclude Include="Maths\Matrixes.h" />
+    <ClInclude Include="Maths\Vectors.h" />
+    <ClInclude Include="Objects\Entity.h" />
+    <ClInclude Include="Objects\User.h" />
+    <ClInclude Include="Runtime\Cryptography\CRC32.h" />
+    <ClInclude Include="Runtime\Cryptography\MD5.h" />
+    <ClInclude Include="Runtime\Cryptography\SHA1.h" />
+    <ClInclude Include="Base\Exception.h" />
+    <ClInclude Include="Runtime\Reflection\Constructor.h" />
+    <ClInclude Include="Runtime\Reflection\Method.h" />
+    <ClInclude Include="Runtime\Reflection\Namespace.h" />
+    <ClInclude Include="Runtime\Reflection\Property.h" />
+    <ClInclude Include="Runtime\Reflection\Symbol.h" />
+    <ClInclude Include="Runtime\Reflection\Type.h" />
+    <ClInclude Include="Runtime\Serialization\JSON.h" />
+    <ClInclude Include="Runtime\Serialization\Serializer.h" />
+    <ClInclude Include="Runtime\Serialization\XML.h" />
+    <ClInclude Include="Runtime\Threading\Dispatcher.h" />
+    <ClInclude Include="Runtime\Threading\Executable.h" />
+    <ClInclude Include="Runtime\Threading\Lockable.h" />
+    <ClInclude Include="Runtime\Threading\Mutex.h" />
+    <ClInclude Include="Runtime\Threading\Process.h" />
+    <ClInclude Include="Runtime\Threading\Signal.h" />
+    <ClInclude Include="Runtime\Threading\Spinlock.h" />
+    <ClInclude Include="Runtime\Threading\Thread.h" />
+    <ClInclude Include="Structures\Collections\Array.h" />
+    <ClInclude Include="Structures\Collections\Collection.h" />
+    <ClInclude Include="Structures\Collections\ConcatenedCollection.h" />
+    <ClInclude Include="Structures\Collections\FilteredCollection.h" />
+    <ClInclude Include="Structures\Collections\InitializerCollection.h" />
+    <ClInclude Include="Structures\Collections\ObservableCollection.h" />
+    <ClInclude Include="Structures\Collections\OrderedCollection.h" />
+    <ClInclude Include="Structures\Collections\ProjectedCollection.h" />
+    <ClInclude Include="Structures\Graphs\GraphNode.h" />
+    <ClInclude Include="Structures\Collections\LinkedList.h" />
+    <ClInclude Include="Structures\Collections\ObservableList.h" />
+    <ClInclude Include="Structures\Collections\Stack.h" />
+    <ClInclude Include="Structures\Trees\Tree.h" />
+    <ClInclude Include="Structures\Trees\TreeNode.h" />
+    <ClInclude Include="Structures\Tuple.h" />
+    <ClInclude Include="System.h" />
+    <ClInclude Include="Memory\Memory.h" />
+    <ClInclude Include="Base\Events.h" />
+    <ClInclude Include="Test.h" />
+    <ClInclude Include="Utilities\Time\DateTime.h" />
+    <ClInclude Include="Base\Reference.h" />
+    <ClInclude Include="Utilities\Random.h" />
+    <ClInclude Include="Structures\Collections\Dictionary.h" />
+    <ClInclude Include="Structures\Collections\List.h" />
+    <ClInclude Include="Structures\Collections\Queue.h" />
+    <ClInclude Include="Utilities\Time\Enums.h" />
+    <ClInclude Include="Utilities\Time\Timer.h" />
+    <ClInclude Include="Utilities\Time\TimeSpan.h" />
+    <ClInclude Include="Utilities\Units.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

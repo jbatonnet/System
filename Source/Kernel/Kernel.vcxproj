@@ -1,0 +1,649 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B3006351-8D6B-40D4-82F9-0BAE059075D6}</ProjectGuid>
+    <RootNamespace>Kernel</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>
+    </CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet />
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet />
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>..\..\Root\System\</OutDir>
+    <TargetName>Kernel</TargetName>
+    <TargetExt />
+    <IgnoreImportLibrary />
+    <IncludePath>$(SolutionDir)</IncludePath>
+    <ReferencePath />
+    <LibraryPath>../Lib</LibraryPath>
+    <LibraryWPath />
+    <SourcePath>../CRT;..</SourcePath>
+    <ExcludePath />
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+    <ExecutablePath>$(VC_ExecutablePath_x86)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>..\..\Root\System\</OutDir>
+    <TargetName>Kernel</TargetName>
+    <TargetExt />
+    <IgnoreImportLibrary />
+    <IncludePath>../CRT;..</IncludePath>
+    <ReferencePath />
+    <LibraryPath>../Lib</LibraryPath>
+    <LibraryWPath />
+    <SourcePath>../CRT;..</SourcePath>
+    <ExcludePath />
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>Kernel</TargetName>
+    <TargetExt />
+    <IgnoreImportLibrary />
+    <CustomBuildAfterTargets />
+    <IncludePath>../CRT;..</IncludePath>
+    <ReferencePath />
+    <LibraryPath>../Lib</LibraryPath>
+    <LibraryWPath />
+    <SourcePath>../CRT;..</SourcePath>
+    <ExcludePath />
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../CRT;..</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>X86</PreprocessorDefinitions>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <ExceptionHandling>false</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <PreprocessToFile>false</PreprocessToFile>
+      <OmitFramePointers>true</OmitFramePointers>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/wd4711 /wd4100 /wd4201 /wd4514 /wd4731 %(AdditionalOptions)</AdditionalOptions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalUsingDirectories>..</AdditionalUsingDirectories>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <UndefinePreprocessorDefinitions>WINDOWS</UndefinePreprocessorDefinitions>
+      <DisableSpecificWarnings>4514</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>..\..\Root\System\Kernel</OutputFile>
+      <AdditionalDependencies>CRT.lib;HAL.lib;System.lib;ZLib.lib;SQLite.lib;LibPNG.lib;Basics.lib</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>Kernel.map</MapFileName>
+      <SubSystem>Native</SubSystem>
+      <Driver>Driver</Driver>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <EntryPointSymbol>multiboot_entry</EntryPointSymbol>
+      <BaseAddress>0x100000</BaseAddress>
+      <FixedBaseAddress>false</FixedBaseAddress>
+      <AdditionalOptions>/ALIGN:0x400 /FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
+      <FunctionOrder>Kernel.order</FunctionOrder>
+      <TargetMachine>MachineX86</TargetMachine>
+      <ProgramDatabaseFile>Kernel.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+    </Link>
+    <PostBuildEvent>
+      <Command>"$(SolutionDir)[Tools]\Binaries\Tools.Generators.PostBuild.exe"</Command>
+      <Message>
+      </Message>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <Culture>0x040c</Culture>
+    </ResourceCompile>
+    <ProjectReference>
+      <LinkLibraryDependencies />
+    </ProjectReference>
+    <ProjectReference>
+      <UseLibraryDependencyInputs />
+    </ProjectReference>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../CRT;..</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>ARM</PreprocessorDefinitions>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <ExceptionHandling>false</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <PreprocessToFile>false</PreprocessToFile>
+      <OmitFramePointers>true</OmitFramePointers>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/wd4711 /wd4100 /wd4201 /wd4514 /wd4731 %(AdditionalOptions)</AdditionalOptions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalUsingDirectories>..</AdditionalUsingDirectories>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>..\..\Root\System\Kernel</OutputFile>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>CRT.lib;HAL.lib;System.lib</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>Kernel.map</MapFileName>
+      <SubSystem>Native</SubSystem>
+      <Driver>Driver</Driver>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <EntryPointSymbol>multiboot_entry</EntryPointSymbol>
+      <BaseAddress>0x100000</BaseAddress>
+      <FixedBaseAddress>true</FixedBaseAddress>
+      <AdditionalOptions>/ALIGN:0x400 /FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
+      <RandomizedBaseAddress>
+      </RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <FunctionOrder>Kernel.order</FunctionOrder>
+      <ShowProgress>
+      </ShowProgress>
+      <SuppressStartupBanner>
+      </SuppressStartupBanner>
+      <RegisterOutput>
+      </RegisterOutput>
+      <PerUserRedirection>
+      </PerUserRedirection>
+      <ManifestFile>
+      </ManifestFile>
+      <AllowIsolation>
+      </AllowIsolation>
+      <EnableUAC>
+      </EnableUAC>
+      <UACExecutionLevel>
+      </UACExecutionLevel>
+      <UACUIAccess>
+      </UACUIAccess>
+      <ProgramDatabaseFile>Kernel.pdb</ProgramDatabaseFile>
+      <MapExports>
+      </MapExports>
+      <SwapRunFromCD>
+      </SwapRunFromCD>
+      <SwapRunFromNET>
+      </SwapRunFromNET>
+      <ProfileGuidedDatabase>
+      </ProfileGuidedDatabase>
+      <IgnoreEmbeddedIDL>
+      </IgnoreEmbeddedIDL>
+      <TypeLibraryResourceID>
+      </TypeLibraryResourceID>
+      <TurnOffAssemblyGeneration>
+      </TurnOffAssemblyGeneration>
+      <Profile>
+      </Profile>
+      <CLRImageType>
+      </CLRImageType>
+      <LinkErrorReporting>
+      </LinkErrorReporting>
+    </Link>
+    <PostBuildEvent>
+      <Command>"$(SolutionDir)[Tools]\Binaries\Tools.Generators.PostBuild.exe"</Command>
+      <Message>
+      </Message>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <Culture>0x040c</Culture>
+    </ResourceCompile>
+    <ProjectReference>
+      <LinkLibraryDependencies>
+      </LinkLibraryDependencies>
+    </ProjectReference>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>
+      </UseLibraryDependencyInputs>
+    </ProjectReference>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../CRT;..</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>X64</PreprocessorDefinitions>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <ExceptionHandling>false</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <PreprocessToFile>false</PreprocessToFile>
+      <OmitFramePointers>true</OmitFramePointers>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/wd4711 /wd4100 /wd4201 /wd4514 /wd4731 %(AdditionalOptions)</AdditionalOptions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalUsingDirectories>..</AdditionalUsingDirectories>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>..\..\Root\System\Kernel</OutputFile>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>CRT.lib;HAL.lib;System.lib</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>Kernel.map</MapFileName>
+      <SubSystem>Native</SubSystem>
+      <Driver>Driver</Driver>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <EntryPointSymbol>multiboot_entry</EntryPointSymbol>
+      <BaseAddress>0x100000</BaseAddress>
+      <FixedBaseAddress>true</FixedBaseAddress>
+      <AdditionalOptions>/ALIGN:0x400 /FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
+      <RandomizedBaseAddress>
+      </RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <FunctionOrder>Kernel.order</FunctionOrder>
+      <ShowProgress>
+      </ShowProgress>
+      <SuppressStartupBanner>
+      </SuppressStartupBanner>
+      <RegisterOutput>
+      </RegisterOutput>
+      <PerUserRedirection>
+      </PerUserRedirection>
+      <ManifestFile>
+      </ManifestFile>
+      <AllowIsolation>
+      </AllowIsolation>
+      <EnableUAC>
+      </EnableUAC>
+      <UACExecutionLevel>
+      </UACExecutionLevel>
+      <UACUIAccess>
+      </UACUIAccess>
+      <ProgramDatabaseFile>Kernel.pdb</ProgramDatabaseFile>
+      <MapExports>
+      </MapExports>
+      <SwapRunFromCD>
+      </SwapRunFromCD>
+      <SwapRunFromNET>
+      </SwapRunFromNET>
+      <ProfileGuidedDatabase>
+      </ProfileGuidedDatabase>
+      <IgnoreEmbeddedIDL>
+      </IgnoreEmbeddedIDL>
+      <TypeLibraryResourceID>
+      </TypeLibraryResourceID>
+      <TurnOffAssemblyGeneration>
+      </TurnOffAssemblyGeneration>
+      <Profile>
+      </Profile>
+      <CLRImageType>
+      </CLRImageType>
+      <LinkErrorReporting>
+      </LinkErrorReporting>
+    </Link>
+    <PostBuildEvent>
+      <Command>"$(SolutionDir)[Tools]\Binaries\Tools.Generators.PostBuild.exe"</Command>
+      <Message>
+      </Message>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <Culture>0x040c</Culture>
+    </ResourceCompile>
+    <ProjectReference>
+      <LinkLibraryDependencies>
+      </LinkLibraryDependencies>
+    </ProjectReference>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>
+      </UseLibraryDependencyInputs>
+    </ProjectReference>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <PostBuildEvent>
+      <Command>"$(SolutionDir)[Tools]\Binaries\Tools.Generators.PostBuild.exe"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <PostBuildEvent>
+      <Command>"$(SolutionDir)[Tools]\Binaries\Tools.Generators.PostBuild.exe"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <PostBuildEvent>
+      <Command>"$(SolutionDir)[Tools]\Binaries\Tools.Generators.PostBuild.exe"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Applications\Launcher\LauncherApplication.cpp" />
+    <ClCompile Include="Applications\Monitor\MonitorApplication.cpp" />
+    <ClCompile Include="Applications\Shell\ShellApplication.cpp" />
+    <ClCompile Include="Applications\Shell\ShellControl.cpp" />
+    <ClCompile Include="Debugging\Console.cpp" />
+    <ClCompile Include="Debugging\Debugger.cpp" />
+    <ClCompile Include="Debugging\Serial.cpp" />
+    <ClCompile Include="Debugging\StackTrace.cpp" />
+    <ClCompile Include="Devices\DeviceManager.cpp" />
+    <ClCompile Include="Devices\Drivers\PCI\PCIController.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\AMDNet\AMDNetDevice.cpp" />
+    <ClCompile Include="Devices\Drivers\ATA\ATADriver.cpp" />
+    <ClCompile Include="Devices\Drivers\FileSystems\FAT\FATDriver.cpp" />
+    <ClCompile Include="Devices\Drivers\FileSystems\FAT\FATFileSystem.cpp" />
+    <ClCompile Include="Devices\Drivers\Keyboard\KeyboardDevice.cpp" />
+    <ClCompile Include="Devices\Drivers\Keyboard\KeyboardDriver.cpp" />
+    <ClCompile Include="Devices\Drivers\Mouse\Mouse.cpp" />
+    <ClCompile Include="Devices\Drivers\Mouse\MouseDevice.cpp" />
+    <ClCompile Include="Devices\Drivers\Mouse\MouseDriver.cpp" />
+    <ClCompile Include="Devices\Drivers\PCI\PCI.cpp" />
+    <ClCompile Include="Devices\Drivers\PCI\PCIDevice.cpp" />
+    <ClCompile Include="Devices\Drivers\PCI\PCIDriver.cpp" />
+    <ClCompile Include="Devices\Drivers\Serial\SerialFunctions.cpp" />
+    <ClCompile Include="Devices\Drivers\Serial\SerialDevice.cpp" />
+    <ClCompile Include="Devices\Drivers\Serial\SerialDriver.cpp" />
+    <ClCompile Include="Devices\Drivers\Serial\SerialStream.cpp" />
+    <ClCompile Include="Devices\Drivers\VESA\VESA.cpp" />
+    <ClCompile Include="Devices\Drivers\VESA\VESADevice.cpp" />
+    <ClCompile Include="Devices\Drivers\VESA\VESADriver.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\Mouse\Mouse.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\Mouse\MouseDevice.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\Mouse\MouseDriver.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\SVGA\SVGA.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\SVGA\SVGADevice.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\Tools\Backdoor.cpp" />
+    <ClCompile Include="Devices\Drivers\VMware\VMwareDriver.cpp" />
+    <ClCompile Include="Devices\Input\InputManager.cpp" />
+    <ClCompile Include="Graphics\Bitmap.cpp" />
+    <ClCompile Include="Graphics\Font.cpp" />
+    <ClCompile Include="Memory\NewHeap.cpp" />
+    <ClCompile Include="Memory\ClassicHeap.cpp" />
+    <ClCompile Include="Runtime\Reflection\Reflection.cpp" />
+    <ClCompile Include="Runtime\Threading\Dispatcher.cpp" />
+    <ClCompile Include="Runtime\Threading\Process.cpp" />
+    <ClCompile Include="Runtime\Threading\Task.x86.cpp" />
+    <ClCompile Include="Runtime\Threading\Thread.cpp" />
+    <ClCompile Include="Interface\Message.cpp" />
+    <ClCompile Include="Interface\WindowsManager.cpp" />
+    <ClCompile Include="Devices\Drivers\ATA\ATA.cpp" />
+    <ClCompile Include="Devices\Drivers\ATA\ATADevice.cpp" />
+    <ClCompile Include="Devices\Device.cpp" />
+    <ClCompile Include="Devices\Drivers\Driver.cpp" />
+    <ClCompile Include="IO\Files.cpp" />
+    <ClCompile Include="Devices\Storage\FileSystem.cpp" />
+    <ClCompile Include="Devices\Drivers\FileSystems\VFS\VFS.cpp" />
+    <ClCompile Include="Devices\Drivers\Keyboard\Keyboard.cpp" />
+    <ClCompile Include="Entry.cpp" />
+    <ClCompile Include="IO\Stream.cpp" />
+    <ClCompile Include="Libraries\SLRE\slre.c" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Memory\PMM.cpp" />
+    <ClCompile Include="Memory\VMM.cpp" />
+    <ClCompile Include="Memory\Memory.cpp" />
+    <ClCompile Include="Devices\Screen\Screen.cpp" />
+    <ClCompile Include="Shell.cpp" />
+    <ClCompile Include="Test.cpp" />
+    <ClCompile Include="Utilities\Structures\OrderedArray.cpp" />
+    <ClCompile Include="Utilities\Timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Applications\Breakout\BreakoutGame.h" />
+    <ClInclude Include="Applications\Databases\DatabasesApplication.h" />
+    <ClInclude Include="Applications\Editor\EditorApplication.h" />
+    <ClInclude Include="Applications\Files\FilesApplication.h" />
+    <ClInclude Include="Applications\Launcher\LauncherApplication.h" />
+    <ClInclude Include="Applications\Monitor\MonitorApplication.h" />
+    <ClInclude Include="Applications\Shell\ShellApplication.h" />
+    <ClInclude Include="Applications\Shell\ShellControl.h" />
+    <ClInclude Include="Applications\Test\TestApplication.h" />
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="Data\Database.h" />
+    <ClInclude Include="Data\Record.h" />
+    <ClInclude Include="Data\Table.h" />
+    <ClInclude Include="Debugging\Debugger.h" />
+    <ClInclude Include="Devices\DeviceManager.h" />
+    <ClInclude Include="Devices\Drivers\PCI\PCIController.h" />
+    <ClInclude Include="Devices\Drivers\VMware\AMDNet\AMDNet.h" />
+    <ClInclude Include="Devices\Drivers\VMware\AMDNet\AMDNetDevice.h" />
+    <ClInclude Include="Devices\Drivers\FileSystems\FAT\FATFile.h" />
+    <ClInclude Include="Devices\Drivers\FileSystems\FAT\FATFileSystem.h" />
+    <ClInclude Include="Devices\Drivers\FileSystems\FAT\FATStream.h" />
+    <ClInclude Include="Devices\Drivers\Keyboard\KeyboardDevice.h" />
+    <ClInclude Include="Devices\Drivers\Keyboard\KeyboardDriver.h" />
+    <ClInclude Include="Devices\Drivers\Mouse\Mouse.h" />
+    <ClInclude Include="Devices\Drivers\Mouse\MouseDevice.h" />
+    <ClInclude Include="Devices\Drivers\Mouse\MouseDriver.h" />
+    <ClInclude Include="Devices\Drivers\PCI\PCI.h" />
+    <ClInclude Include="Devices\Drivers\PCI\PCIDevice.h" />
+    <ClInclude Include="Devices\Drivers\PCI\PCIDriver.h" />
+    <ClInclude Include="Devices\Drivers\Serial\SerialFunctions.h" />
+    <ClInclude Include="Devices\Drivers\Serial\SerialDevice.h" />
+    <ClInclude Include="Devices\Drivers\Serial\SerialDriver.h" />
+    <ClInclude Include="Devices\Drivers\Serial\SerialStream.h" />
+    <ClInclude Include="Devices\Drivers\VESA\VESADevice.h" />
+    <ClInclude Include="Devices\Drivers\VESA\VESADriver.h" />
+    <ClInclude Include="Devices\Drivers\VMware\Mouse\Mouse.h" />
+    <ClInclude Include="Devices\Drivers\VMware\Mouse\MouseDevice.h" />
+    <ClInclude Include="Devices\Drivers\VMware\Mouse\MouseDriver.h" />
+    <ClInclude Include="Devices\Drivers\VMware\SVGA\SVGA.h" />
+    <ClInclude Include="Devices\Drivers\VMware\SVGA\SVGADevice.h" />
+    <ClInclude Include="Devices\Drivers\VMware\VMwareDriver.h" />
+    <ClInclude Include="Devices\Drivers\VMware\Tools\Backdoor.h" />
+    <ClInclude Include="Devices\Drivers\ATA\ATADriver.h" />
+    <ClInclude Include="Devices\Drivers\FileSystems\FAT\FATDirectory.h" />
+    <ClInclude Include="Devices\Drivers\FileSystems\FAT\FATDriver.h" />
+    <ClInclude Include="Devices\Drivers\VESA\VESA.h" />
+    <ClInclude Include="Runtime\Reflection\Reflection.h" />
+    <ClInclude Include="Runtime\Threading\Dispatcher.h" />
+    <ClInclude Include="Runtime\Threading\Process.h" />
+    <ClInclude Include="Runtime\Threading\Task.h" />
+    <ClInclude Include="Runtime\Threading\Thread.h" />
+    <ClInclude Include="Interface\Message.h" />
+    <ClInclude Include="IO\Streams\BufferStream.h" />
+    <ClInclude Include="IO\Streams\DeflateStream.h" />
+    <ClInclude Include="IO\Streams\MemoryStream.h" />
+    <ClInclude Include="Devices\Drivers\ATA\ATA.h" />
+    <ClInclude Include="Devices\Drivers\ATA\ATADevice.h" />
+    <ClInclude Include="Devices\Drivers\Driver.h" />
+    <ClInclude Include="Devices\Drivers\FileSystems\FAT\FAT.h" />
+    <ClInclude Include="Devices\Drivers\FileSystems\VFS\VFS.h" />
+    <ClInclude Include="Devices\Drivers\Keyboard\Keyboard.h" />
+    <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="IO\Streams\TeeStream.h" />
+    <ClInclude Include="IO\Streams\TextStream.h" />
+    <ClInclude Include="Kernel.h" />
+    <ClInclude Include="Libraries\SLRE\slre.h" />
+    <ClInclude Include="Maths\Maths.h" />
+    <ClInclude Include="Memory\Heap.h" />
+    <ClInclude Include="Memory\PMM.h" />
+    <ClInclude Include="Memory\VMM.h" />
+    <ClInclude Include="Memory\Memory.h" />
+    <ClInclude Include="Devices\Screen\Screen.h" />
+    <ClInclude Include="Multiboot.h" />
+    <ClInclude Include="Debugging\StackTrace.h" />
+    <ClInclude Include="Interrupts.h" />
+    <ClInclude Include="IO\Streams\DataStream.h" />
+    <ClInclude Include="IO\Streams\Stream.h" />
+    <ClInclude Include="Shell.h" />
+    <ClInclude Include="Test.h" />
+    <ClInclude Include="Utilities\Structures\OrderedArray.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Kernel.order" />
+    <None Include="TODO.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

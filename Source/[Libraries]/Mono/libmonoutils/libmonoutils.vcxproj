@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\mono\utils\atomic.c" />
+    <ClCompile Include="..\mono\utils\bsearch.c" />
+    <ClCompile Include="..\mono\utils\dlmalloc.c" />
+    <ClCompile Include="..\mono\utils\hazard-pointer.c" />
+    <ClCompile Include="..\mono\utils\lock-free-alloc.c" />
+    <ClCompile Include="..\mono\utils\lock-free-array-queue.c" />
+    <ClCompile Include="..\mono\utils\lock-free-queue.c" />
+    <ClCompile Include="..\mono\utils\mach-support-amd64.c" />
+    <ClCompile Include="..\mono\utils\mach-support-arm.c" />
+    <ClCompile Include="..\mono\utils\mach-support-unknown.c" />
+    <ClCompile Include="..\mono\utils\mach-support-x86.c" />
+    <ClCompile Include="..\mono\utils\mach-support.c" />
+    <ClCompile Include="..\mono\utils\mono-codeman.c" />
+    <ClCompile Include="..\mono\utils\mono-conc-hashtable.c" />
+    <ClCompile Include="..\mono\utils\mono-context.c" />
+    <ClCompile Include="..\mono\utils\mono-counters.c" />
+    <ClCompile Include="..\mono\utils\mono-dl.c" />
+    <ClCompile Include="..\mono\utils\mono-embed.c" />
+    <ClCompile Include="..\mono\utils\mono-error.c" />
+    <ClCompile Include="..\mono\utils\mono-filemap.c" />
+    <ClCompile Include="..\mono\utils\mono-hwcap-arm.c" />
+    <ClCompile Include="..\mono\utils\mono-hwcap-arm64.c" />
+    <ClCompile Include="..\mono\utils\mono-hwcap-ia64.c" />
+    <ClCompile Include="..\mono\utils\mono-hwcap-mips.c" />
+    <ClCompile Include="..\mono\utils\mono-hwcap-ppc.c" />
+    <ClCompile Include="..\mono\utils\mono-hwcap-s390x.c" />
+    <ClCompile Include="..\mono\utils\mono-hwcap-sparc.c" />
+    <ClCompile Include="..\mono\utils\mono-hwcap-x86.c" />
+    <ClCompile Include="..\mono\utils\mono-hwcap.c" />
+    <ClCompile Include="..\mono\utils\mono-internal-hash.c" />
+    <ClCompile Include="..\mono\utils\mono-io-portability.c" />
+    <ClCompile Include="..\mono\utils\mono-linked-list-set.c" />
+    <ClCompile Include="..\mono\utils\mono-logger.c" />
+    <ClCompile Include="..\mono\utils\mono-math.c" />
+    <ClCompile Include="..\mono\utils\mono-md5.c" />
+    <ClCompile Include="..\mono\utils\mono-mmap.c" />
+    <ClCompile Include="..\mono\utils\mono-mutex.c" />
+    <ClCompile Include="..\mono\utils\mono-networkinterfaces.c" />
+    <ClCompile Include="..\mono\utils\mono-path.c" />
+    <ClCompile Include="..\mono\utils\mono-poll.c" />
+    <ClCompile Include="..\mono\utils\mono-proclib.c" />
+    <ClCompile Include="..\mono\utils\mono-property-hash.c" />
+    <ClCompile Include="..\mono\utils\mono-publib.c" />
+    <ClCompile Include="..\mono\utils\mono-semaphore.c" />
+    <ClCompile Include="..\mono\utils\mono-sha1.c" />
+    <ClCompile Include="..\mono\utils\mono-stdlib.c" />
+    <ClCompile Include="..\mono\utils\mono-threads-android.c" />
+    <ClCompile Include="..\mono\utils\mono-threads-freebsd.c" />
+    <ClCompile Include="..\mono\utils\mono-threads-linux.c" />
+    <ClCompile Include="..\mono\utils\mono-threads-mach-helper.c" />
+    <ClCompile Include="..\mono\utils\mono-threads-mach.c" />
+    <ClCompile Include="..\mono\utils\mono-threads-openbsd.c" />
+    <ClCompile Include="..\mono\utils\mono-threads-posix.c" />
+    <ClCompile Include="..\mono\utils\mono-threads-windows.c" />
+    <ClCompile Include="..\mono\utils\mono-threads.c" />
+    <ClCompile Include="..\mono\utils\mono-time.c" />
+    <ClCompile Include="..\mono\utils\mono-tls.c" />
+    <ClCompile Include="..\mono\utils\mono-uri.c" />
+    <ClCompile Include="..\mono\utils\mono-value-hash.c" />
+    <ClCompile Include="..\mono\utils\monobitset.c" />
+    <ClCompile Include="..\mono\utils\sha1.c" />
+    <ClCompile Include="..\mono\utils\strenc.c" />
+    <ClCompile Include="..\mono\utils\strtod.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\mono\utils\atomic.h" />
+    <ClInclude Include="..\mono\utils\bsearch.h" />
+    <ClInclude Include="..\mono\utils\dlmalloc.h" />
+    <ClInclude Include="..\mono\utils\dtrace.h" />
+    <ClInclude Include="..\mono\utils\freebsd-dwarf.h" />
+    <ClInclude Include="..\mono\utils\freebsd-elf32.h" />
+    <ClInclude Include="..\mono\utils\freebsd-elf64.h" />
+    <ClInclude Include="..\mono\utils\freebsd-elf_common.h" />
+    <ClInclude Include="..\mono\utils\gc_wrapper.h" />
+    <ClInclude Include="..\mono\utils\hazard-pointer.h" />
+    <ClInclude Include="..\mono\utils\linux_magic.h" />
+    <ClInclude Include="..\mono\utils\lock-free-alloc.h" />
+    <ClInclude Include="..\mono\utils\lock-free-array-queue.h" />
+    <ClInclude Include="..\mono\utils\lock-free-queue.h" />
+    <ClInclude Include="..\mono\utils\mach-support.h" />
+    <ClInclude Include="..\mono\utils\memcheck.h" />
+    <ClInclude Include="..\mono\utils\mono-codeman.h" />
+    <ClInclude Include="..\mono\utils\mono-compiler.h" />
+    <ClInclude Include="..\mono\utils\mono-conc-hashtable.h" />
+    <ClInclude Include="..\mono\utils\mono-context.h" />
+    <ClInclude Include="..\mono\utils\mono-counters.h" />
+    <ClInclude Include="..\mono\utils\mono-digest.h" />
+    <ClInclude Include="..\mono\utils\mono-dl-fallback.h" />
+    <ClInclude Include="..\mono\utils\mono-dl.h" />
+    <ClInclude Include="..\mono\utils\mono-embed.h" />
+    <ClInclude Include="..\mono\utils\mono-error-internals.h" />
+    <ClInclude Include="..\mono\utils\mono-error.h" />
+    <ClInclude Include="..\mono\utils\mono-hwcap-arm.h" />
+    <ClInclude Include="..\mono\utils\mono-hwcap-arm64.h" />
+    <ClInclude Include="..\mono\utils\mono-hwcap-ia64.h" />
+    <ClInclude Include="..\mono\utils\mono-hwcap-mips.h" />
+    <ClInclude Include="..\mono\utils\mono-hwcap-ppc.h" />
+    <ClInclude Include="..\mono\utils\mono-hwcap-s390x.h" />
+    <ClInclude Include="..\mono\utils\mono-hwcap-sparc.h" />
+    <ClInclude Include="..\mono\utils\mono-hwcap-x86.h" />
+    <ClInclude Include="..\mono\utils\mono-hwcap.h" />
+    <ClInclude Include="..\mono\utils\mono-internal-hash.h" />
+    <ClInclude Include="..\mono\utils\mono-io-portability.h" />
+    <ClInclude Include="..\mono\utils\mono-linked-list-set.h" />
+    <ClInclude Include="..\mono\utils\mono-logger-internal.h" />
+    <ClInclude Include="..\mono\utils\mono-logger.h" />
+    <ClInclude Include="..\mono\utils\mono-machine.h" />
+    <ClInclude Include="..\mono\utils\mono-math.h" />
+    <ClInclude Include="..\mono\utils\mono-membar.h" />
+    <ClInclude Include="..\mono\utils\mono-memory-model.h" />
+    <ClInclude Include="..\mono\utils\mono-mmap.h" />
+    <ClInclude Include="..\mono\utils\mono-mutex.h" />
+    <ClInclude Include="..\mono\utils\mono-networkinterfaces.h" />
+    <ClInclude Include="..\mono\utils\mono-path.h" />
+    <ClInclude Include="..\mono\utils\mono-poll.h" />
+    <ClInclude Include="..\mono\utils\mono-proclib.h" />
+    <ClInclude Include="..\mono\utils\mono-property-hash.h" />
+    <ClInclude Include="..\mono\utils\mono-publib.h" />
+    <ClInclude Include="..\mono\utils\mono-semaphore.h" />
+    <ClInclude Include="..\mono\utils\mono-sigcontext.h" />
+    <ClInclude Include="..\mono\utils\mono-signal-handler.h" />
+    <ClInclude Include="..\mono\utils\mono-stack-unwinding.h" />
+    <ClInclude Include="..\mono\utils\mono-stdlib.h" />
+    <ClInclude Include="..\mono\utils\mono-string.h" />
+    <ClInclude Include="..\mono\utils\mono-threads.h" />
+    <ClInclude Include="..\mono\utils\mono-time.h" />
+    <ClInclude Include="..\mono\utils\mono-tls.h" />
+    <ClInclude Include="..\mono\utils\mono-uri.h" />
+    <ClInclude Include="..\mono\utils\mono-value-hash.h" />
+    <ClInclude Include="..\mono\utils\monobitset.h" />
+    <ClInclude Include="..\mono\utils\sha1.h" />
+    <ClInclude Include="..\mono\utils\strenc.h" />
+    <ClInclude Include="..\mono\utils\strtod.h" />
+    <ClInclude Include="..\mono\utils\valgrind.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{29274D5A-C077-4081-B722-EE82F99B215E}</ProjectGuid>
+    <RootNamespace>CRT</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>
+    </CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet />
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet />
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>
+    </CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetExt>.lib</TargetExt>
+    <LibraryPath>..\..\Lib</LibraryPath>
+    <LibraryWPath />
+    <SourcePath />
+    <ExcludePath />
+    <ExecutablePath>$(VCInstallDir)bin;$(VSInstallDir)Common7\ide</ExecutablePath>
+    <IncludePath />
+    <ReferencePath />
+    <OutDir>..\..\..\Lib\</OutDir>
+    <TargetName>eglib</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <TargetName>SQLite</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <LibraryPath>..\..\Lib</LibraryPath>
+    <LibraryWPath />
+    <SourcePath />
+    <ExcludePath />
+    <ExecutablePath>$(VCInstallDir)bin;$(VSInstallDir)Common7\ide</ExecutablePath>
+    <IncludePath />
+    <ReferencePath />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>SQLite</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <LibraryPath>..\..\Lib</LibraryPath>
+    <LibraryWPath />
+    <SourcePath />
+    <ExcludePath />
+    <ExecutablePath>$(VCInstallDir)bin;$(VSInstallDir)Common7\ide</ExecutablePath>
+    <IncludePath />
+    <ReferencePath />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetName>libmonoutils</TargetName>
+    <OutDir>..\..\..\Lib\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\LibC;.;src</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/wd4710 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>..\..\..\Lib\eglib.lib</OutputFile>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>CRT.lib;System.lib;LibC.lib</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/wd4710 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>..\..\Lib\SQLite.lib</OutputFile>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>CRT.lib;System.lib</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/wd4710 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>..\..\Lib\SQLite.lib</OutputFile>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>CRT.lib;System.lib</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..;..\eglib;..\eglib\src</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>LibC.lib</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

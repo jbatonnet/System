@@ -1,0 +1,36 @@
+# Visual Studio artifacts
+Source/packages/
+*.user
+**/*.tlog/
+*.sdf
+**.VC.db
+**/.vs/
+
+# Temporary files
+*.asm
+*.log
+*.obj
+
+# Binaries
+**/obj/x86/Debug/
+**/obj/Debug/
+**/obj/Release/
+**/bin/Debug/
+**/bin/Release/
+Source/Release/
+Source/Lib/
+Source/\[Tools\]/Binaries/
+Source/\[Tools\]/\[Libraries\]/Binaries/
+**/Debug/
+**/Release/
+
+# Kernel artifacts
+Source/Kernel/Kernel.map
+Source/Kernel/Kernel.pdb
+Source/System/Kernel/System.pdb
+Root/System/Kernel
+
+# Other
+/VMware/Disk.vmdk
+/Hyper-V/
+Documents/Documentation/html/

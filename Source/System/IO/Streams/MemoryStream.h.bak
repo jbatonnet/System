@@ -1,0 +1,32 @@
+#ifndef _MEMORYSTREAM_H_
+#define _MEMORYSTREAM_H_
+
+#include <System/Common.h>
+#include <System/IO/Streams/Stream.h>
+
+namespace System
+{
+    namespace IO
+    {
+        class MemoryStream : public Stream
+        {
+        protected:
+            u8* buffer;
+            u32 length;
+            u32 position;
+            bool expand;
+
+        public:
+            MemoryStream(void* buffer, u32 length = 0);
+
+            u64 GetPosition();
+            u64 GetLength();
+
+            u32 Read(void* buffer, u32 count);
+            void Write(void* buffer, u32 count);
+            void Seek(u64 position, SeekOrigin origin = SeekOrigin::Begin);
+        };
+    }
+}
+
+#endif

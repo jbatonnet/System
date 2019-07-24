@@ -143,7 +143,7 @@ void Main(MultibootInfo* bootInfo)
 
     #pragma endregion
 
-    Shell_Main();
+    //Shell_Main();
 
     if (false)
         Thread::Start(RunTest);

@@ -12,7 +12,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <NuGetPackageImportStamp>b22b0f85</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -151,7 +152,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Gear.ico" />
   </ItemGroup>
@@ -159,10 +159,6 @@
     <ProjectReference Include="..\[Libraries]\Tools.Gdb\Tools.Gdb.csproj">
       <Project>{a7dd2c3b-760c-4575-b13e-d7000ac630d6}</Project>
       <Name>Tools.Gdb</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\[Libraries]\Tools.Pdb\Tools.Pdb.vcxproj">
-      <Project>{75b96475-7714-4f16-b5ba-a0b6fea38ead}</Project>
-      <Name>Tools.Pdb</Name>
     </ProjectReference>
     <ProjectReference Include="..\[Libraries]\Tools.VirtualMachine\Tools.VirtualMachine.csproj">
       <Project>{adf54cef-56c7-459d-b0bf-4bf6020a0afc}</Project>
@@ -172,6 +168,11 @@
       <Project>{3824e9c8-d4da-4cac-bd96-6d758248d32e}</Project>
       <Name>Tools.VisualStudio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpPdb">
+      <Version>1.0.4</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="..\Tools.Common\Tools.Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

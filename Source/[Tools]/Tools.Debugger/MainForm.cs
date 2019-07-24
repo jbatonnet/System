@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
+using SharpPdb.Native;
+
 using Shell;
 
 namespace Tools.Debugger
@@ -17,19 +19,20 @@ namespace Tools.Debugger
     using Tools.Debugger.Wrappers;
 
     using Tools.Gdb;
-    using Tools.Pdb;
     using Tools.VirtualMachine;
     using Tools.VisualStudio;
 
     public partial class MainForm : Form
     {
+        private const ulong KernelBaseAddress = 0x100000;
+
         public class Frame
         {
-            public uint Eip { get; private set; }
-            public uint Ebp { get; private set; }
-            public PdbSymbol Function { get; private set; }
+            public uint Eip { get; }
+            public uint Ebp { get; }
+            public PdbPublicSymbol Function { get; }
 
-            public Frame(uint eip, uint ebp, PdbSymbol function)
+            public Frame(uint eip, uint ebp, PdbPublicSymbol function)
             {
                 Eip = eip;
                 Ebp = ebp;
@@ -39,15 +42,14 @@ namespace Tools.Debugger
 
         public VirtualMachine VirtualMachine { get; private set; }
         public NamedPipeServerStream SerialStream { get; private set; }
-        public PdbFile PdbFile { get; private set; }
-        public PdbSession PdbSession { get; private set; }
+        public PdbFileReader PdbFileReader { get; private set; }
         public x86GdbStub Gdb { get; private set; }
         public VisualStudio VisualStudio { get; private set; }
 
-        private PdbSymbol debuggerAttachedField, debuggerInitializeFunction, debuggerBreakFunction;
-        private PdbSymbol exceptionAssertFunction;
-        private PdbSymbol profilerTraceFunction;
-        private PdbSymbol taskFirstField, taskKernelField, taskCurrentField, processesField;
+        private PdbPublicSymbol debuggerAttachedField, debuggerInitializeFunction, debuggerBreakFunction;
+        private PdbPublicSymbol exceptionAssertFunction;
+        private PdbPublicSymbol profilerTraceFunction;
+        private PdbPublicSymbol taskFirstField, taskKernelField, taskCurrentField, processesField;
 
         protected Pointer<Task> FirstTask, KernelTask, CurrentTask;
         private Collection<Pointer<Process>> Processes;
@@ -155,9 +157,8 @@ namespace Tools.Debugger
             if (!File.Exists(pdbPath))
                 throw new Exception("Could not find kernel symbols");
 
-            // Load and open PDB session
-            PdbFile = new PdbFile(pdbPath);
-            PdbSession = PdbFile.OpenSession(0x100000);
+            // Load symbols
+            PdbFileReader = new PdbFileReader(pdbPath);
         }
         private void LoadGDB()
         {
@@ -179,10 +180,10 @@ namespace Tools.Debugger
             LoadWrappers();
 
             // Replace OS breakpoint with GDB one
-            Gdb.Breakpoints.Add(GdbBreakpointType.Memory, debuggerBreakFunction.VirtualAddress);
+            Gdb.Breakpoints.Add(GdbBreakpointType.Memory, KernelBaseAddress + debuggerBreakFunction.RelativeVirtualAddress);
             
             // Tell the OS we are attached
-            Gdb.Memory.Write(debuggerAttachedField.VirtualAddress, 0x01);
+            Gdb.Memory.Write(KernelBaseAddress + debuggerAttachedField.RelativeVirtualAddress, 0x01);
 
             // TODO: Replace VS breakpoints with GDB ones
             foreach (EnvDTE.Breakpoint breakpoint in VisualStudio.Instance.Debugger.Breakpoints)
@@ -195,23 +196,23 @@ namespace Tools.Debugger
         private void LoadWrappers()
         {
             // Debugger symbols
-            debuggerAttachedField = PdbSession.Global.FindChildren(PdbSymbolTag.Null, "Debugger::attached").Single();
-            debuggerInitializeFunction = PdbSession.Global.FindChildren(PdbSymbolTag.Function, "Debugger::Initialize").Single();
-            debuggerBreakFunction = PdbSession.Global.FindChildren(PdbSymbolTag.Function, "System::Runtime::Debugger::Break").Single();
+            debuggerAttachedField = PdbFileReader.PublicSymbols.First(s => s.GetUndecoratedName(SharpPdb.Windows.NameUndecorator.Flags.NameOnly) == "Debugger::attached");
+            debuggerInitializeFunction = PdbFileReader.PublicSymbols.First(s => s.GetUndecoratedName(SharpPdb.Windows.NameUndecorator.Flags.NameOnly) == "Debugger::Initialize");
+            debuggerBreakFunction = PdbFileReader.PublicSymbols.First(s => s.GetUndecoratedName(SharpPdb.Windows.NameUndecorator.Flags.NameOnly) == "System::Runtime::Debugger::Break");
 
             // Pofiler symbols
             //profilerTraceFunction = PdbSession.Global.FindChildren(PdbSymbolTag.Function, "System::Runtime::Profiler::Trace").Single();
 
             // Threading symbols
-            taskFirstField = PdbSession.Global.FindChildren(PdbSymbolTag.Null, "Task::First").Single();
-            taskKernelField = PdbSession.Global.FindChildren(PdbSymbolTag.Null, "Task::Kernel").Single();
-            taskCurrentField = PdbSession.Global.FindChildren(PdbSymbolTag.Null, "Task::Current").Single();
+            taskFirstField = PdbFileReader.PublicSymbols.First(s => s.GetUndecoratedName(SharpPdb.Windows.NameUndecorator.Flags.NameOnly) == "Task::First");
+            taskKernelField = PdbFileReader.PublicSymbols.First(s => s.GetUndecoratedName(SharpPdb.Windows.NameUndecorator.Flags.NameOnly) == "Task::Kernel");
+            taskCurrentField = PdbFileReader.PublicSymbols.First(s => s.GetUndecoratedName(SharpPdb.Windows.NameUndecorator.Flags.NameOnly) == "Task::Current");
             //processesField = PdbSession.Global.FindChildren(PdbSymbolTag.Null, "System::Runtime::Process::processes").Single();
 
             // Build threading wrappers
-            FirstTask = new Pointer<Task>(Gdb.Memory, taskFirstField.VirtualAddress);
-            KernelTask = new Pointer<Task>(Gdb.Memory, taskKernelField.VirtualAddress);
-            CurrentTask = new Pointer<Task>(Gdb.Memory, taskCurrentField.VirtualAddress);
+            FirstTask = new Pointer<Task>(Gdb.Memory, KernelBaseAddress + taskFirstField.RelativeVirtualAddress);
+            KernelTask = new Pointer<Task>(Gdb.Memory, KernelBaseAddress + taskKernelField.RelativeVirtualAddress);
+            CurrentTask = new Pointer<Task>(Gdb.Memory, KernelBaseAddress + taskCurrentField.RelativeVirtualAddress);
             //Processes = new Collection<Pointer<Process>>(Gdb.Memory, processesField.VirtualAddress);
         }
 
@@ -220,7 +221,7 @@ namespace Tools.Debugger
             ulong address = breakpointHitData.Address;
 
             // Debugger::Break() function
-            if (address == debuggerBreakFunction.VirtualAddress)
+            if (address == KernelBaseAddress + debuggerBreakFunction.RelativeVirtualAddress)
             {
                 Gdb.Registers.Eip++;
                 Gdb.Step();
@@ -265,7 +266,7 @@ namespace Tools.Debugger
             OnUpdateControls();
             OnUpdate();
             
-            PdbLineNumber line = PdbSession.FindLinesByVirtualAddress(Gdb.Registers.Eip, 1).FirstOrDefault();
+            /*PdbLineNumber line = PdbSession.FindLinesByVirtualAddress(Gdb.Registers.Eip, 1).FirstOrDefault();
             if (line == null)
                 return;
 
@@ -278,14 +279,14 @@ namespace Tools.Debugger
             if (selection == null)
                 return;
 
-            selection.GotoLine((int)line.LineNumber);
+            selection.GotoLine((int)line.LineNumber);*/
         }
         private void StepLineButton_Click(object sender, EventArgs e)
         {
             if (Gdb.Running)
                 return;
 
-            PdbLineNumber origin, line;
+            /*PdbLineNumber origin, line;
             origin = PdbSession.FindLinesByVirtualAddress(Gdb.Registers.Eip, 1).FirstOrDefault();
 
             while (true)
@@ -316,14 +317,14 @@ namespace Tools.Debugger
             if (selection == null)
                 return;
 
-            selection.GotoLine((int)line.LineNumber);
+            selection.GotoLine((int)line.LineNumber);*/
         }
         private void StepOverButton_Click(object sender, EventArgs e)
         {
             if (Gdb.Running)
                 return;
 
-            List<PdbLineNumber> lines = PdbSession.FindLinesByVirtualAddress(Gdb.Registers.Eip, 100).ToList();
+            /*List<PdbLineNumber> lines = PdbSession.FindLinesByVirtualAddress(Gdb.Registers.Eip, 100).ToList();
             if (lines.Count < 1)
             {
                 StepLineButton_Click(sender, e);
@@ -363,7 +364,7 @@ namespace Tools.Debugger
             if (selection == null)
                 return;
 
-            selection.GotoLine((int)line.LineNumber);
+            selection.GotoLine((int)line.LineNumber);*/
         }
         private void StartVMButton_Click(object sender, EventArgs e)
         {
@@ -371,7 +372,7 @@ namespace Tools.Debugger
         }
         private void StopVMButton_Click(object sender, EventArgs e)
         {
-            if (!Gdb.Running)
+            if (Gdb != null && !Gdb.Running)
                 Gdb.Dispose();
 
             VirtualMachine.Stop();
@@ -430,7 +431,7 @@ namespace Tools.Debugger
 
         private void FrameList_DoubleClick(object sender, EventArgs e)
         {
-            Frame selectedFrame = FrameList.SelectedItems.Count == 0 ? null : FrameList.SelectedItems[0].Tag as Frame;
+            /*Frame selectedFrame = FrameList.SelectedItems.Count == 0 ? null : FrameList.SelectedItems[0].Tag as Frame;
             if (selectedFrame == null)
                 return;
 
@@ -447,7 +448,7 @@ namespace Tools.Debugger
             if (selection == null)
                 return;
 
-            selection.GotoLine((int)line.LineNumber);
+            selection.GotoLine((int)line.LineNumber);*/
         }
         private void RegisterList_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -676,7 +677,7 @@ namespace Tools.Debugger
                 if (selectedTask != null && selectedTask.Id == taskId)
                     selectedItem = taskItem;
 
-                PdbSymbol function = PdbSession.GetSymbolAtVirtualAddress(PdbSymbolTag.Function, eip);
+                PdbPublicSymbol function = GetSymbolByVirtualAddress(eip);
                 if (function != null)
                     taskItem.SubItems.Add(function.Name);
 
@@ -704,12 +705,12 @@ namespace Tools.Debugger
 
             // Add current method
             {
-                PdbSymbol function = PdbSession.GetSymbolAtVirtualAddress(PdbSymbolTag.Function, eip);
+                PdbPublicSymbol function = GetSymbolByVirtualAddress(eip);
                 if (function == null)
                     return;
 
                 Frame frame = new Frame(eip, ebp, function);
-                ulong pointer = function.VirtualAddress;
+                ulong pointer = KernelBaseAddress + function.RelativeVirtualAddress;
 
                 ListViewItem frameItem = new ListViewItem("0x" + pointer.ToString("X8"));
 
@@ -753,12 +754,12 @@ namespace Tools.Debugger
                 if (ret == 0)
                     break;
 
-                PdbSymbol function = PdbSession.GetSymbolAtVirtualAddress(PdbSymbolTag.Function, ret);
+                PdbPublicSymbol function = GetSymbolByVirtualAddress(ret);
                 if (function == null)
                     break;
 
                 Frame frame = new Frame(ret, ebp2, function);
-                ulong pointer = function.VirtualAddress;
+                ulong pointer = KernelBaseAddress + function.RelativeVirtualAddress;
 
                 ListViewItem frameItem = new ListViewItem("0x" + pointer.ToString("X8"));
 
@@ -859,11 +860,11 @@ namespace Tools.Debugger
             uint eip = selectedFrame != null ? selectedFrame.Eip : selectedTask != null ? selectedTask.Eip : Gdb.Registers.Eip;
             uint ebp = selectedFrame != null ? selectedFrame.Ebp : selectedTask != null ? selectedTask.Ebp : Gdb.Registers.Ebp;
 
-            PdbSymbol function = PdbSession.GetSymbolAtVirtualAddress(PdbSymbolTag.Function, eip);
+            PdbPublicSymbol function = GetSymbolByVirtualAddress(eip);
             if (function == null)
                 return;
 
-            foreach (PdbSymbol variable in function.FindChildren(PdbSymbolTag.Data))
+            /*foreach (PdbSymbol variable in function.FindChildren(PdbSymbolTag.Data))
             {
                 ListViewItem variableItem = new ListViewItem(variable.Name);
 
@@ -915,12 +916,12 @@ namespace Tools.Debugger
                 variableItem.SubItems.Add(string.Join(" ", buffer.Select(b => b.ToString("X2"))));
 
                 VariableList.Items.Add(variableItem);
-            }
+            }*/
         }
 
-        public Type GetTypeFromSymbol(PdbSymbol type)
+        public Type GetTypeFromSymbol(PdbPublicSymbol type)
         {
-            PdbSymbolTag tag = type.SymTag;
+            /*PdbSymbolTag tag = type.SymTag;
 
             if (tag == PdbSymbolTag.PointerType)
                 return typeof(IntPtr);
@@ -954,16 +955,16 @@ namespace Tools.Debugger
             else if (tag == PdbSymbolTag.CustomType)
             {
 
-            }
+            }*/
             
             return null;
         }
-        public string GetTypeNameFromSymbol(PdbSymbol type)
+        public string GetTypeNameFromSymbol(PdbPublicSymbol type)
         {
             if (type == null)
                 return "";
 
-            PdbSymbolTag tag = type.SymTag;
+            /*PdbSymbolTag tag = type.SymTag;
 
             string name = type.Name;
             if (name != null)
@@ -1001,9 +1002,19 @@ namespace Tools.Debugger
             else if (tag == PdbSymbolTag.CustomType)
             {
 
-            }
+            }*/
 
             return "";
+        }
+        private PdbPublicSymbol GetSymbolByVirtualAddress(ulong virtualAddress)
+        {
+            PdbPublicSymbol result = PdbFileReader.PublicSymbols
+                .Where(s => s.Segment == 1)
+                .OrderBy(s => s.RelativeVirtualAddress)
+                .TakeWhile(s => s.RelativeVirtualAddress < virtualAddress - KernelBaseAddress)
+                .Last();
+
+            return result;
         }
 
         public string ReadCString(uint address)

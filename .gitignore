@@ -23,6 +23,7 @@ Source/\[Tools\]/Binaries/
 Source/\[Tools\]/\[Libraries\]/Binaries/
 **/Debug/
 **/Release/
+**/obj/
 
 # Kernel artifacts
 Source/Kernel/Kernel.map
@@ -34,3 +35,4 @@ Root/System/Kernel
 /VMware/Disk.vmdk
 /Hyper-V/
 Documents/Documentation/html/
+**/MigrationBackup/

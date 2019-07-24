@@ -13,7 +13,7 @@ namespace Tools.Generator
             string vmdkPath = Path.Combine(Bootstrap.Root, @"VMware\Disk.vmdk");
             string drivePath = @"Z:";
 
-            if (Program.VirtualMachine.Running)
+            if (Program.VirtualMachine != null && Program.VirtualMachine.Running)
                 Program.VirtualMachine.Stop();
 
             // Find the first unused drive
@@ -44,7 +44,7 @@ namespace Tools.Generator
 
         private static List<string> RunCommand(string parameters)
         {
-            string path = System.IO.Path.Combine(Bootstrap.Root, @"Tools\VMware\VDDK\vmware-mount.exe");
+            string path = Path.Combine(Bootstrap.Root, @"Tools\VMware\VDDK\vmware-mount.exe");
             List<string> result = new List<string>();
 
             ProcessStartInfo processStartInfo = new ProcessStartInfo(path, parameters);

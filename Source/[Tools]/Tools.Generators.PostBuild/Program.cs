@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 namespace Tools.Generator
 {
@@ -14,12 +13,7 @@ namespace Tools.Generator
             Console.WriteLine("Generator.PostBuild: Begin");
 
             //HyperVOutput.Generate();
-
-            // Construct environment and run the interface
-            //using (VirtualMachine = new VMwareVirtualMachine(Path.Combine(Bootstrap.Root, @"VMware\System.vmx")))
-                //;// Output.Generate();
-
-            //Wrappers.Generate();
+            Output.Generate();
 
             Console.WriteLine("Generator.PostBuild: End");
         }

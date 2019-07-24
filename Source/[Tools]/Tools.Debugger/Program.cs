@@ -1,26 +1,151 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
+// Licensed under the MIT License.
+
+using System;
+using System.Diagnostics;
 using System.IO;
-using System.IO.Pipes;
-using System.Linq;
-using System.Reflection;
-using System.Windows.Forms;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
+using Ookii.CommandLine;
 
-namespace Tools.Debugger
+using static System.FormattableString;
+
+namespace SampleDebugAdapter
 {
-    public static class Program
+    internal class ProgramArgs
     {
-        [STAThread]
-        static void Main(params string[] args)
+        [CommandLineArgument("debug", DefaultValue = false, IsRequired = false)]
+        public bool Debug { get; set; }
+
+        [CommandLineArgument("nodebug", DefaultValue = false, IsRequired = false)]
+        public bool NoDebug { get; set; }
+
+        [CommandLineArgument("server", DefaultValue = 0, IsRequired = false)]
+        public int ServerPort { get; set; }
+
+        [CommandLineArgument("stepOnEnter", DefaultValue = false, IsRequired = false)]
+        public bool StepOnEnter { get; set; }
+    }
+
+    internal class Program
+    {
+        private static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            CommandLineParser parser = new CommandLineParser(typeof(ProgramArgs));
+            ProgramArgs arguments = null;
 
-            // Run the debugger
-            Application.Run(new MainForm());
+            try
+            {
+                arguments = (ProgramArgs)parser.Parse(args);
+            }
+            catch (CommandLineArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+                parser.WriteUsageToConsole();
+                return;
+            }
 
-            // Force close the program
-            Environment.Exit(0);
+            if (arguments.Debug)
+            {
+                Console.WriteLine("Waiting for debugger...");
+                while (true)
+                {
+                    if (Debugger.IsAttached)
+                    {
+                        Console.WriteLine("Debugger attached!");
+                        break;
+                    }
+
+                    Thread.Sleep(100);
+                }
+            }
+
+            if (arguments.StepOnEnter && arguments.ServerPort == 0)
+            {
+                Console.WriteLine("Continue-on-Enter requires server mode.");
+                return;
+            }
+
+            if (arguments.ServerPort != 0)
+            {
+                // Server mode - listen on a network socket
+                RunServer(arguments);
+            }
+            else
+            {
+                // Standard mode - run with the adapter connected to the process's stdin and stdout
+                SampleDebugAdapter adapter = new SampleDebugAdapter(Console.OpenStandardInput(), Console.OpenStandardOutput());
+                adapter.Protocol.LogMessage += (sender, e) => Debug.WriteLine(e.Message);
+                adapter.Run();
+            }
+        }
+
+        private static void RunServer(ProgramArgs args)
+        {
+            Console.WriteLine(Invariant($"Waiting for connections on port {args.ServerPort}..."));
+            SampleDebugAdapter adapter = null;
+
+            Thread listenThread = new Thread(() =>
+            {
+                TcpListener listener = new TcpListener(IPAddress.Parse("127.0.0.1"), args.ServerPort);
+                listener.Start();
+
+                while (true)
+                {
+                    Socket clientSocket = listener.AcceptSocket();
+                    Thread clientThread = new Thread(() =>
+                    {
+                        Console.WriteLine("Accepted connection");
+
+                        using (Stream stream = new NetworkStream(clientSocket))
+                        {
+                            adapter = new SampleDebugAdapter(stream, stream);
+                            adapter.Protocol.LogMessage += (sender, e) => Console.WriteLine(e.Message);
+                            adapter.Protocol.DispatcherError += (sender, e) =>
+                            {
+                                Console.Error.WriteLine(e.Exception.Message);
+                            };
+                            adapter.Run();
+                            adapter.Protocol.WaitForReader();
+
+                            adapter = null;
+                        }
+
+                        Console.WriteLine("Connection closed");
+                    });
+
+                    clientThread.Name = "DebugServer connection thread";
+                    clientThread.Start();
+                }
+            });
+
+            Thread keypressThread;
+            if (args.StepOnEnter)
+            {
+                Console.WriteLine("Will step when ENTER is pressed.");
+                keypressThread = new Thread(() =>
+                {
+                    ConsoleKeyInfo keyInfo;
+
+                    while (true)
+                    {
+                        keyInfo = Console.ReadKey();
+                        if (keyInfo.Key == ConsoleKey.Enter && adapter != null)
+                        {
+                            Console.WriteLine("Forcing step");
+                            adapter.ExitBreakCore(0, true);
+                        }
+                    }
+                });
+
+                keypressThread.Name = "Keypress listener thread";
+                keypressThread.Start();
+            }
+
+            listenThread.Name = "DebugServer listener thread";
+            listenThread.Start();
+            listenThread.Join();
         }
     }
 }

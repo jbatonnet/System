@@ -41,6 +41,16 @@ namespace Tools.VirtualMachine
 
         public override void Start()
         {
+            // Kill previous instances
+            string qemuProcessName = System.IO.Path.GetFileNameWithoutExtension(qemuExecutable.FullName);
+
+            Process[] oldProcesses = Process.GetProcesses()
+                .Where(p => p.ProcessName == qemuProcessName)
+                .ToArray();
+
+            foreach (Process process in oldProcesses)
+                process.Kill();
+
             ProcessStartInfo processStartInfo = new ProcessStartInfo(qemuExecutable.FullName);
 
             // Add QEMU arguments

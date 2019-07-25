@@ -679,7 +679,7 @@ namespace Tools.Debugger
 
                 PdbPublicSymbol function = GetSymbolByVirtualAddress(eip);
                 if (function != null)
-                    taskItem.SubItems.Add(function.Name);
+                    taskItem.SubItems.Add(function.GetUndecoratedName(SharpPdb.Windows.NameUndecorator.Flags.NameOnly));
 
                 TaskList.Items.Add(taskItem);
             }
@@ -715,7 +715,7 @@ namespace Tools.Debugger
                 ListViewItem frameItem = new ListViewItem("0x" + pointer.ToString("X8"));
 
                 frameItem.Tag = frame;
-                frameItem.SubItems.Add(function.Name);
+                frameItem.SubItems.Add(function.GetUndecoratedName(SharpPdb.Windows.NameUndecorator.Flags.NameOnly));
                 frameItem.SubItems.Add("0x" + (eip - pointer).ToString("X"));
 
                 FrameList.Items.Add(frameItem);
@@ -764,7 +764,7 @@ namespace Tools.Debugger
                 ListViewItem frameItem = new ListViewItem("0x" + pointer.ToString("X8"));
 
                 frameItem.Tag = frame;
-                frameItem.SubItems.Add(function.Name);
+                frameItem.SubItems.Add(function.GetUndecoratedName(SharpPdb.Windows.NameUndecorator.Flags.NameOnly));
                 frameItem.SubItems.Add("0x" + (ret - pointer).ToString("X"));
 
                 FrameList.Items.Add(frameItem);
@@ -855,7 +855,7 @@ namespace Tools.Debugger
             if (selectedTask != null)
                 VariablesLabel.Text += " - Task #" + selectedTask.Id;
             if (selectedFrame != null)
-                VariablesLabel.Text += " - " + selectedFrame.Function.Name;
+                VariablesLabel.Text += " - " + selectedFrame.Function.GetUndecoratedName(SharpPdb.Windows.NameUndecorator.Flags.NameOnly);
 
             uint eip = selectedFrame != null ? selectedFrame.Eip : selectedTask != null ? selectedTask.Eip : Gdb.Registers.Eip;
             uint ebp = selectedFrame != null ? selectedFrame.Ebp : selectedTask != null ? selectedTask.Ebp : Gdb.Registers.Ebp;

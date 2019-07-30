@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -466,6 +467,15 @@ namespace SampleDebugAdapter
 
         protected override LaunchResponse HandleLaunchRequest(LaunchArguments arguments)
         {
+            bool? debug = arguments.ConfigurationProperties.GetValueAsBool("debug");
+            if (debug == true)
+            {
+                if (Debugger.IsAttached)
+                    Debugger.Break();
+                else
+                    Debugger.Launch();
+            }
+
             string fileName = arguments.ConfigurationProperties.GetValueAsString("program");
             if (String.IsNullOrEmpty(fileName))
             {

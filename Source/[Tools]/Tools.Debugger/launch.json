@@ -1,0 +1,7 @@
+{
+  "$adapter": "[Tools]\\Binaries\\Tools.Debugger.exe",
+  "type": "sample",
+  "request": "launch",
+  "debug": true,
+  "program": "..\\Root\\System\\Kernel"
+}

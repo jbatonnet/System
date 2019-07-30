@@ -7,8 +7,8 @@
     <ProjectGuid>{E1EC6099-65DC-41BB-AE01-5D5E39CB3807}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SampleDebugAdapter</RootNamespace>
-    <AssemblyName>SampleDebugAdapter</AssemblyName>
+    <RootNamespace>Tools.Debugger</RootNamespace>
+    <AssemblyName>Tools.Debugger</AssemblyName>
     <SignOutput>false</SignOutput>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Binaries\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +28,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Binaries\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -76,6 +76,12 @@
     <Compile Include="SampleThread.cs" />
     <Compile Include="SampleVariable.cs" />
     <Compile Include="ThreadManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="launch.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SampleScripts\TestScript.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

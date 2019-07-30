@@ -1,6 +1,0 @@
-{
-  "$adapter": "D:\\Projets\\Git\\microsoft\\VSDebugAdapterHost\\src\\sample\\SampleDebugAdapter\\bin\\Debug\\SampleDebugAdapter.exe",
-  "type": "sample",
-  "request": "launch",
-  "program": "D:\\Projets\\Git\\microsoft\\VSDebugAdapterHost\\src\\sample\\SampleDebugAdapter\\SampleScripts\\TestScript.txt"
-}

@@ -134,7 +134,7 @@ namespace SampleDebugAdapter
                         if (keyInfo.Key == ConsoleKey.Enter && adapter != null)
                         {
                             Console.WriteLine("Forcing step");
-                            adapter.ExitBreakCore(0, true);
+                            //adapter.ExitBreakCore(0, true);
                         }
                     }
                 });

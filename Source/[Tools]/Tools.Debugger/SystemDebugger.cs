@@ -20,7 +20,7 @@ namespace SampleDebugAdapter
     internal class SystemDebugger : DebugAdapterBase
     {
         private NamedPipeServerStream serialStream;
-        private List<PdbSession> pdbSessions;
+        private List<PdbSession> pdbSessions = new List<PdbSession>();
         private VirtualMachine virtualMachine;
         private x86GdbClient gdbClient;
 

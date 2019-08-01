@@ -14,7 +14,7 @@ namespace Tools.Debugger.Wrappers
             }
         }
 
-        public String(GdbStub.GdbMemory memory, ulong address) : base(memory, address)
+        public String(GdbMemory memory, ulong address) : base(memory, address)
         {
         }
 

@@ -240,7 +240,7 @@ void WindowsManager_Loop()
         displayMode->Height = 720;
 #endif
 
-        Console::WriteLine("DisplayMode: {0}x{1}", displayMode->Width, displayMode->Height);
+        Serial::WriteLine("DisplayMode: {0}x{1}", displayMode->Width, displayMode->Height);
 
         // Create buffer
         buffer = new Surface(displayMode->Width, displayMode->Height);
@@ -308,13 +308,13 @@ void WindowsManager_Loop()
                 Rectangle& rectangle = refreshes[i];
                 buffer->FillRectangle(rectangle.Position.X, rectangle.Position.Y, rectangle.Size.X, rectangle.Size.Y, BACKCOLOR);
 
-                //Log::WriteLine(Log::Debug, "Updating region { X: {0}, Y: {1}, Width: {2}, Height: {3} }", rectangle.Position.X, rectangle.Position.Y, rectangle.Size.X, rectangle.Size.Y);
+                Log::WriteLine(Log::Debug, "Updating region { X: {0}, Y: {1}, Width: {2}, Height: {3} }", rectangle.Position.X, rectangle.Position.Y, rectangle.Size.X, rectangle.Size.Y);
 
                 for (u32 j = 0; j < windows.Count; j++)
                 {
                     Window* window = windows[j];
 
-                    //Log::WriteLine(Log::Debug, "Testing window { X: {0}, Y: {1}, Width: {2}, Height: {3} }", window->Position.X, window->Position.Y, window->Size.X, window->Size.Y);
+                    Log::WriteLine(Log::Debug, "Testing window { X: {0}, Y: {1}, Width: {2}, Height: {3} }", window->Position.X, window->Position.Y, window->Size.X, window->Size.Y);
 
                     if (window->Position.X > rectangle.Position.X + rectangle.Size.X) continue;
                     if (window->Position.X + window->Size.X < rectangle.Position.X) continue;

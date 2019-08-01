@@ -32,7 +32,7 @@ namespace Tools.Debugger.Wrappers
             }
         }
 
-        public Value(GdbStub.GdbMemory memory, ulong address) : base(memory, address)
+        public Value(GdbMemory memory, ulong address) : base(memory, address)
         {
             Type type = typeof(T);
 

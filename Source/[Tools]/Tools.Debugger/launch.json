@@ -2,6 +2,24 @@
   "$adapter": "[Tools]\\Binaries\\Tools.Debugger.exe",
   "type": "sample",
   "request": "launch",
-  "debug": true,
-  "program": "..\\Root\\System\\Kernel"
+
+  "options": {
+    "debugging": {
+      "inception": true
+    },
+    "virtualMachine": {
+      "type": "QEMU",
+      "disk": "..\\VMWare\\Disk.vmdk"
+    },
+    "serial": {
+      "name": "System" // TODO: Support Immediate window as Serial in ?
+    },
+    "gdb": {
+      "address": "127.0.0.1",
+      "port": 8832
+    },
+    "symbols": [
+      "Kernel\\Kernel.pdb"
+    ]
+  }
 }

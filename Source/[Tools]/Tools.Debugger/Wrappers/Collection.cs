@@ -19,7 +19,7 @@ namespace Tools.Debugger.Wrappers
             }
         }
 
-        public Collection(GdbStub.GdbMemory memory, ulong address) : base(memory, address)
+        public Collection(GdbMemory memory, ulong address) : base(memory, address)
         {
         }
     }

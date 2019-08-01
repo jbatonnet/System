@@ -2,15 +2,15 @@
 
 namespace Tools.Gdb
 {
-    public partial class x86GdbStub : GdbStub
+    public partial class x86GdbClient : GdbClient
     {
-        public new x86GdbRegisters Registers { get; private set; }
+        public new x86GdbRegisters Registers { get; }
 
-        public x86GdbStub() : this("127.0.0.1", 8832) { }
-        public x86GdbStub(string host) : this(host, 8832) { }
-        public x86GdbStub(string host, int port) : base(host, port)
+        public x86GdbClient() : this("127.0.0.1", 8832) { }
+        public x86GdbClient(string host) : this(host, 8832) { }
+        public x86GdbClient(string host, int port) : base(host, port)
         {
-            Registers = new x86GdbRegisters(this);
+            base.Registers = Registers = new x86GdbRegisters(this);
         }
 
         protected override void OnNotification(string data)

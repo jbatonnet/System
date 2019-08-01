@@ -57,31 +57,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BreakpointManager.cs" />
-    <Compile Include="Directives\DirectiveBase.cs" />
-    <Compile Include="Directives\DirectiveProcessor.cs" />
-    <Compile Include="Directives\IDirective.cs" />
-    <Compile Include="ExceptionManager.cs" />
-    <Compile Include="ISampleVariableContainer.cs" />
-    <Compile Include="SampleModule.cs" />
-    <Compile Include="ModuleManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleDebugAdapter.cs" />
-    <Compile Include="SampleObject.cs" />
-    <Compile Include="SampleScope.cs" />
-    <Compile Include="SampleSource.cs" />
-    <Compile Include="SampleSourceManager.cs" />
-    <Compile Include="SampleStackFrame.cs" />
-    <Compile Include="SampleThread.cs" />
-    <Compile Include="SampleVariable.cs" />
-    <Compile Include="ThreadManager.cs" />
+    <Compile Include="SystemDebugger.cs" />
+    <Compile Include="Wrappers\Collection.cs" />
+    <Compile Include="Wrappers\Object.cs" />
+    <Compile Include="Wrappers\Pointer.cs" />
+    <Compile Include="Wrappers\Process.cs" />
+    <Compile Include="Wrappers\String.cs" />
+    <Compile Include="Wrappers\Task.cs" />
+    <Compile Include="Wrappers\Value.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="launch.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SampleScripts\TestScript.txt" />
+    <ProjectReference Include="..\[Libraries]\Tools.Gdb\Tools.Gdb.csproj">
+      <Project>{a7dd2c3b-760c-4575-b13e-d7000ac630d6}</Project>
+      <Name>Tools.Gdb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\[Libraries]\Tools.Pdb\Tools.Pdb.csproj">
+      <Project>{aa9635e0-3e1b-4b5d-a838-2aeecd70a475}</Project>
+      <Name>Tools.Pdb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\[Libraries]\Tools.VirtualMachine\Tools.VirtualMachine.csproj">
+      <Project>{adf54cef-56c7-459d-b0bf-4bf6020a0afc}</Project>
+      <Name>Tools.VirtualMachine</Name>
+    </ProjectReference>
   </ItemGroup>
+  <Import Project="..\Tools.Common\Tools.Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

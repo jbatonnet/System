@@ -7,15 +7,15 @@ using System.Threading;
 
 namespace Tools.Gdb
 {
-    public partial class GdbStub : IDisposable
+    public partial class GdbClient : IDisposable
     {
         public bool Running { get; private set; } = false;
 
         public event GdbBreakpointHitCallback BreakpointHit;
 
-        public GdbBreakpointCollection Breakpoints { get; private set; }
-        public GdbMemory Memory { get; private set; }
-        public GdbRegisters Registers { get; private set; }
+        public GdbBreakpointCollection Breakpoints { get; }
+        public GdbMemory Memory { get; }
+        public GdbRegisters Registers { get; protected set; }
 
         private Socket gdbSocket;
         private NetworkStream gdbStream;
@@ -26,9 +26,9 @@ namespace Tools.Gdb
         private AutoResetEvent stopEvent = new AutoResetEvent(false);
         private bool stopPending = false;
         
-        public GdbStub() : this("127.0.0.1", 8832) { }
-        public GdbStub(string host) : this(host, 8832) { }
-        public GdbStub(string host, int port)
+        public GdbClient() : this("127.0.0.1", 8832) { }
+        public GdbClient(string host) : this(host, 8832) { }
+        public GdbClient(string host, int port)
         {
             gdbSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             gdbSocket.Connect(host, port);
@@ -113,12 +113,12 @@ namespace Tools.Gdb
             return response;
         }
 
-        protected void Execute(string command)
+        internal void Execute(string command)
         {
             lock (gdbMutex)
                 WritePacket(command);
         }
-        protected string Query(string command)
+        internal string Query(string command)
         {
             lock (gdbMutex)
             {
@@ -217,8 +217,7 @@ namespace Tools.Gdb
         }
         protected void OnBreakpointHit(GdbBreakpointHitData hitData)
         {
-            if (BreakpointHit != null)
-                BreakpointHit(this, hitData);
+            BreakpointHit?.Invoke(this, hitData);
         }
 
         public void Dispose()

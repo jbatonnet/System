@@ -50,7 +50,7 @@ namespace Tools.Debugger.Wrappers
             }
         }
 
-        public Task(GdbStub.GdbMemory memory, ulong address) : base(memory, address)
+        public Task(GdbMemory memory, ulong address) : base(memory, address)
         {
         }
 

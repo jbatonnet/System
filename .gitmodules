@@ -16,3 +16,9 @@
 [submodule "Documents/Sources/xorg-xf86-video-vesa"]
 	path = Documents/Sources/xorg-xf86-video-vesa
 	url = https://github.com/freedesktop/xorg-xf86-video-vesa.git
+[submodule "Documents/Sources/debugHelp"]
+	path = Documents/Sources/debugHelp
+	url = https://github.com/henke37/debugHelp
+[submodule "Documents/Sources/osdev"]
+	path = Documents/Sources/osdev
+	url = https://github.com/pdoane/osdev

@@ -43,7 +43,7 @@ namespace Tools.Debugger
         public VirtualMachine VirtualMachine { get; private set; }
         public NamedPipeServerStream SerialStream { get; private set; }
         public PdbFileReader PdbFileReader { get; private set; }
-        public x86GdbStub Gdb { get; private set; }
+        public x86GdbClient Gdb { get; private set; }
         public VisualStudio VisualStudio { get; private set; }
 
         private PdbPublicSymbol debuggerAttachedField, debuggerInitializeFunction, debuggerBreakFunction;
@@ -162,7 +162,7 @@ namespace Tools.Debugger
         }
         private void LoadGDB()
         {
-            Gdb = new x86GdbStub();
+            Gdb = new x86GdbClient();
             Gdb.BreakpointHit += Gdb_BreakpointHit;
 
             if (Gdb.Running)
@@ -216,7 +216,7 @@ namespace Tools.Debugger
             //Processes = new Collection<Pointer<Process>>(Gdb.Memory, processesField.VirtualAddress);
         }
 
-        private void Gdb_BreakpointHit(GdbStub gdbStub, GdbBreakpointHitData breakpointHitData)
+        private void Gdb_BreakpointHit(GdbClient gdbStub, GdbBreakpointHitData breakpointHitData)
         {
             ulong address = breakpointHitData.Address;
 

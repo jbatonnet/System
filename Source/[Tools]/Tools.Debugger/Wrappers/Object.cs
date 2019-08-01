@@ -6,11 +6,11 @@ namespace Tools.Debugger.Wrappers
 {
     public class Object : IEquatable<Object>
     {
-        public ulong Address { get; protected set; }
+        public ulong Address { get; }
 
-        protected GdbStub.GdbMemory memory;
+        protected GdbMemory memory;
 
-        protected Object(GdbStub.GdbMemory memory, ulong address)
+        protected Object(GdbMemory memory, ulong address)
         {
             this.memory = memory;
             Address = address;

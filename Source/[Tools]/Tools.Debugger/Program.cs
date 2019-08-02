@@ -75,7 +75,7 @@ namespace SampleDebugAdapter
             else
             {
                 // Standard mode - run with the adapter connected to the process's stdin and stdout
-                SystemDebugger adapter = new SystemDebugger(Console.OpenStandardInput(), Console.OpenStandardOutput());
+                SampleDebugAdapter adapter = new SampleDebugAdapter(Console.OpenStandardInput(), Console.OpenStandardOutput());
                 adapter.Protocol.LogMessage += (sender, e) => Debug.WriteLine(e.Message);
                 adapter.Run();
             }
@@ -84,7 +84,7 @@ namespace SampleDebugAdapter
         private static void RunServer(ProgramArgs args)
         {
             Console.WriteLine(Invariant($"Waiting for connections on port {args.ServerPort}..."));
-            SystemDebugger adapter = null;
+            SampleDebugAdapter adapter = null;
 
             Thread listenThread = new Thread(() =>
             {
@@ -100,7 +100,7 @@ namespace SampleDebugAdapter
 
                         using (Stream stream = new NetworkStream(clientSocket))
                         {
-                            adapter = new SystemDebugger(stream, stream);
+                            adapter = new SampleDebugAdapter(stream, stream);
                             adapter.Protocol.LogMessage += (sender, e) => Console.WriteLine(e.Message);
                             adapter.Protocol.DispatcherError += (sender, e) =>
                             {

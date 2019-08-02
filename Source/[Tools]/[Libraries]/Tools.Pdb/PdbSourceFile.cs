@@ -10,7 +10,7 @@ namespace Tools.Pdb
         public uint UniqueId => diaSourceFile.uniqueId;
         public IEnumerable<PdbSymbol> Compilands => PdbSymbol.EnumerateFrom(diaSourceFile.compilands);
 
-        private IDiaSourceFile diaSourceFile;
+        internal IDiaSourceFile diaSourceFile;
 
         private PdbSourceFile(IDiaSourceFile diaSourceFile)
         {

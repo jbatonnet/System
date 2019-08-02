@@ -74,9 +74,10 @@ namespace Tools.VirtualMachine
 
             // Start process
             process = Process.Start(processStartInfo);
+            process.WaitForInputIdle();
 
             // Trigger start event after some delay
-            Task.Delay(1).ContinueWith(t => Started(this, EventArgs.Empty));
+            Started?.Invoke(this, EventArgs.Empty);
 
             // Wait for process to exit
             Task.Run(() =>

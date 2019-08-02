@@ -223,7 +223,7 @@ namespace Tools.Pdb
         public PdbSymbol CoffGroup => PdbSymbol.From(diaSymbol.coffGroup);
 
 
-        private IDiaSymbol diaSymbol;
+        internal IDiaSymbol diaSymbol;
 
         private PdbSymbol(IDiaSymbol diaSymbol)
         {
@@ -232,17 +232,17 @@ namespace Tools.Pdb
 
         public IEnumerable<PdbSymbol> FindChildren(string name)
         {
-            diaSymbol.findChildren(SymTagEnum.SymTagNull, name, nsfCaseInsensitive | nsfUndecoratedName, out IDiaEnumSymbols diaEnumSymbols);
+            diaSymbol.findChildrenEx(SymTagEnum.SymTagNull, name, nsfCaseInsensitive | nsfUndecoratedName, out IDiaEnumSymbols diaEnumSymbols);
             return PdbSymbol.EnumerateFrom(diaEnumSymbols);
         }
         public IEnumerable<PdbSymbol> FindChildren(PdbSymbolTag tag)
         {
-            diaSymbol.findChildren((SymTagEnum)tag, null, nsNone, out IDiaEnumSymbols diaEnumSymbols);
+            diaSymbol.findChildrenEx((SymTagEnum)tag, null, nsNone, out IDiaEnumSymbols diaEnumSymbols);
             return PdbSymbol.EnumerateFrom(diaEnumSymbols);
         }
         public IEnumerable<PdbSymbol> FindChildren(PdbSymbolTag tag, string name)
         {
-            diaSymbol.findChildren((SymTagEnum)tag, name, nsfCaseInsensitive | nsfUndecoratedName, out IDiaEnumSymbols diaEnumSymbols);
+            diaSymbol.findChildrenEx((SymTagEnum)tag, name, nsfCaseInsensitive | nsfUndecoratedName, out IDiaEnumSymbols diaEnumSymbols);
             return PdbSymbol.EnumerateFrom(diaEnumSymbols);
         }
 

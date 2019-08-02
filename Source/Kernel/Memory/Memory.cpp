@@ -57,6 +57,11 @@ void operator delete[](void* pointer)
     if (pointer)
         Memory::Free(pointer);
 }
+void operator delete[](void* pointer, u32)
+{
+	if (pointer)
+		Memory::Free(pointer);
+}
 
 void* Memory::Allocate(u32 size, s16 value)
 {

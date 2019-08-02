@@ -268,7 +268,7 @@
       <AdditionalOptions>/VERBOSE:LIB %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <PreBuildEvent>
-      <Command>"$(SolutionDir)[Tools]\Binaries\Generator.PreBuild.exe"</Command>
+      <Command>"$(SolutionDir)[Tools]\Binaries\Tools.Generators.PreBuild.exe"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Windows|ARM'">
@@ -283,6 +283,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PreBuildEvent>
+      <Command>"$(SolutionDir)[Tools]\Binaries\Tools.Generators.PreBuild.exe"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Windows|x64'">
     <ClCompile>
@@ -296,6 +299,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PreBuildEvent>
+      <Command>"$(SolutionDir)[Tools]\Binaries\Tools.Generators.PreBuild.exe"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Graphics\FontFamily.cpp" />

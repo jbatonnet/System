@@ -21,7 +21,7 @@ namespace Tools.Pdb
         public int Statement => diaLineNumber.statement;
         public uint CompilandId => diaLineNumber.compilandId;
 
-        private IDiaLineNumber diaLineNumber;
+        internal IDiaLineNumber diaLineNumber;
 
         private PdbLineNumber(IDiaLineNumber diaLineNumber)
         {

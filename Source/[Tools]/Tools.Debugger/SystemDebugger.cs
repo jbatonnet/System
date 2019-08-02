@@ -17,7 +17,7 @@ using Tools.VirtualMachine;
 
 namespace SampleDebugAdapter
 {
-    internal class SystemDebugger : DebugAdapterBase
+    internal class SampleDebugAdapter : DebugAdapterBase
     {
         private NamedPipeServerStream serialStream;
         private List<PdbSession> pdbSessions = new List<PdbSession>();
@@ -36,7 +36,7 @@ namespace SampleDebugAdapter
         private byte[] serialBuffer = new byte[1];
         private string serialLine = "";
 
-        internal SystemDebugger(Stream stdIn, Stream stdOut)
+        internal SampleDebugAdapter(Stream stdIn, Stream stdOut)
         {
             base.InitializeProtocolClient(stdIn, stdOut);
         }
@@ -59,11 +59,11 @@ namespace SampleDebugAdapter
 
         private void InitializeVirtualMachine()
         {
-            string virtualMachinePath = Path.Combine(Bootstrap.Source, @"VMware\Disk.vmdk");
+            string virtualMachinePath = Path.Combine(Bootstrap.Root, @"VMware\Disk.vmdk");
             if (!File.Exists(virtualMachinePath))
                 throw new FileNotFoundException("Could not find virtual machine", virtualMachinePath);
 
-            virtualMachine = new QemuVirtualMachine(Path.Combine(Bootstrap.Root, @"VMware\Disk.vmdk"));
+            virtualMachine = new QemuVirtualMachine(virtualMachinePath);
             virtualMachine.Stopped += VirtualMachine_Stopped;
 
             if (virtualMachine.Running)
@@ -106,6 +106,8 @@ namespace SampleDebugAdapter
 
             gdbClient.Breakpoints.Add(GdbBreakpointType.Memory, debuggerBreakFunction.RelativeVirtualAddress);
             gdbClient.Memory.Write(debuggerAttachedField.RelativeVirtualAddress, 0x01);
+
+            gdbClient.Continue();
         }
         private void InitializeWrappers()
         {
@@ -313,8 +315,44 @@ namespace SampleDebugAdapter
 
         protected override SetBreakpointsResponse HandleSetBreakpointsRequest(SetBreakpointsArguments arguments)
         {
-            //return new SetBreakpointsResponse(breakpoints: responseBreakpoints);
-            return base.HandleSetBreakpointsRequest(arguments);
+            string sourcePath = arguments.Source.Path;
+            List<Breakpoint> breakpoints = new List<Breakpoint>();
+
+            foreach (SourceBreakpoint sourceBreakpoint in arguments.Breakpoints)
+            {
+                PdbLineNumber[] pdbLineNumbers = pdbSessions
+                    .SelectMany(s =>
+                    {
+                        PdbSourceFile pdbSourceFile = s.SourceFiles.FirstOrDefault(f => string.Equals(f.FileName, sourcePath, StringComparison.InvariantCultureIgnoreCase));
+                        if (pdbSourceFile == null)
+                            return Enumerable.Empty<PdbLineNumber>();
+
+                        return pdbSourceFile.Compilands
+                            .SelectMany(c => s.FindLinesByLineColumn(c, pdbSourceFile, (uint)sourceBreakpoint.Line, (uint)sourceBreakpoint.Column));
+                    })
+                    .ToArray();
+
+                foreach (PdbLineNumber pdbLineNumber in pdbLineNumbers)
+                {
+                    gdbClient.Breakpoints.Add(GdbBreakpointType.Memory, pdbLineNumber.RelativeVirtualAddress);
+
+                    Breakpoint breakpoint = new Breakpoint
+                    (
+                        verified: true,
+                        source: new Source
+                        (
+                            name: "Yop" + Path.GetFileName(sourcePath),
+                            path: sourcePath
+                        ),
+                        line: (int)pdbLineNumber.LineNumber,
+                        column: (int)pdbLineNumber.ColumnNumber
+                    );
+
+                    breakpoints.Add(breakpoint);
+                }
+            }
+
+            return new SetBreakpointsResponse(breakpoints);
         }
 
         #endregion
@@ -360,7 +398,6 @@ namespace SampleDebugAdapter
             //return new ThreadsResponse(threads: this.threads.Select(t => t.GetProtocolThread()).ToList());
             return base.HandleThreadsRequest(arguments);
         }
-
         protected override ScopesResponse HandleScopesRequest(ScopesArguments arguments)
         {
             return base.HandleScopesRequest(arguments);
@@ -427,11 +464,10 @@ namespace SampleDebugAdapter
             };*/
             return base.HandleExceptionInfoRequest(arguments);
         }
-
         protected override SetExceptionBreakpointsResponse HandleSetExceptionBreakpointsRequest(SetExceptionBreakpointsArguments arguments)
         {
-            //return new SetExceptionBreakpointsResponse();
-            return base.HandleSetExceptionBreakpointsRequest(arguments);
+            return new SetExceptionBreakpointsResponse();
+            //return base.HandleSetExceptionBreakpointsRequest(arguments);
         }
 
         #endregion

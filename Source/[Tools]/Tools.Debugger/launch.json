@@ -1,7 +1,8 @@
 {
-  "$adapter": "[Tools]\\Binaries\\Tools.Debugger.exe",
+  "$adapter": "C:\\Users\\jbato\\Documents\\system\\Source\\[Tools]\\Binaries\\Tools.Debugger.exe",
   "type": "sample",
   "request": "launch",
+  "program": ".",
 
   "options": {
     "debugging": {

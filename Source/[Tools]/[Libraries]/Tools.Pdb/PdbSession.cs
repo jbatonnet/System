@@ -56,7 +56,7 @@ namespace Tools.Pdb
             }
         }
 
-        private IDiaSession diaSession;
+        internal IDiaSession diaSession;
 
         internal PdbSession(IDiaSession diaSession)
         {
@@ -103,6 +103,11 @@ namespace Tools.Pdb
         public IEnumerable<PdbLineNumber> FindLinesByRelativeVirtualAddress(uint address, uint length)
         {
             diaSession.findLinesByRVA(address, length, out IDiaEnumLineNumbers diaEnumLineNumbers);
+            return PdbLineNumber.EnumerateFrom(diaEnumLineNumbers);
+        }
+        public IEnumerable<PdbLineNumber> FindLinesByLineColumn(PdbSymbol compiland, PdbSourceFile file, uint line, uint column)
+        {
+            diaSession.findLinesByLinenum(compiland.diaSymbol, file.diaSourceFile, line, column, out IDiaEnumLineNumbers diaEnumLineNumbers);
             return PdbLineNumber.EnumerateFrom(diaEnumLineNumbers);
         }
     }

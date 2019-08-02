@@ -104,16 +104,20 @@ namespace SampleDebugAdapter
             if (gdbClient.Running)
                 gdbClient.Break();
 
-            gdbClient.Breakpoints.Add(GdbBreakpointType.Memory, debuggerBreakFunction.RelativeVirtualAddress);
-            gdbClient.Memory.Write(debuggerAttachedField.RelativeVirtualAddress, 0x01);
+            gdbClient.Continue();
+            System.Threading.Thread.Sleep(1750);
+            gdbClient.Break();
+
+            gdbClient.Breakpoints.Add(GdbBreakpointType.Memory, debuggerBreakFunction.VirtualAddress);
+            gdbClient.Memory.Write(debuggerAttachedField.VirtualAddress, 0x01);
 
             gdbClient.Continue();
         }
         private void InitializeWrappers()
         {
-            firstTask = new Pointer<Task>(gdbClient.Memory, taskFirstField.RelativeVirtualAddress);
-            kernelTask = new Pointer<Task>(gdbClient.Memory, taskKernelField.RelativeVirtualAddress);
-            currentTask = new Pointer<Task>(gdbClient.Memory, taskCurrentField.RelativeVirtualAddress);
+            firstTask = new Pointer<Task>(gdbClient.Memory, taskFirstField.VirtualAddress);
+            kernelTask = new Pointer<Task>(gdbClient.Memory, taskKernelField.VirtualAddress);
+            currentTask = new Pointer<Task>(gdbClient.Memory, taskCurrentField.VirtualAddress);
             //Processes = new Collection<Pointer<Process>>(gdbClient.Memory, processesField.VirtualAddress);
         }
 
@@ -198,7 +202,7 @@ namespace SampleDebugAdapter
             ulong address = breakpointHitData.Address;
 
             // Debugger::Break() function
-            if (address == debuggerBreakFunction.RelativeVirtualAddress)
+            if (address == debuggerBreakFunction.VirtualAddress)
             {
                 gdbClient.Registers.Eip++;
                 gdbClient.Step();
@@ -318,6 +322,9 @@ namespace SampleDebugAdapter
             string sourcePath = arguments.Source.Path;
             List<Breakpoint> breakpoints = new List<Breakpoint>();
 
+            if (gdbClient.Running)
+                gdbClient.Break();
+
             foreach (SourceBreakpoint sourceBreakpoint in arguments.Breakpoints)
             {
                 PdbLineNumber[] pdbLineNumbers = pdbSessions
@@ -333,24 +340,24 @@ namespace SampleDebugAdapter
                     .ToArray();
 
                 foreach (PdbLineNumber pdbLineNumber in pdbLineNumbers)
-                {
-                    gdbClient.Breakpoints.Add(GdbBreakpointType.Memory, pdbLineNumber.RelativeVirtualAddress);
+                    gdbClient.Breakpoints.Add(GdbBreakpointType.Memory, pdbLineNumber.VirtualAddress);
 
-                    Breakpoint breakpoint = new Breakpoint
+                Breakpoint breakpoint = new Breakpoint
+                (
+                    verified: pdbLineNumbers.Length > 0,
+                    source: new Source
                     (
-                        verified: true,
-                        source: new Source
-                        (
-                            name: "Yop" + Path.GetFileName(sourcePath),
-                            path: sourcePath
-                        ),
-                        line: (int)pdbLineNumber.LineNumber,
-                        column: (int)pdbLineNumber.ColumnNumber
-                    );
+                        name: Path.GetFileName(sourcePath),
+                        path: sourcePath
+                    ),
+                    line: (int?)pdbLineNumbers.FirstOrDefault()?.LineNumber,
+                    column: (int?)pdbLineNumbers.FirstOrDefault()?.ColumnNumber
+                );
 
-                    breakpoints.Add(breakpoint);
-                }
+                breakpoints.Add(breakpoint);
             }
+
+            gdbClient.Continue();
 
             return new SetBreakpointsResponse(breakpoints);
         }
@@ -395,38 +402,32 @@ namespace SampleDebugAdapter
             if (gdbClient.Running)
                 throw new ProtocolException("Not in break mode!");
 
-            //return new ThreadsResponse(threads: this.threads.Select(t => t.GetProtocolThread()).ToList());
-            return base.HandleThreadsRequest(arguments);
+            return new ThreadsResponse(threads: new List<Thread>() { new Thread(id: 0, name: "Kernel") });
         }
         protected override ScopesResponse HandleScopesRequest(ScopesArguments arguments)
         {
-            return base.HandleScopesRequest(arguments);
+            return new ScopesResponse();
         }
-
         protected override StackTraceResponse HandleStackTraceRequest(StackTraceArguments arguments)
         {
             if (gdbClient.Running)
                 throw new ProtocolException("Not in break mode!");
 
-            return base.HandleStackTraceRequest(arguments);
+            return new StackTraceResponse();
         }
-
         protected override VariablesResponse HandleVariablesRequest(VariablesArguments arguments)
         {
             return base.HandleVariablesRequest(arguments);
         }
-
         protected override SetVariableResponse HandleSetVariableRequest(SetVariableArguments arguments)
         {
             return base.HandleSetVariableRequest(arguments);
         }
-
         protected override EvaluateResponse HandleEvaluateRequest(EvaluateArguments arguments)
         {
             //return new EvaluateResponse(result: value, variablesReference: variablesReference);
             return base.HandleEvaluateRequest(arguments);
         }
-
         protected override SetExpressionResponse HandleSetExpressionRequest(SetExpressionArguments arguments)
         {
             return base.HandleSetExpressionRequest(arguments);
@@ -448,8 +449,8 @@ namespace SampleDebugAdapter
 
         protected override SourceResponse HandleSourceRequest(SourceArguments arguments)
         {
-            //return new SourceResponse("For now all source requests return this line of 'code'.");
-            return base.HandleSourceRequest(arguments);
+            return new SourceResponse("For now all source requests return this line of 'code'.");
+            //return base.HandleSourceRequest(arguments);
         }
 
         #endregion

@@ -12,7 +12,7 @@ namespace Tools.Pdb
         private const int nsfUndecoratedName = 0x10;
 
         public uint SymIndexId => diaSymbol.symIndexId;
-        public uint SymTag => diaSymbol.symTag;
+        public PdbSymbolTag SymTag => (PdbSymbolTag)diaSymbol.symTag;
         public string Name => diaSymbol.name;
         public PdbSymbol LexicalParent => PdbSymbol.From(diaSymbol.lexicalParent);
         public PdbSymbol ClassParent => PdbSymbol.From(diaSymbol.classParent);
@@ -51,7 +51,7 @@ namespace Tools.Pdb
         public int Pure => diaSymbol.pure;
         public uint CallingConvention => diaSymbol.callingConvention;
         public dynamic Value => diaSymbol.value;
-        public uint BaseType => diaSymbol.baseType;
+        public PdbSymbolBaseType BaseType => (PdbSymbolBaseType)diaSymbol.baseType;
         public uint Token => diaSymbol.token;
         public uint TimeStamp => diaSymbol.timeStamp;
         public Guid Guid => diaSymbol.guid;
@@ -245,6 +245,8 @@ namespace Tools.Pdb
             diaSymbol.findChildrenEx((SymTagEnum)tag, name, nsfCaseInsensitive | nsfUndecoratedName, out IDiaEnumSymbols diaEnumSymbols);
             return PdbSymbol.EnumerateFrom(diaEnumSymbols);
         }
+
+        public override string ToString() => string.IsNullOrEmpty(UndecoratedName) ? Name : UndecoratedName;
 
         internal static PdbSymbol From(IDiaSymbol diaSymbol)
         {

@@ -200,6 +200,11 @@ namespace Tools.Gdb
         }
         protected virtual void OnNotification(string data)
         {
+            if (data.StartsWith("W"))
+            {
+                return;
+            }
+
             //string thread = data.Substring(0, 3);
             string[] fields = data.Substring(3).TrimEnd(';').Split(';');
 

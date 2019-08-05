@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PdbSymbolBaseType.cs" />
+    <Compile Include="PdbSymbolDataKind.cs" />
     <Compile Include="PdbSymbolTag.cs" />
     <Compile Include="PdbLineNumber.cs" />
     <Compile Include="PdbSourceFile.cs" />

@@ -28,6 +28,8 @@ namespace Tools.Pdb
             this.diaLineNumber = diaLineNumber;
         }
 
+        public override string ToString() => $"Line {LineNumber}, Column {ColumnNumber}";
+
         internal static PdbLineNumber From(IDiaLineNumber diaLineNumber)
         {
             if (diaLineNumber == null)

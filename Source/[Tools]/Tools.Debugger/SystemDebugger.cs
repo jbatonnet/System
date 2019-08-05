@@ -1,19 +1,23 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
 using System.Linq;
-
+using System.Text;
 using Microsoft.VisualStudio.Shared.VSCodeDebugProtocol;
 using Microsoft.VisualStudio.Shared.VSCodeDebugProtocol.Messages;
 using Microsoft.VisualStudio.Shared.VSCodeDebugProtocol.Utilities;
 
 using Newtonsoft.Json.Linq;
 
+using Tools.Debugger.Model;
 using Tools.Debugger.Wrappers;
 using Tools.Gdb;
 using Tools.Pdb;
 using Tools.VirtualMachine;
+
+using Interlocked = System.Threading.Interlocked;
 
 namespace SampleDebugAdapter
 {
@@ -24,7 +28,6 @@ namespace SampleDebugAdapter
         private VirtualMachine virtualMachine;
         private x86GdbClient gdbClient;
 
-
         private PdbSymbol debuggerAttachedField, debuggerInitializeFunction, debuggerBreakFunction;
         private PdbSymbol exceptionAssertFunction;
         private PdbSymbol profilerTraceFunction;
@@ -32,6 +35,10 @@ namespace SampleDebugAdapter
 
         private Pointer<Task> firstTask, kernelTask, currentTask;
         //private Collection<Pointer<Process>> Processes;
+
+        private int nextInternalFrameId = 0;
+        private ConcurrentDictionary<int, InternalFrame> internalFrames = new ConcurrentDictionary<int, InternalFrame>();
+        private ConcurrentDictionary<string, List<GdbBreakpoint>> gdbBreakpoints = new ConcurrentDictionary<string, List<GdbBreakpoint>>();
 
         private byte[] serialBuffer = new byte[1];
         private string serialLine = "";
@@ -125,6 +132,13 @@ namespace SampleDebugAdapter
         {
             PdbSymbol result = pdbSessions
                 .SelectMany(s => s.GlobalScope.FindChildren(name))
+                .FirstOrDefault();
+
+            return result;
+        }
+        private PdbSession FindSessionByNothing()
+        {
+            PdbSession result = pdbSessions
                 .FirstOrDefault();
 
             return result;
@@ -236,7 +250,19 @@ namespace SampleDebugAdapter
         }
         protected override DisconnectResponse HandleDisconnectRequest(DisconnectArguments arguments)
         {
-            // Continue(step: false);
+            try
+            {
+                if (!gdbClient.Running)
+                    gdbClient.Continue();
+            }
+            catch { }
+
+            try
+            {
+                if (virtualMachine.Running)
+                    virtualMachine.Stop();
+            }
+            catch { }
 
             return new DisconnectResponse();
         }
@@ -290,19 +316,69 @@ namespace SampleDebugAdapter
         }
         protected override StepInResponse HandleStepInRequest(StepInArguments arguments)
         {
-            gdbClient.Step();
+            PdbSession session = FindSessionByNothing();
+
+            while (true)
+            {
+                PdbLineNumber lineNumber = SourceStep();
+
+                uint eip = gdbClient.Registers.Eip;
+                PdbSymbol function = session?.GetSymbolAtVirtualAddress(PdbSymbolTag.Function, eip);
+                if (function == null)
+                    continue;
+
+                break;
+            }
+
+            int taskId = (int)currentTask.Object.Id;
+            Protocol.SendEvent(new StoppedEvent(reason: StoppedEvent.ReasonValue.Breakpoint, threadId: taskId, allThreadsStopped: true));
 
             return new StepInResponse();
         }
         protected override StepOutResponse HandleStepOutRequest(StepOutArguments arguments)
         {
-            gdbClient.Step();
+            SourceStep();
+
+            int taskId = (int)currentTask.Object.Id;
+            Protocol.SendEvent(new StoppedEvent(reason: StoppedEvent.ReasonValue.Breakpoint, threadId: taskId, allThreadsStopped: true));
 
             return new StepOutResponse();
         }
         protected override NextResponse HandleNextRequest(NextArguments arguments)
         {
-            gdbClient.Step();
+            PdbSession session = FindSessionByNothing();
+
+            uint ebp = gdbClient.Registers.Ebp;
+            uint eip = gdbClient.Registers.Eip;
+
+            PdbLineNumber originalLineNumber = session?.FindLinesByVirtualAddress(eip, 1).FirstOrDefault();
+            PdbSymbol originalFunction = session?.GetSymbolAtVirtualAddress(PdbSymbolTag.Function, eip);
+
+            while (true)
+            {
+                PdbLineNumber lineNumber = SourceStep();
+
+                eip = gdbClient.Registers.Eip;
+                PdbSymbol function = session?.GetSymbolAtVirtualAddress(PdbSymbolTag.Function, eip);
+                if (function == null)
+                    continue;
+
+                if (originalFunction == null || originalLineNumber == null)
+                    break;
+
+                if (function.VirtualAddress != originalFunction.VirtualAddress)
+                {
+                    if (gdbClient.Registers.Ebp <= ebp)
+                        continue;
+                }
+                else if (lineNumber.LineNumber == originalLineNumber.LineNumber && lineNumber.ColumnNumber == originalLineNumber.ColumnNumber)
+                    continue;
+
+                break;
+            }
+
+            int taskId = (int)currentTask.Object.Id;
+            Protocol.SendEvent(new StoppedEvent(reason: StoppedEvent.ReasonValue.Breakpoint, threadId: taskId, allThreadsStopped: true));
 
             return new NextResponse();
         }
@@ -310,7 +386,41 @@ namespace SampleDebugAdapter
         {
             gdbClient.Break();
 
+            int taskId = (int)currentTask.Object.Id;
+            Protocol.SendEvent(new StoppedEvent(reason: StoppedEvent.ReasonValue.Breakpoint, threadId: taskId, allThreadsStopped: true));
+
             return new PauseResponse();
+        }
+
+        private PdbLineNumber SourceStep()
+        {
+            PdbSession session = FindSessionByNothing();
+
+            uint eip = gdbClient.Registers.Eip;
+
+            PdbLineNumber originalLineNumber = session?.FindLinesByVirtualAddress(eip, 1).FirstOrDefault();
+
+            while (true)
+            {
+                gdbClient.Step();
+                eip = gdbClient.Registers.Eip;
+
+                PdbLineNumber lineNumber = session?.FindLinesByVirtualAddress(eip, 1).FirstOrDefault();
+                if (lineNumber == null)
+                    continue;
+                if (lineNumber.LineNumber == 0xf00f00)
+                    continue;
+
+                if (originalLineNumber == null)
+                    return lineNumber;
+
+                if (lineNumber.CompilandId != originalLineNumber.CompilandId)
+                    return lineNumber;
+                if (lineNumber.LineNumber != originalLineNumber.LineNumber)
+                    return lineNumber;
+                if (lineNumber.ColumnNumber != originalLineNumber.ColumnNumber)
+                    return lineNumber;
+            }
         }
 
         #endregion
@@ -324,6 +434,12 @@ namespace SampleDebugAdapter
 
             if (gdbClient.Running)
                 gdbClient.Break();
+
+            List<GdbBreakpoint> sourceBreakpoints = gdbBreakpoints.GetOrAdd(sourcePath, _ => new List<GdbBreakpoint>());
+
+            foreach (GdbBreakpoint sourceBreakpoint in sourceBreakpoints)
+                gdbClient.Breakpoints.Remove(sourceBreakpoint);
+            sourceBreakpoints.Clear();
 
             foreach (SourceBreakpoint sourceBreakpoint in arguments.Breakpoints)
             {
@@ -340,7 +456,10 @@ namespace SampleDebugAdapter
                     .ToArray();
 
                 foreach (PdbLineNumber pdbLineNumber in pdbLineNumbers)
-                    gdbClient.Breakpoints.Add(GdbBreakpointType.Memory, pdbLineNumber.VirtualAddress);
+                {
+                    GdbBreakpoint gdbBreakpoint = gdbClient.Breakpoints.Add(GdbBreakpointType.Memory, pdbLineNumber.VirtualAddress);
+                    sourceBreakpoints.Add(gdbBreakpoint);
+                }
 
                 Breakpoint breakpoint = new Breakpoint
                 (
@@ -366,31 +485,12 @@ namespace SampleDebugAdapter
 
         #region Debugger Properties
 
-        internal bool? IsJustMyCodeOn { get; private set; }
-        internal bool? IsStepFilteringOn { get; private set; }
-
         protected override SetDebuggerPropertyResponse HandleSetDebuggerPropertyRequest(SetDebuggerPropertyArguments arguments)
         {
-            IsJustMyCodeOn = GetValueAsVariantBool(arguments.DebuggerProperties, "JustMyCodeStepping") ?? IsJustMyCodeOn;
-            IsStepFilteringOn = GetValueAsVariantBool(arguments.DebuggerProperties, "EnableStepFiltering") ?? IsStepFilteringOn;
+            //IsJustMyCodeOn = GetValueAsVariantBool(arguments.DebuggerProperties, "JustMyCodeStepping") ?? IsJustMyCodeOn;
+            //IsStepFilteringOn = GetValueAsVariantBool(arguments.DebuggerProperties, "EnableStepFiltering") ?? IsStepFilteringOn;
 
             return new SetDebuggerPropertyResponse();
-        }
-
-        /// <summary>
-        /// Turns a debugger property value into a bool.
-        /// Debugger properties use variants, so bools come as integers
-        /// </summary>
-        private static bool? GetValueAsVariantBool(Dictionary<string, JToken> properties, string propertyName)
-        {
-            int? value = properties.GetValueAsInt(propertyName);
-
-            if (!value.HasValue)
-            {
-                return null;
-            }
-
-            return (int)value != 0;
         }
 
         #endregion
@@ -402,22 +502,290 @@ namespace SampleDebugAdapter
             if (gdbClient.Running)
                 throw new ProtocolException("Not in break mode!");
 
-            return new ThreadsResponse(threads: new List<Thread>() { new Thread(id: 0, name: "Kernel") });
+            // Get tasks
+            List<Task> tasks = new List<Task>();
+
+            Task task = firstTask.Object;
+            while (task != null)
+            {
+                tasks.Add(task);
+                task = task.Next;
+            }
+
+            // Convert to threads
+            List<Thread> threads = tasks
+                .Select(t => new Thread(id: (int)t.Id, name: t.Id == 0 ? "Kernel" : $"Task #{t.Id}"))
+                .ToList();
+
+            return new ThreadsResponse(threads: threads);
         }
         protected override ScopesResponse HandleScopesRequest(ScopesArguments arguments)
         {
-            return new ScopesResponse();
+            PdbSession session = FindSessionByNothing();
+
+            if (!internalFrames.TryGetValue(arguments.FrameId, out InternalFrame internalFrame))
+                return new ScopesResponse();
+
+            List<Scope> scopes = new List<Scope>()
+            {
+                /*new Scope
+                (
+                    name: "Registers",
+                    variablesReference: -1,
+                    expensive: false
+                ),*/
+                new Scope
+                (
+                    name: "Variables",
+                    variablesReference: arguments.FrameId,
+                    expensive: false
+                )
+            };
+
+            return new ScopesResponse(scopes);
         }
         protected override StackTraceResponse HandleStackTraceRequest(StackTraceArguments arguments)
         {
             if (gdbClient.Running)
                 throw new ProtocolException("Not in break mode!");
 
-            return new StackTraceResponse();
+            // Get task
+            Task currentTask = this.currentTask.Object;
+            Task task = null;
+
+            if (arguments.ThreadId == currentTask.Id)
+            {
+                task = currentTask;
+            }
+            else if (arguments.ThreadId > 0)
+            {
+                task = firstTask.Object;
+                while (task != null && task.Id != arguments.ThreadId)
+                    task = task.Next;
+            }
+            else
+                task = kernelTask.Object;
+
+            if (task == null)
+                return new StackTraceResponse();
+
+            // Get stack trace
+            List<StackFrame> stackFrames = new List<StackFrame>();
+
+            uint eip = task == currentTask ? gdbClient.Registers.Eip : task.Eip;
+            uint ebp = task == currentTask ? gdbClient.Registers.Ebp : task.Ebp;
+            //uint esp = task == currentTask ? gdbClient.Registers.Esp : task.Esp;
+
+            // Add current method
+            {
+                PdbSession session = FindSessionByNothing();
+
+                PdbSymbol function = session?.GetSymbolAtVirtualAddress(PdbSymbolTag.Function, eip);
+                PdbLineNumber lineNumber = session?.FindLinesByVirtualAddress(eip, 1).FirstOrDefault();
+
+                if (function == null || lineNumber == null)
+                    return new StackTraceResponse();
+
+                InternalFrame internalFrame = new InternalFrame()
+                {
+                    Symbol = function,
+                    Ebp = ebp
+                };
+
+                int internalFrameId = Interlocked.Increment(ref nextInternalFrameId);
+                internalFrames[internalFrameId] = internalFrame;
+
+                StackFrame frame = new StackFrame
+                (
+                    id: internalFrameId,
+                    name: function.UndecoratedName,
+                    line: (int)lineNumber.LineNumber,
+                    column: (int)lineNumber.ColumnNumber,
+                    source: new Source
+                    (
+                        name: Path.GetFileName(lineNumber.SourceFile.FileName),
+                        path: lineNumber.SourceFile.FileName
+                    )
+                );
+
+                stackFrames.Add(frame);
+            }
+
+            uint stackPointer = ebp;
+
+            /*// Search first frame
+            while (stackPointer < esp + 0x100)
+            {
+                // We found a stack pointer
+                uint stackValue = gdbClient.Memory.ReadUInt32(stackPointer);
+                if ((stackValue & 0xFFFF0000) == (stackPointer & 0xFFFF0000))
+                {
+                    // And this stack pointer leads to another one
+                    uint stackValueValue = gdbClient.Memory.ReadUInt32(stackValue);
+                    if ((stackValueValue & 0xFFFF0000) == (stackPointer & 0xFFFF0000))
+                    {
+                        // Then stop, this should be the one :)
+                        break;
+                    }
+                }
+
+                stackPointer += 4;
+            }/**/
+
+            // Decode frames
+            while (true)
+            {
+                ebp = gdbClient.Memory.ReadUInt32(stackPointer);
+                uint ret = gdbClient.Memory.ReadUInt32(stackPointer + 4);
+
+                if (ret == 0)
+                    break;
+
+                PdbSession session = FindSessionByNothing();
+
+                PdbSymbol function = session?.GetSymbolAtVirtualAddress(PdbSymbolTag.Function, ret);
+                PdbLineNumber lineNumber = session?.FindLinesByVirtualAddress(ret, 1).FirstOrDefault();
+
+                if (function == null || lineNumber == null)
+                    break;
+
+                InternalFrame internalFrame = new InternalFrame()
+                {
+                    Symbol = function,
+                    Ebp = ebp
+                };
+
+                int internalFrameId = Interlocked.Increment(ref nextInternalFrameId);
+                internalFrames[internalFrameId] = internalFrame;
+
+                StackFrame frame = new StackFrame
+                (
+                    id: internalFrameId,
+                    name: function.UndecoratedName,
+                    line: (int)lineNumber.LineNumber,
+                    column: (int)lineNumber.ColumnNumber,
+                    source: new Source
+                    (
+                        name: Path.GetFileName(lineNumber.SourceFile.FileName),
+                        path: lineNumber.SourceFile.FileName
+                    )
+                );
+
+                stackFrames.Add(frame);
+
+                stackPointer = ebp;
+            }
+
+            // Filter down as requested
+            int totalCount = stackFrames.Count;
+
+            stackFrames = stackFrames
+                .Skip(arguments.StartFrame ?? 0)
+                .Take(((arguments.Levels ?? 0) == 0) ? int.MaxValue : arguments.Levels.Value)
+                .ToList();
+
+            return new StackTraceResponse(stackFrames: stackFrames, totalFrames: totalCount);
         }
         protected override VariablesResponse HandleVariablesRequest(VariablesArguments arguments)
         {
-            return base.HandleVariablesRequest(arguments);
+            if (arguments.VariablesReference == -1)
+            {
+                return new VariablesResponse(new List<Variable>()
+                {
+                    new Variable("registers", "", -2),
+                });
+            }
+            else if (arguments.VariablesReference == -2)
+            {
+                //Task task = currentTask.Object;
+
+                return new VariablesResponse(new List<Variable>()
+                {
+                    //new Variable("eip", $"0x{task.Eip:x8}", 0),
+                    //new Variable("esp", $"0x{task.Esp:x8}", 0),
+                    //new Variable("ebp", $"0x{task.Ebp:x8}", 0),
+
+                    new Variable("eax", $"0x{gdbClient.Registers.Eax:x8}", 0, "register"),
+                    new Variable("ecx", $"0x{gdbClient.Registers.Ecx:x8}", 0, "register"),
+                    new Variable("edx", $"0x{gdbClient.Registers.Edx:x8}", 0, "register"),
+                    new Variable("ebx", $"0x{gdbClient.Registers.Ebx:x8}", 0, "register"),
+                    new Variable("esp", $"0x{gdbClient.Registers.Esp:x8}", 0, "register"),
+                    new Variable("ebp", $"0x{gdbClient.Registers.Ebp:x8}", 0, "register"),
+                    new Variable("esi", $"0x{gdbClient.Registers.Esi:x8}", 0, "register"),
+                    new Variable("edi", $"0x{gdbClient.Registers.Edi:x8}", 0, "register"),
+                    new Variable("eip", $"0x{gdbClient.Registers.Eip:x8}", 0, "register"),
+                    new Variable("eflags", $"0x{gdbClient.Registers.Eflags:x8}", 0, "register"),
+                    new Variable("cs", $"0x{gdbClient.Registers.Cs:x8}", 0, "register"),
+                    new Variable("ss", $"0x{gdbClient.Registers.Ss:x8}", 0, "register"),
+                    new Variable("ds", $"0x{gdbClient.Registers.Ds:x8}", 0, "register"),
+                    new Variable("es", $"0x{gdbClient.Registers.Es:x8}", 0, "register"),
+                    new Variable("fs", $"0x{gdbClient.Registers.Fs:x8}", 0, "register"),
+                    new Variable("gs", $"0x{gdbClient.Registers.Gs:x8}", 0, "register")
+                });
+            }
+
+            if (!internalFrames.TryGetValue(arguments.VariablesReference, out InternalFrame internalFrame))
+                return new VariablesResponse();
+
+            List<Variable> variables = new List<Variable>();
+
+            foreach (PdbSymbol variable in internalFrame.Symbol.FindChildren(PdbSymbolTag.Data))
+            {
+                PdbSymbol variableType = variable.Type;
+                if (variableType == null)
+                    continue;
+
+                int offset = variable.Offset;
+                ulong size = variableType.Length;
+
+                byte[] buffer = new byte[size];
+                gdbClient.Memory.Read((ulong)(internalFrame.Ebp + offset), buffer, 0, (int)size);
+
+                Type type = GetTypeFromSymbol(variableType);
+                string typeName = GetTypeNameFromSymbol(variableType);
+                string value = "";
+
+                if (type == null)
+                    value = "";
+                else if (type == typeof(string))
+                    value = "{ String }";
+                else if (type == typeof(bool))
+                    value = buffer[0] != 0 ? "true" : "false";
+                else if (type == typeof(sbyte))
+                    value = ((sbyte)buffer[0]).ToString();
+                else if (type == typeof(byte))
+                    value = buffer[0].ToString();
+                else if (type == typeof(short))
+                    value = BitConverter.ToInt16(buffer, 0).ToString();
+                else if (type == typeof(ushort))
+                    value = BitConverter.ToUInt16(buffer, 0).ToString();
+                else if (type == typeof(int))
+                    value = BitConverter.ToInt32(buffer, 0).ToString();
+                else if (type == typeof(uint))
+                    value = BitConverter.ToUInt32(buffer, 0).ToString();
+                else if (type == typeof(long))
+                    value = BitConverter.ToInt64(buffer, 0).ToString();
+                else if (type == typeof(ulong))
+                    value = BitConverter.ToUInt64(buffer, 0).ToString();
+                else if (typeName == "char*")
+                    value = "\"" + ReadCString(BitConverter.ToUInt32(buffer, 0)) + "\"";
+                else if (typeName == "String*")
+                    value = "\"" + ReadString(BitConverter.ToUInt32(buffer, 0)) + "\"";
+                else if (type == typeof(IntPtr))
+                    value = "0x" + BitConverter.ToUInt32(buffer, 0).ToString("x8");
+                //else if (type == typeof(Enum))
+                //    value = 
+
+                variables.Add(new Variable
+                (
+                    name: variable.Name,
+                    value: value,
+                    variablesReference: 0,
+                    type: typeName
+                ));
+            }
+
+            return new VariablesResponse(variables: variables);
         }
         protected override SetVariableResponse HandleSetVariableRequest(SetVariableArguments arguments)
         {
@@ -425,12 +793,130 @@ namespace SampleDebugAdapter
         }
         protected override EvaluateResponse HandleEvaluateRequest(EvaluateArguments arguments)
         {
-            //return new EvaluateResponse(result: value, variablesReference: variablesReference);
-            return base.HandleEvaluateRequest(arguments);
+            return new EvaluateResponse(result: null, variablesReference: 0);
         }
         protected override SetExpressionResponse HandleSetExpressionRequest(SetExpressionArguments arguments)
         {
             return base.HandleSetExpressionRequest(arguments);
+        }
+
+        internal Type GetTypeFromSymbol(PdbSymbol type)
+        {
+            PdbSymbolTag tag = type.SymTag;
+
+            if (tag == PdbSymbolTag.PointerType)
+                return typeof(IntPtr);
+            else if (tag == PdbSymbolTag.BaseType || tag == PdbSymbolTag.Enum)
+            {
+                ulong size = type.Length;
+                PdbSymbolBaseType baseType = type.BaseType;
+
+                switch (baseType)
+                {
+                    case PdbSymbolBaseType.Char: return typeof(char);
+                    case PdbSymbolBaseType.WChar: return typeof(char);
+                    case PdbSymbolBaseType.Int: return size == 2 ? typeof(short) : size == 4 ? typeof(int) : size == 8 ? typeof(long) : null;
+                    case PdbSymbolBaseType.UInt: return size == 2 ? typeof(ushort) : size == 4 ? typeof(uint) : size == 8 ? typeof(ulong) : null;
+                    case PdbSymbolBaseType.Float: return typeof(float);
+                    case PdbSymbolBaseType.Bool: return typeof(bool);
+                    case PdbSymbolBaseType.Long: return typeof(long);
+                    case PdbSymbolBaseType.ULong: return typeof(ulong);
+                }
+
+                return null;
+            }
+            //else if (tag == PdbSymbolTag.Enum)
+            //    return typeof(Enum);
+            else if (tag == PdbSymbolTag.ArrayType)
+            {
+
+            }
+            else if (tag == PdbSymbolTag.FunctionType)
+            {
+
+            }
+            else if (tag == PdbSymbolTag.CustomType)
+            {
+
+            }
+
+            return null;
+        }
+        internal string GetTypeNameFromSymbol(PdbSymbol type)
+        {
+            if (type == null)
+                return "";
+
+            PdbSymbolTag tag = type.SymTag;
+
+            string name = type.Name;
+            if (name != null)
+                return name;
+
+            if (tag == PdbSymbolTag.PointerType)
+                return GetTypeNameFromSymbol(type.Type) + "*";
+            else if (tag == PdbSymbolTag.BaseType)
+            {
+                ulong size = type.Length;
+                PdbSymbolBaseType baseType = type.BaseType;
+
+                switch (baseType)
+                {
+                    case PdbSymbolBaseType.Char: return "char";
+                    case PdbSymbolBaseType.WChar: return "char";
+                    case PdbSymbolBaseType.Int: return size == 2 ? "s16" : size == 4 ? "s32" : size == 8 ? "s64" : "";
+                    case PdbSymbolBaseType.UInt: return size == 2 ? "u16" : size == 4 ? "u32" : size == 8 ? "u64" : "";
+                    case PdbSymbolBaseType.Float: return "float";
+                    case PdbSymbolBaseType.Bool: return "bool";
+                    case PdbSymbolBaseType.Long: return "s64";
+                    case PdbSymbolBaseType.ULong: return "u64";
+                }
+
+                return "";
+            }
+            else if (tag == PdbSymbolTag.ArrayType)
+            {
+
+            }
+            else if (tag == PdbSymbolTag.FunctionType)
+            {
+
+            }
+            else if (tag == PdbSymbolTag.CustomType)
+            {
+
+            }
+
+            return "";
+        }
+        internal string ReadCString(uint address)
+        {
+            byte[] buffer = new byte[1024];
+            uint i = 0;
+
+            while (i < 1024)
+            {
+                buffer[i] = gdbClient.Memory.ReadUInt8(address + i);
+                if (buffer[i] == 0)
+                    break;
+
+                i++;
+            }
+
+            return Encoding.ASCII.GetString(buffer, 0, (int)i);
+        }
+        internal string ReadString(uint address)
+        {
+            byte[] stringBuffer = new byte[8];
+            gdbClient.Memory.Read(address, stringBuffer, 0, 8);
+
+            int length = BitConverter.ToUInt16(stringBuffer, 4);
+            uint pointer = BitConverter.ToUInt32(stringBuffer, 0);
+
+            byte[] buffer = new byte[length];
+            gdbClient.Memory.Read(pointer, buffer, 0, length);
+
+            return Encoding.ASCII.GetString(buffer, 0, length);
         }
 
         #endregion

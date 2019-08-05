@@ -96,15 +96,17 @@ namespace Tools.Gdb
             if (response != "OK")
                 throw new Exception("Could not add specified breakpoint");
         }
-        public void Add(GdbBreakpointType type, ulong address)
+        public GdbBreakpoint Add(GdbBreakpointType type, ulong address)
         {
             GdbBreakpoint breakpoint = new GdbBreakpoint(type, address);
             Add(breakpoint);
+            return breakpoint;
         }
-        public void Add(GdbBreakpointType type, ulong address, int kind)
+        public GdbBreakpoint Add(GdbBreakpointType type, ulong address, int kind)
         {
             GdbBreakpoint breakpoint = new GdbBreakpoint(type, address, kind);
             Add(breakpoint);
+            return breakpoint;
         }
 
         public bool Remove(GdbBreakpoint breakpoint)
@@ -145,7 +147,7 @@ namespace Tools.Gdb
         }
         public void Clear()
         {
-            foreach (GdbBreakpoint breakpoint in breakpoints)
+            foreach (GdbBreakpoint breakpoint in breakpoints.ToArray())
                 Remove(breakpoint);
         }
 

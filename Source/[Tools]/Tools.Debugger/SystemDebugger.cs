@@ -342,6 +342,7 @@ namespace SampleDebugAdapter
             response.SupportsEvaluateForHovers = true;
             response.SupportsReadMemoryRequest = true;
             response.SupportsTerminateRequest = true;
+            //response.SupportsModulesRequest = true;
 
             return response;
         }
@@ -420,6 +421,29 @@ namespace SampleDebugAdapter
         protected override ConfigurationDoneResponse HandleConfigurationDoneRequest(ConfigurationDoneArguments arguments)
         {
             gdbClient.Continue();
+
+            PdbSession session = FindSessionByNothing();
+
+            Protocol.SendEvent(new ProcessEvent()
+            {
+                Name = "Kernel",
+                SystemProcessId = 1,
+                IsLocalProcess = true,
+                StartMethod = ProcessEvent.StartMethodValue.Launch,
+                PointerSize = 4
+            });
+
+            Protocol.SendEvent(new ModuleEvent(ModuleEvent.ReasonValue.New, new Module()
+            {
+                Id = 1,
+                Name = "Kernel",
+                Path = "Kernel",
+                SymbolFilePath = Path.Combine(Bootstrap.Source, @"Kernel\Kernel.pdb"),
+                SymbolStatus = "Loaded",
+                VsLoadAddress = session.LoadAddress.ToString(),
+                VsPreferredLoadAddress = session.LoadAddress.ToString(),
+                VsLoadOrder = 0
+            }));
 
             return new ConfigurationDoneResponse();
         }
@@ -640,39 +664,61 @@ namespace SampleDebugAdapter
         {
             PdbSession session = FindSessionByNothing();
 
-            if (arguments.FrameId == -1)
-            {
-                return new ScopesResponse(new List<Scope>()
-                {
-                    new Scope
-                    (
-                        name: "Registers",
-                        variablesReference: -1,
-                        expensive: false
-                    )
-                });
-            }
-
-            if (!internalFrames.TryGetValue(arguments.FrameId, out InternalFrame internalFrame))
-                return new ScopesResponse();
-
             List<Scope> scopes = new List<Scope>()
             {
-                /*new Scope
-                (
-                    name: "Registers",
-                    variablesReference: -1,
-                    expensive: false
-                ),*/
-                new Scope
-                (
-                    name: "Variables",
-                    variablesReference: arguments.FrameId,
-                    expensive: false
-                )
+                new Scope()
+                {
+                    Name = "Registers",
+                    VariablesReference = -1,
+                    Expensive = false,
+                    PresentationHint = Scope.PresentationHintValue.Registers
+                }
             };
 
+            if (!internalFrames.TryGetValue(arguments.FrameId, out InternalFrame internalFrame))
+                return new ScopesResponse(scopes);
+
+            scopes.Add(new Scope()
+            {
+                Name = "Locals",
+                VariablesReference = arguments.FrameId,
+                Expensive = false,
+                PresentationHint = Scope.PresentationHintValue.Locals
+            });
+
             return new ScopesResponse(scopes);
+        }
+        protected override ModulesResponse HandleModulesRequest(ModulesArguments arguments)
+        {
+            if (arguments.StartModule == 0 && arguments.ModuleCount == 1)
+            {
+                PdbSession session = FindSessionByNothing();
+
+                return new ModulesResponse()
+                {
+                    Modules = new List<Module>()
+                    {
+                        new Module()
+                        {
+                            Id = 1,
+                            Name = "Kernel",
+                            Path = "Kernel",
+                            SymbolFilePath = Path.Combine(Bootstrap.Source, @"Kernel\Kernel.pdb"),
+                            SymbolStatus = "Loaded",
+                            VsLoadAddress = session.LoadAddress.ToString(),
+                            VsPreferredLoadAddress = session.LoadAddress.ToString(),
+                            VsLoadOrder = 0
+                        }
+                    },
+                    TotalModules = 1
+                };
+            }
+
+            return new ModulesResponse()
+            {
+                Modules = new List<Module>(),
+                TotalModules = 1
+            };
         }
         protected override StackTraceResponse HandleStackTraceRequest(StackTraceArguments arguments)
         {
@@ -713,14 +759,6 @@ namespace SampleDebugAdapter
                 PdbSymbol function = session?.GetSymbolAtVirtualAddress(PdbSymbolTag.Function, eip);
                 PdbLineNumber lineNumber = session?.FindLinesByVirtualAddress(eip, 1).FirstOrDefault();
 
-                if (function == null || lineNumber == null)
-                {
-                    return new StackTraceResponse(new List<StackFrame>()
-                    {
-                        new StackFrame() { Id = -1, Name = "Unknown code", InstructionPointerReference = eip.ToString() }
-                    });
-                }
-
                 InternalFrame internalFrame = new InternalFrame()
                 {
                     Symbol = function,
@@ -733,14 +771,16 @@ namespace SampleDebugAdapter
                 StackFrame frame = new StackFrame()
                 {
                     Id = internalFrameId,
-                    Name = function.UndecoratedName,
-                    Line = (int)lineNumber.LineNumber,
-                    Column = (int)lineNumber.ColumnNumber,
-                    Source = new Source()
+                    Name = function?.UndecoratedName ?? "Unknown",
+                    Line = (int?)lineNumber?.LineNumber ?? 0,
+                    Column = (int?)lineNumber?.ColumnNumber ?? 0,
+                    Source = lineNumber == null ? null : new Source()
                     {
                         Name = Path.GetFileName(lineNumber.SourceFile.FileName),
                         Path = lineNumber.SourceFile.FileName
-                    }
+                    },
+                    ModuleId = 1,
+                    InstructionPointerReference = eip.ToString()
                 };
 
                 stackFrames.Add(frame);
@@ -773,16 +813,13 @@ namespace SampleDebugAdapter
                 ebp = gdbClient.Memory.ReadUInt32(stackPointer);
                 uint ret = gdbClient.Memory.ReadUInt32(stackPointer + 4);
 
-                if (ret == 0)
-                    break;
-
                 PdbSession session = FindSessionByNothing();
+
+                if (ret == 0 || ret == 2 || ret < session.LoadAddress)
+                    break;
 
                 PdbSymbol function = session?.GetSymbolAtVirtualAddress(PdbSymbolTag.Function, ret);
                 PdbLineNumber lineNumber = session?.FindLinesByVirtualAddress(ret, 1).FirstOrDefault();
-
-                if (function == null || lineNumber == null)
-                    break;
 
                 InternalFrame internalFrame = new InternalFrame()
                 {
@@ -796,14 +833,15 @@ namespace SampleDebugAdapter
                 StackFrame frame = new StackFrame()
                 {
                     Id = internalFrameId,
-                    Name = function.UndecoratedName,
-                    Line = (int)lineNumber.LineNumber,
-                    Column = (int)lineNumber.ColumnNumber,
-                    Source = new Source()
+                    Name = function?.UndecoratedName ?? "Unknown",
+                    Line = (int?)lineNumber?.LineNumber ?? 0,
+                    Column = (int?)lineNumber?.ColumnNumber ?? 0,
+                    Source = lineNumber == null ? null : new Source()
                     {
                         Name = Path.GetFileName(lineNumber.SourceFile.FileName),
                         Path = lineNumber.SourceFile.FileName
                     },
+                    ModuleId = 1,
                     InstructionPointerReference = ret.ToString()
                 };
 
@@ -858,59 +896,62 @@ namespace SampleDebugAdapter
 
             List<Variable> variables = new List<Variable>();
 
-            foreach (PdbSymbol variable in internalFrame.Symbol.FindChildren(PdbSymbolTag.Data))
+            if (internalFrame.Symbol != null)
             {
-                PdbSymbol variableType = variable.Type;
-                if (variableType == null)
-                    continue;
-
-                int offset = variable.Offset;
-                ulong size = variableType.Length;
-
-                byte[] buffer = new byte[size];
-                gdbClient.Memory.Read((ulong)(internalFrame.Ebp + offset), buffer, 0, (int)size);
-
-                Type type = GetTypeFromSymbol(variableType);
-                string typeName = GetTypeNameFromSymbol(variableType);
-                string value = "";
-
-                if (type == null)
-                    value = "";
-                else if (type == typeof(string))
-                    value = "{ String }";
-                else if (type == typeof(bool))
-                    value = buffer[0] != 0 ? "true" : "false";
-                else if (type == typeof(sbyte))
-                    value = ((sbyte)buffer[0]).ToString();
-                else if (type == typeof(byte))
-                    value = buffer[0].ToString();
-                else if (type == typeof(short))
-                    value = BitConverter.ToInt16(buffer, 0).ToString();
-                else if (type == typeof(ushort))
-                    value = BitConverter.ToUInt16(buffer, 0).ToString();
-                else if (type == typeof(int))
-                    value = BitConverter.ToInt32(buffer, 0).ToString();
-                else if (type == typeof(uint))
-                    value = BitConverter.ToUInt32(buffer, 0).ToString();
-                else if (type == typeof(long))
-                    value = BitConverter.ToInt64(buffer, 0).ToString();
-                else if (type == typeof(ulong))
-                    value = BitConverter.ToUInt64(buffer, 0).ToString();
-                else if (typeName == "char*")
-                    value = "\"" + ReadCString(BitConverter.ToUInt32(buffer, 0)) + "\"";
-                else if (typeName == "String*")
-                    value = "\"" + ReadString(BitConverter.ToUInt32(buffer, 0)) + "\"";
-                else if (type == typeof(IntPtr))
-                    value = "0x" + BitConverter.ToUInt32(buffer, 0).ToString("x8");
-                //else if (type == typeof(Enum))
-                //    value = 
-
-                variables.Add(new Variable()
+                foreach (PdbSymbol variable in internalFrame.Symbol.FindChildren(PdbSymbolTag.Data))
                 {
-                    Name = variable.Name,
-                    Value = value,
-                    Type = typeName
-                });
+                    PdbSymbol variableType = variable.Type;
+                    if (variableType == null)
+                        continue;
+
+                    int offset = variable.Offset;
+                    ulong size = variableType.Length;
+
+                    byte[] buffer = new byte[size];
+                    gdbClient.Memory.Read((ulong)(internalFrame.Ebp + offset), buffer, 0, (int)size);
+
+                    Type type = GetTypeFromSymbol(variableType);
+                    string typeName = GetTypeNameFromSymbol(variableType);
+                    string value = "";
+
+                    if (type == null)
+                        value = "";
+                    else if (type == typeof(string))
+                        value = "{ String }";
+                    else if (type == typeof(bool))
+                        value = buffer[0] != 0 ? "true" : "false";
+                    else if (type == typeof(sbyte))
+                        value = ((sbyte)buffer[0]).ToString();
+                    else if (type == typeof(byte))
+                        value = buffer[0].ToString();
+                    else if (type == typeof(short))
+                        value = BitConverter.ToInt16(buffer, 0).ToString();
+                    else if (type == typeof(ushort))
+                        value = BitConverter.ToUInt16(buffer, 0).ToString();
+                    else if (type == typeof(int))
+                        value = BitConverter.ToInt32(buffer, 0).ToString();
+                    else if (type == typeof(uint))
+                        value = BitConverter.ToUInt32(buffer, 0).ToString();
+                    else if (type == typeof(long))
+                        value = BitConverter.ToInt64(buffer, 0).ToString();
+                    else if (type == typeof(ulong))
+                        value = BitConverter.ToUInt64(buffer, 0).ToString();
+                    else if (typeName == "char*")
+                        value = "\"" + ReadCString(BitConverter.ToUInt32(buffer, 0)) + "\"";
+                    else if (typeName == "String*")
+                        value = "\"" + ReadString(BitConverter.ToUInt32(buffer, 0)) + "\"";
+                    else if (type == typeof(IntPtr))
+                        value = "0x" + BitConverter.ToUInt32(buffer, 0).ToString("x8");
+                    //else if (type == typeof(Enum))
+                    //    value = 
+
+                    variables.Add(new Variable()
+                    {
+                        Name = variable.Name,
+                        Value = value,
+                        Type = typeName
+                    });
+                }
             }
 
             return new VariablesResponse(variables: variables);

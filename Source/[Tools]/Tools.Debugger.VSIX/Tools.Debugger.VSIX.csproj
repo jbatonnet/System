@@ -74,7 +74,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomProtocolExtension\SampleExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -87,7 +86,7 @@
       <Version>15.6.20118.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Shared.VsCodeDebugProtocol">
-      <Version>15.6.20118.1</Version>
+      <Version>16.2.30529.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Shell.Interop">
       <Version>7.10.6071</Version>

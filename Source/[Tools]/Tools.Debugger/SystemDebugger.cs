@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Pipes;
 using System.Linq;
 using System.Text;
+
 using Microsoft.VisualStudio.Shared.VSCodeDebugProtocol;
 using Microsoft.VisualStudio.Shared.VSCodeDebugProtocol.Messages;
 using Microsoft.VisualStudio.Shared.VSCodeDebugProtocol.Utilities;
@@ -29,7 +30,7 @@ namespace SampleDebugAdapter
         private x86GdbClient gdbClient;
 
         private PdbSymbol debuggerAttachedField, debuggerInitializeFunction, debuggerBreakFunction;
-        private PdbSymbol exceptionAssertFunction;
+        //private PdbSymbol exceptionAssertFunction;
         private PdbSymbol profilerTraceFunction;
         private PdbSymbol taskFirstField, taskKernelField, taskCurrentField, processesField;
 
@@ -46,6 +47,15 @@ namespace SampleDebugAdapter
         internal SampleDebugAdapter(Stream stdIn, Stream stdOut)
         {
             base.InitializeProtocolClient(stdIn, stdOut);
+
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+        }
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (System.Diagnostics.Debugger.IsAttached)
+                System.Diagnostics.Debugger.Break();
+            else
+                System.Diagnostics.Debugger.Launch();
         }
 
         internal void Run()
@@ -118,7 +128,7 @@ namespace SampleDebugAdapter
             gdbClient.Breakpoints.Add(GdbBreakpointType.Memory, debuggerBreakFunction.VirtualAddress);
             gdbClient.Memory.Write(debuggerAttachedField.VirtualAddress, 0x01);
 
-            gdbClient.Continue();
+            //gdbClient.Continue();
         }
         private void InitializeWrappers()
         {
@@ -142,6 +152,95 @@ namespace SampleDebugAdapter
                 .FirstOrDefault();
 
             return result;
+        }
+        private Type GetTypeFromSymbol(PdbSymbol type)
+        {
+            PdbSymbolTag tag = type.SymTag;
+
+            if (tag == PdbSymbolTag.PointerType)
+                return typeof(IntPtr);
+            else if (tag == PdbSymbolTag.BaseType || tag == PdbSymbolTag.Enum)
+            {
+                ulong size = type.Length;
+                PdbSymbolBaseType baseType = type.BaseType;
+
+                switch (baseType)
+                {
+                    case PdbSymbolBaseType.Char: return typeof(char);
+                    case PdbSymbolBaseType.WChar: return typeof(char);
+                    case PdbSymbolBaseType.Int: return size == 2 ? typeof(short) : size == 4 ? typeof(int) : size == 8 ? typeof(long) : null;
+                    case PdbSymbolBaseType.UInt: return size == 2 ? typeof(ushort) : size == 4 ? typeof(uint) : size == 8 ? typeof(ulong) : null;
+                    case PdbSymbolBaseType.Float: return typeof(float);
+                    case PdbSymbolBaseType.Bool: return typeof(bool);
+                    case PdbSymbolBaseType.Long: return typeof(long);
+                    case PdbSymbolBaseType.ULong: return typeof(ulong);
+                }
+
+                return null;
+            }
+            //else if (tag == PdbSymbolTag.Enum)
+            //    return typeof(Enum);
+            else if (tag == PdbSymbolTag.ArrayType)
+            {
+
+            }
+            else if (tag == PdbSymbolTag.FunctionType)
+            {
+
+            }
+            else if (tag == PdbSymbolTag.CustomType)
+            {
+
+            }
+
+            return null;
+        }
+        private string GetTypeNameFromSymbol(PdbSymbol type)
+        {
+            if (type == null)
+                return "";
+
+            PdbSymbolTag tag = type.SymTag;
+
+            string name = type.Name;
+            if (name != null)
+                return name;
+
+            if (tag == PdbSymbolTag.PointerType)
+                return GetTypeNameFromSymbol(type.Type) + "*";
+            else if (tag == PdbSymbolTag.BaseType)
+            {
+                ulong size = type.Length;
+                PdbSymbolBaseType baseType = type.BaseType;
+
+                switch (baseType)
+                {
+                    case PdbSymbolBaseType.Char: return "char";
+                    case PdbSymbolBaseType.WChar: return "char";
+                    case PdbSymbolBaseType.Int: return size == 2 ? "s16" : size == 4 ? "s32" : size == 8 ? "s64" : "";
+                    case PdbSymbolBaseType.UInt: return size == 2 ? "u16" : size == 4 ? "u32" : size == 8 ? "u64" : "";
+                    case PdbSymbolBaseType.Float: return "float";
+                    case PdbSymbolBaseType.Bool: return "bool";
+                    case PdbSymbolBaseType.Long: return "s64";
+                    case PdbSymbolBaseType.ULong: return "u64";
+                }
+
+                return "";
+            }
+            else if (tag == PdbSymbolTag.ArrayType)
+            {
+
+            }
+            else if (tag == PdbSymbolTag.FunctionType)
+            {
+
+            }
+            else if (tag == PdbSymbolTag.CustomType)
+            {
+
+            }
+
+            return "";
         }
 
 
@@ -197,7 +296,7 @@ namespace SampleDebugAdapter
             // Full line
             if (value == '\n')
             {
-                Protocol.SendEvent(new OutputEvent(output: serialLine + Environment.NewLine, category: OutputEvent.CategoryValue.Stdout));
+                Protocol.SendEvent(new OutputEvent() { Output = serialLine + Environment.NewLine, Category = OutputEvent.CategoryValue.Stdout });
                 
                 serialLine = "";
                 return;
@@ -223,17 +322,12 @@ namespace SampleDebugAdapter
             }
 
             int taskId = (int)currentTask.Object.Id;
-            Protocol.SendEvent(new StoppedEvent(reason: StoppedEvent.ReasonValue.Breakpoint, threadId: taskId, allThreadsStopped: true));
+            Protocol.SendEvent(new StoppedEvent() { Reason = StoppedEvent.ReasonValue.Breakpoint, ThreadId = taskId, AllThreadsStopped = true });
         }
 
         #endregion
 
 
-
-        // Protocol.SendEvent(new StoppedEvent(reason: stopReason.Value, threadId: stopThreadId));
-        // Protocol.SendEvent(new ExitedEvent(exitCode: 0));
-        // Protocol.SendEvent(new TerminatedEvent());
-        // Protocol.SendEvent(new OutputEvent(output: Invariant($"{outputText}{Environment.NewLine}"), category: OutputEvent.CategoryValue.Stdout));
 
         #region Initialize/Disconnect
 
@@ -243,8 +337,11 @@ namespace SampleDebugAdapter
 
             InitializeResponse response = new InitializeResponse();
 
-            //response.SupportsConfigurationDoneRequest = true;
-            //response.SupportsDebuggerProperties = true;
+            response.SupportsConfigurationDoneRequest = true;
+            response.SupportsDisassembleRequest = true;
+            response.SupportsEvaluateForHovers = true;
+            response.SupportsReadMemoryRequest = true;
+            response.SupportsTerminateRequest = true;
 
             return response;
         }
@@ -265,6 +362,24 @@ namespace SampleDebugAdapter
             catch { }
 
             return new DisconnectResponse();
+        }
+        protected override TerminateResponse HandleTerminateRequest(TerminateArguments arguments)
+        {
+            try
+            {
+                if (!gdbClient.Running)
+                    gdbClient.Continue();
+            }
+            catch { }
+
+            try
+            {
+                if (virtualMachine.Running)
+                    virtualMachine.Stop();
+            }
+            catch { }
+
+            return new TerminateResponse();
         }
 
         #endregion
@@ -331,8 +446,8 @@ namespace SampleDebugAdapter
             }
 
             int taskId = (int)currentTask.Object.Id;
-            Protocol.SendEvent(new StoppedEvent(reason: StoppedEvent.ReasonValue.Breakpoint, threadId: taskId, allThreadsStopped: true));
-
+            Protocol.SendEvent(new StoppedEvent() { Reason = StoppedEvent.ReasonValue.Breakpoint, ThreadId = taskId, AllThreadsStopped = true });
+            
             return new StepInResponse();
         }
         protected override StepOutResponse HandleStepOutRequest(StepOutArguments arguments)
@@ -340,7 +455,7 @@ namespace SampleDebugAdapter
             SourceStep();
 
             int taskId = (int)currentTask.Object.Id;
-            Protocol.SendEvent(new StoppedEvent(reason: StoppedEvent.ReasonValue.Breakpoint, threadId: taskId, allThreadsStopped: true));
+            Protocol.SendEvent(new StoppedEvent() { Reason = StoppedEvent.ReasonValue.Breakpoint, ThreadId = taskId, AllThreadsStopped = true });
 
             return new StepOutResponse();
         }
@@ -378,7 +493,7 @@ namespace SampleDebugAdapter
             }
 
             int taskId = (int)currentTask.Object.Id;
-            Protocol.SendEvent(new StoppedEvent(reason: StoppedEvent.ReasonValue.Breakpoint, threadId: taskId, allThreadsStopped: true));
+            Protocol.SendEvent(new StoppedEvent() { Reason = StoppedEvent.ReasonValue.Breakpoint, ThreadId = taskId, AllThreadsStopped = true });
 
             return new NextResponse();
         }
@@ -387,7 +502,7 @@ namespace SampleDebugAdapter
             gdbClient.Break();
 
             int taskId = (int)currentTask.Object.Id;
-            Protocol.SendEvent(new StoppedEvent(reason: StoppedEvent.ReasonValue.Breakpoint, threadId: taskId, allThreadsStopped: true));
+            Protocol.SendEvent(new StoppedEvent() { Reason = StoppedEvent.ReasonValue.Breakpoint, ThreadId = taskId, AllThreadsStopped = true });
 
             return new PauseResponse();
         }
@@ -432,7 +547,8 @@ namespace SampleDebugAdapter
             string sourcePath = arguments.Source.Path;
             List<Breakpoint> breakpoints = new List<Breakpoint>();
 
-            if (gdbClient.Running)
+            bool wasRunning = gdbClient.Running;
+            if (wasRunning)
                 gdbClient.Break();
 
             List<GdbBreakpoint> sourceBreakpoints = gdbBreakpoints.GetOrAdd(sourcePath, _ => new List<GdbBreakpoint>());
@@ -461,22 +577,23 @@ namespace SampleDebugAdapter
                     sourceBreakpoints.Add(gdbBreakpoint);
                 }
 
-                Breakpoint breakpoint = new Breakpoint
-                (
-                    verified: pdbLineNumbers.Length > 0,
-                    source: new Source
-                    (
-                        name: Path.GetFileName(sourcePath),
-                        path: sourcePath
-                    ),
-                    line: (int?)pdbLineNumbers.FirstOrDefault()?.LineNumber,
-                    column: (int?)pdbLineNumbers.FirstOrDefault()?.ColumnNumber
-                );
+                Breakpoint breakpoint = new Breakpoint()
+                {
+                    Verified = pdbLineNumbers.Length > 0,
+                    Source = new Source()
+                    {
+                        Name = Path.GetFileName(sourcePath),
+                        Path = sourcePath
+                    },
+                    Line = (int?)pdbLineNumbers.FirstOrDefault()?.LineNumber,
+                    Column = (int?)pdbLineNumbers.FirstOrDefault()?.ColumnNumber
+                };
 
                 breakpoints.Add(breakpoint);
             }
 
-            gdbClient.Continue();
+            if (wasRunning)
+                gdbClient.Continue();
 
             return new SetBreakpointsResponse(breakpoints);
         }
@@ -514,7 +631,7 @@ namespace SampleDebugAdapter
 
             // Convert to threads
             List<Thread> threads = tasks
-                .Select(t => new Thread(id: (int)t.Id, name: t.Id == 0 ? "Kernel" : $"Task #{t.Id}"))
+                .Select(t => new Thread() { Id = (int)t.Id, Name = t.Id == 0 ? "Kernel" : $"Task #{t.Id}" })
                 .ToList();
 
             return new ThreadsResponse(threads: threads);
@@ -522,6 +639,19 @@ namespace SampleDebugAdapter
         protected override ScopesResponse HandleScopesRequest(ScopesArguments arguments)
         {
             PdbSession session = FindSessionByNothing();
+
+            if (arguments.FrameId == -1)
+            {
+                return new ScopesResponse(new List<Scope>()
+                {
+                    new Scope
+                    (
+                        name: "Registers",
+                        variablesReference: -1,
+                        expensive: false
+                    )
+                });
+            }
 
             if (!internalFrames.TryGetValue(arguments.FrameId, out InternalFrame internalFrame))
                 return new ScopesResponse();
@@ -584,7 +714,12 @@ namespace SampleDebugAdapter
                 PdbLineNumber lineNumber = session?.FindLinesByVirtualAddress(eip, 1).FirstOrDefault();
 
                 if (function == null || lineNumber == null)
-                    return new StackTraceResponse();
+                {
+                    return new StackTraceResponse(new List<StackFrame>()
+                    {
+                        new StackFrame() { Id = -1, Name = "Unknown code", InstructionPointerReference = eip.ToString() }
+                    });
+                }
 
                 InternalFrame internalFrame = new InternalFrame()
                 {
@@ -595,18 +730,18 @@ namespace SampleDebugAdapter
                 int internalFrameId = Interlocked.Increment(ref nextInternalFrameId);
                 internalFrames[internalFrameId] = internalFrame;
 
-                StackFrame frame = new StackFrame
-                (
-                    id: internalFrameId,
-                    name: function.UndecoratedName,
-                    line: (int)lineNumber.LineNumber,
-                    column: (int)lineNumber.ColumnNumber,
-                    source: new Source
-                    (
-                        name: Path.GetFileName(lineNumber.SourceFile.FileName),
-                        path: lineNumber.SourceFile.FileName
-                    )
-                );
+                StackFrame frame = new StackFrame()
+                {
+                    Id = internalFrameId,
+                    Name = function.UndecoratedName,
+                    Line = (int)lineNumber.LineNumber,
+                    Column = (int)lineNumber.ColumnNumber,
+                    Source = new Source()
+                    {
+                        Name = Path.GetFileName(lineNumber.SourceFile.FileName),
+                        Path = lineNumber.SourceFile.FileName
+                    }
+                };
 
                 stackFrames.Add(frame);
             }
@@ -658,18 +793,19 @@ namespace SampleDebugAdapter
                 int internalFrameId = Interlocked.Increment(ref nextInternalFrameId);
                 internalFrames[internalFrameId] = internalFrame;
 
-                StackFrame frame = new StackFrame
-                (
-                    id: internalFrameId,
-                    name: function.UndecoratedName,
-                    line: (int)lineNumber.LineNumber,
-                    column: (int)lineNumber.ColumnNumber,
-                    source: new Source
-                    (
-                        name: Path.GetFileName(lineNumber.SourceFile.FileName),
-                        path: lineNumber.SourceFile.FileName
-                    )
-                );
+                StackFrame frame = new StackFrame()
+                {
+                    Id = internalFrameId,
+                    Name = function.UndecoratedName,
+                    Line = (int)lineNumber.LineNumber,
+                    Column = (int)lineNumber.ColumnNumber,
+                    Source = new Source()
+                    {
+                        Name = Path.GetFileName(lineNumber.SourceFile.FileName),
+                        Path = lineNumber.SourceFile.FileName
+                    },
+                    InstructionPointerReference = ret.ToString()
+                };
 
                 stackFrames.Add(frame);
 
@@ -684,18 +820,11 @@ namespace SampleDebugAdapter
                 .Take(((arguments.Levels ?? 0) == 0) ? int.MaxValue : arguments.Levels.Value)
                 .ToList();
 
-            return new StackTraceResponse(stackFrames: stackFrames, totalFrames: totalCount);
+            return new StackTraceResponse() { StackFrames = stackFrames, TotalFrames = totalCount };
         }
         protected override VariablesResponse HandleVariablesRequest(VariablesArguments arguments)
         {
             if (arguments.VariablesReference == -1)
-            {
-                return new VariablesResponse(new List<Variable>()
-                {
-                    new Variable("registers", "", -2),
-                });
-            }
-            else if (arguments.VariablesReference == -2)
             {
                 //Task task = currentTask.Object;
 
@@ -705,22 +834,22 @@ namespace SampleDebugAdapter
                     //new Variable("esp", $"0x{task.Esp:x8}", 0),
                     //new Variable("ebp", $"0x{task.Ebp:x8}", 0),
 
-                    new Variable("eax", $"0x{gdbClient.Registers.Eax:x8}", 0, "register"),
-                    new Variable("ecx", $"0x{gdbClient.Registers.Ecx:x8}", 0, "register"),
-                    new Variable("edx", $"0x{gdbClient.Registers.Edx:x8}", 0, "register"),
-                    new Variable("ebx", $"0x{gdbClient.Registers.Ebx:x8}", 0, "register"),
-                    new Variable("esp", $"0x{gdbClient.Registers.Esp:x8}", 0, "register"),
-                    new Variable("ebp", $"0x{gdbClient.Registers.Ebp:x8}", 0, "register"),
-                    new Variable("esi", $"0x{gdbClient.Registers.Esi:x8}", 0, "register"),
-                    new Variable("edi", $"0x{gdbClient.Registers.Edi:x8}", 0, "register"),
-                    new Variable("eip", $"0x{gdbClient.Registers.Eip:x8}", 0, "register"),
-                    new Variable("eflags", $"0x{gdbClient.Registers.Eflags:x8}", 0, "register"),
-                    new Variable("cs", $"0x{gdbClient.Registers.Cs:x8}", 0, "register"),
-                    new Variable("ss", $"0x{gdbClient.Registers.Ss:x8}", 0, "register"),
-                    new Variable("ds", $"0x{gdbClient.Registers.Ds:x8}", 0, "register"),
-                    new Variable("es", $"0x{gdbClient.Registers.Es:x8}", 0, "register"),
-                    new Variable("fs", $"0x{gdbClient.Registers.Fs:x8}", 0, "register"),
-                    new Variable("gs", $"0x{gdbClient.Registers.Gs:x8}", 0, "register")
+                    new Variable() { Name = "eax", Value = $"0x{gdbClient.Registers.Eax:x8}", Type = "register", MemoryReference = gdbClient.Registers.Eax.ToString() },
+                    new Variable() { Name = "ecx", Value = $"0x{gdbClient.Registers.Ecx:x8}", Type = "register", MemoryReference = gdbClient.Registers.Ecx.ToString() },
+                    new Variable() { Name = "edx", Value = $"0x{gdbClient.Registers.Edx:x8}", Type = "register", MemoryReference = gdbClient.Registers.Edx.ToString() },
+                    new Variable() { Name = "ebx", Value = $"0x{gdbClient.Registers.Ebx:x8}", Type = "register", MemoryReference = gdbClient.Registers.Ebx.ToString() },
+                    new Variable() { Name = "esp", Value = $"0x{gdbClient.Registers.Esp:x8}", Type = "register", MemoryReference = gdbClient.Registers.Esp.ToString() },
+                    new Variable() { Name = "ebp", Value = $"0x{gdbClient.Registers.Ebp:x8}", Type = "register", MemoryReference = gdbClient.Registers.Ebp.ToString() },
+                    new Variable() { Name = "esi", Value = $"0x{gdbClient.Registers.Esi:x8}", Type = "register", MemoryReference = gdbClient.Registers.Esi.ToString() },
+                    new Variable() { Name = "edi", Value = $"0x{gdbClient.Registers.Edi:x8}", Type = "register", MemoryReference = gdbClient.Registers.Edi.ToString() },
+                    new Variable() { Name = "eip", Value = $"0x{gdbClient.Registers.Eip:x8}", Type = "register", MemoryReference = gdbClient.Registers.Eip.ToString() },
+                    new Variable() { Name = "eflags", Value = $"0x{gdbClient.Registers.Eflags:x8}", Type = "register", MemoryReference = gdbClient.Registers.Eflags.ToString() },
+                    new Variable() { Name = "cs", Value = $"0x{gdbClient.Registers.Cs:x8}", Type = "register", MemoryReference = gdbClient.Registers.Cs.ToString() },
+                    new Variable() { Name = "ss", Value = $"0x{gdbClient.Registers.Ss:x8}", Type = "register", MemoryReference = gdbClient.Registers.Ss.ToString() },
+                    new Variable() { Name = "ds", Value = $"0x{gdbClient.Registers.Ds:x8}", Type = "register", MemoryReference = gdbClient.Registers.Ds.ToString() },
+                    new Variable() { Name = "es", Value = $"0x{gdbClient.Registers.Es:x8}", Type = "register", MemoryReference = gdbClient.Registers.Es.ToString() },
+                    new Variable() { Name = "fs", Value = $"0x{gdbClient.Registers.Fs:x8}", Type = "register", MemoryReference = gdbClient.Registers.Fs.ToString() },
+                    new Variable() { Name = "gs", Value = $"0x{gdbClient.Registers.Gs:x8}", Type = "register", MemoryReference = gdbClient.Registers.Gs.ToString() }
                 });
             }
 
@@ -776,13 +905,12 @@ namespace SampleDebugAdapter
                 //else if (type == typeof(Enum))
                 //    value = 
 
-                variables.Add(new Variable
-                (
-                    name: variable.Name,
-                    value: value,
-                    variablesReference: 0,
-                    type: typeName
-                ));
+                variables.Add(new Variable()
+                {
+                    Name = variable.Name,
+                    Value = value,
+                    Type = typeName
+                });
             }
 
             return new VariablesResponse(variables: variables);
@@ -793,102 +921,48 @@ namespace SampleDebugAdapter
         }
         protected override EvaluateResponse HandleEvaluateRequest(EvaluateArguments arguments)
         {
-            return new EvaluateResponse(result: null, variablesReference: 0);
+            if (uint.TryParse(arguments.Expression, out uint address))
+            {
+                return new EvaluateResponse() { Result = arguments.Expression, MemoryReference = address.ToString() };
+            }
+
+            if (arguments.Expression.StartsWith("0x"))
+            {
+                try
+                {
+                    address = Convert.ToUInt32(arguments.Expression, 16);
+                    return new EvaluateResponse() { Result = arguments.Expression, MemoryReference = address.ToString() };
+                }
+                catch { }
+            }
+
+            switch (arguments.Expression)
+            {
+                case "eax": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Eax:x8}", MemoryReference = gdbClient.Registers.Eax.ToString() };
+                case "ecx": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Ecx:x8}", MemoryReference = gdbClient.Registers.Ecx.ToString() };
+                case "edx": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Edx:x8}", MemoryReference = gdbClient.Registers.Edx.ToString() };
+                case "ebx": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Ebx:x8}", MemoryReference = gdbClient.Registers.Ebx.ToString() };
+                case "esp": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Esp:x8}", MemoryReference = gdbClient.Registers.Esp.ToString() };
+                case "ebp": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Ebp:x8}", MemoryReference = gdbClient.Registers.Ebp.ToString() };
+                case "esi": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Esi:x8}", MemoryReference = gdbClient.Registers.Esi.ToString() };
+                case "edi": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Edi:x8}", MemoryReference = gdbClient.Registers.Edi.ToString() };
+                case "eip": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Eip:x8}", MemoryReference = gdbClient.Registers.Eip.ToString() };
+                case "eflags": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Eflags:x8}", MemoryReference = gdbClient.Registers.Eflags.ToString() };
+                case "cs": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Cs:x8}", MemoryReference = gdbClient.Registers.Cs.ToString() };
+                case "ss": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Ss:x8}", MemoryReference = gdbClient.Registers.Ss.ToString() };
+                case "ds": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Ds:x8}", MemoryReference = gdbClient.Registers.Ds.ToString() };
+                case "es": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Es:x8}", MemoryReference = gdbClient.Registers.Es.ToString() };
+                case "fs": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Fs:x8}", MemoryReference = gdbClient.Registers.Fs.ToString() };
+                case "gs": return new EvaluateResponse() { Result = $"0x{gdbClient.Registers.Gs:x8}", MemoryReference = gdbClient.Registers.Gs.ToString() };
+            }
+
+            return new EvaluateResponse();
         }
         protected override SetExpressionResponse HandleSetExpressionRequest(SetExpressionArguments arguments)
         {
             return base.HandleSetExpressionRequest(arguments);
         }
 
-        internal Type GetTypeFromSymbol(PdbSymbol type)
-        {
-            PdbSymbolTag tag = type.SymTag;
-
-            if (tag == PdbSymbolTag.PointerType)
-                return typeof(IntPtr);
-            else if (tag == PdbSymbolTag.BaseType || tag == PdbSymbolTag.Enum)
-            {
-                ulong size = type.Length;
-                PdbSymbolBaseType baseType = type.BaseType;
-
-                switch (baseType)
-                {
-                    case PdbSymbolBaseType.Char: return typeof(char);
-                    case PdbSymbolBaseType.WChar: return typeof(char);
-                    case PdbSymbolBaseType.Int: return size == 2 ? typeof(short) : size == 4 ? typeof(int) : size == 8 ? typeof(long) : null;
-                    case PdbSymbolBaseType.UInt: return size == 2 ? typeof(ushort) : size == 4 ? typeof(uint) : size == 8 ? typeof(ulong) : null;
-                    case PdbSymbolBaseType.Float: return typeof(float);
-                    case PdbSymbolBaseType.Bool: return typeof(bool);
-                    case PdbSymbolBaseType.Long: return typeof(long);
-                    case PdbSymbolBaseType.ULong: return typeof(ulong);
-                }
-
-                return null;
-            }
-            //else if (tag == PdbSymbolTag.Enum)
-            //    return typeof(Enum);
-            else if (tag == PdbSymbolTag.ArrayType)
-            {
-
-            }
-            else if (tag == PdbSymbolTag.FunctionType)
-            {
-
-            }
-            else if (tag == PdbSymbolTag.CustomType)
-            {
-
-            }
-
-            return null;
-        }
-        internal string GetTypeNameFromSymbol(PdbSymbol type)
-        {
-            if (type == null)
-                return "";
-
-            PdbSymbolTag tag = type.SymTag;
-
-            string name = type.Name;
-            if (name != null)
-                return name;
-
-            if (tag == PdbSymbolTag.PointerType)
-                return GetTypeNameFromSymbol(type.Type) + "*";
-            else if (tag == PdbSymbolTag.BaseType)
-            {
-                ulong size = type.Length;
-                PdbSymbolBaseType baseType = type.BaseType;
-
-                switch (baseType)
-                {
-                    case PdbSymbolBaseType.Char: return "char";
-                    case PdbSymbolBaseType.WChar: return "char";
-                    case PdbSymbolBaseType.Int: return size == 2 ? "s16" : size == 4 ? "s32" : size == 8 ? "s64" : "";
-                    case PdbSymbolBaseType.UInt: return size == 2 ? "u16" : size == 4 ? "u32" : size == 8 ? "u64" : "";
-                    case PdbSymbolBaseType.Float: return "float";
-                    case PdbSymbolBaseType.Bool: return "bool";
-                    case PdbSymbolBaseType.Long: return "s64";
-                    case PdbSymbolBaseType.ULong: return "u64";
-                }
-
-                return "";
-            }
-            else if (tag == PdbSymbolTag.ArrayType)
-            {
-
-            }
-            else if (tag == PdbSymbolTag.FunctionType)
-            {
-
-            }
-            else if (tag == PdbSymbolTag.CustomType)
-            {
-
-            }
-
-            return "";
-        }
         internal string ReadCString(uint address)
         {
             byte[] buffer = new byte[1024];
@@ -920,23 +994,30 @@ namespace SampleDebugAdapter
         }
 
         #endregion
+        
+        #region Source/Disassemble
 
-        #region Modules
-
-        protected override ModulesResponse HandleModulesRequest(ModulesArguments arguments)
+        protected override DisassembleResponse HandleDisassembleRequest(DisassembleArguments arguments)
         {
-            //return new ModulesResponse(modules: modules.ToList(), totalModules: this.loadedModules.Count);
-            return base.HandleModulesRequest(arguments);
+            return base.HandleDisassembleRequest(arguments);
         }
-
-        #endregion
-
-        #region Source Code Requests
-
-        protected override SourceResponse HandleSourceRequest(SourceArguments arguments)
+        protected override ReadMemoryResponse HandleReadMemoryRequest(ReadMemoryArguments arguments)
         {
-            return new SourceResponse("For now all source requests return this line of 'code'.");
-            //return base.HandleSourceRequest(arguments);
+            if (!uint.TryParse(arguments.MemoryReference, out uint address))
+                return new ReadMemoryResponse();
+
+            byte[] buffer = new byte[arguments.Count];
+
+            if (arguments.Count > 0)
+            {
+                gdbClient.Memory.Read((ulong)(address + (arguments.Offset ?? 0)), buffer, 0, arguments.Count);
+            }
+
+            return new ReadMemoryResponse()
+            {
+                Address = (address + (arguments.Offset ?? 0)).ToString(),
+                Data = Convert.ToBase64String(buffer)
+            };
         }
 
         #endregion
